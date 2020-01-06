@@ -1,0 +1,32 @@
+{
+  "name": "@sosus/cli",
+  "version": "0.0.0",
+  "description": "SOSUS",
+  "keywords": [
+    "SOSUS"
+  ],
+  "author": "NativeCode <opensource@nativecode.com>",
+  "homepage": "https://github.com/nativecode-dev/sosus/tree/master/services/cli#readme",
+  "license": "MIT",
+  "main": "bin/index.js",
+  "directories": {
+    "lib": "bin",
+    "test": "specs"
+  },
+  "files": [
+    "bin"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nativecode-dev/sosus.git"
+  },
+  "scripts": {
+    "build": "tsc --project tsconfig.json"
+  },
+  "bugs": {
+    "url": "https://github.com/nativecode-dev/sosus/issues"
+  },
+  "dependencies": {
+    "@sosus/core": "^0.0.0"
+  }
+}

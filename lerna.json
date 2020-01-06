@@ -1,0 +1,20 @@
+{
+  "command": {
+    "bootstrap": {
+      "loglevel": "error"
+    },
+    "run": {
+      "loglevel": "error",
+      "stream": true
+    }
+  },
+  "npmClientArgs": [
+    "--no-progress",
+    "--silent"
+  ],
+  "packages": [
+    "services/*",
+    "packages/*"
+  ],
+  "version": "independent"
+}

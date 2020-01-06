@@ -1,0 +1,20 @@
+{
+  "all": true,
+  "extends": "@istanbuljs/nyc-config-typescript",
+  "exclude": [
+    "node_modules",
+    "*/*/specs/**/*.spec.ts"
+  ],
+  "extension": [
+    ".ts"
+  ],
+  "include": [
+    "*/*/src/**/*.ts"
+  ],
+  "instrument": true,
+  "report-dir": ".cache/coverage",
+  "reporter": "text",
+  "sourceMap": true,
+  "skip-full": true,
+  "temp-dir": ".cache/nyc"
+}

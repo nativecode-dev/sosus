@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "make-url": [
+        "packages/pornstash-core/types/make-url"
+      ],
+      "nzb-api": [
+        "packages/pornstash-web/types/nzb-api"
+      ]
+    }
+  },
+  "extends": "./tsconfig.settings",
+  "include": [
+    "packages/*/specs/**/*.ts",
+    "packages/*/src/**/*.ts",
+    "promon/**/*.ts"
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "extends": [
+    "tslint-config-prettier",
+    "tslint-config-standard",
+    "tslint-no-unused-expression-chai"
+  ],
+  "linterOptions": {
+    "exclude": [
+      "node_modules"
+    ]
+  },
+  "rules": {
+    "await-promise": true,
+    "no-floating-promises": true,
+    "no-unnecessary-qualifier": true,
+    "no-unnecessary-type-assertion": false,
+    "no-unused-expression": false,
+    "return-undefined": false,
+    "space-before-function-paren": false,
+    "strict-type-predicates": true,
+    "trailing-comma": true
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "name": "sosus",
+  "version": "0.0.0",
+  "description": "SOSUS",
+  "license": "MIT",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nativecode-dev/sosus.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nativecode-dev/sosus/issues"
+  },
+  "homepage": "https://github.com/nativecode-dev/sosus#readme",
+  "author": "opensource@nativecode.com",
+  "keywords": [],
+  "scripts": {
+    "build": "cli-tasks build",
+    "lerna": "lerna",
+    "tasks": "cli-tasks"
+  },
+  "tasks": {
+    "bootstrap": [
+      "lerna bootstrap"
+    ],
+    "build": [
+      "[bootstrap]",
+      "[clean]",
+      "[compile:packages]",
+      "[compile:apps]"
+    ],
+    "clean": [
+      "rimraf .cache",
+      "rimraf **/*.tsbuildinfo",
+      "rimraf packages/*/{bin,dist,lib}",
+      "[source:format]",
+      "[source:lint]"
+    ],
+    "compile:apps": [
+      "lerna run build --scope \"@sosus/@(api|app|cli)\""
+    ],
+    "compile:packages": [
+      "lerna run build --ignore \"@sosus/@(api|app|cli)\""
+    ],
+    "source:format": [
+      "jsonsort *.json",
+      "jsonsort */*/src/**/*.json",
+      "prettier --loglevel silent --write \"*/*/src/**/*.ts\""
+    ],
+    "source:lint": [
+      "tslint --project tsconfig.json --config tslint.json"
+    ],
+    "test": [
+      "[compile:packages]",
+      "nyc mocha --opts mocha.opts"
+    ]
+  },
+  "devDependencies": {
+    "@istanbuljs/nyc-config-typescript": "^1.0.1",
+    "@nofrills/tasks": "^9.0.2",
+    "@types/chai": "^4.2.7",
+    "@types/chai-as-promised": "^7.1.2",
+    "@types/mocha": "^5.2.7",
+    "@types/node": "^13.1.4",
+    "chai": "^4.2.0",
+    "chai-as-promised": "^7.1.1",
+    "json-sort-cli": "^1.15.4",
+    "lerna": "^3.20.2",
+    "lerna-update-wizard": "^0.17.7",
+    "mocha": "^7.0.0",
+    "nyc": "^15.0.0",
+    "prettier": "^1.19.1",
+    "rimraf": "^3.0.0",
+    "ts-node": "^8.5.4",
+    "tslint": "^5.20.1",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-config-standard": "^9.0.0",
+    "tslint-no-unused-expression-chai": "^0.1.4",
+    "typescript": "^3.7.4"
+  }
+}
