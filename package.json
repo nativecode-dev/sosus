@@ -17,6 +17,7 @@
   "scripts": {
     "build": "cli-tasks build",
     "lerna": "lerna",
+    "rebuild": "cli-tasks build:fast",
     "tasks": "cli-tasks"
   },
   "tasks": {
@@ -29,6 +30,10 @@
       "[compile:packages]",
       "[compile:apps]"
     ],
+    "build:fast": [
+      "[compile:packages]",
+      "[compile:apps]"
+    ],
     "clean": [
       "rimraf .cache",
       "rimraf **/*.tsbuildinfo",
@@ -37,10 +42,10 @@
       "[source:lint]"
     ],
     "compile:apps": [
-      "lerna run build --scope \"@sosus/@(api|app|cli)\""
+      "lerna run build --scope \"@sosus/@(api|app|cli|sync)\""
     ],
     "compile:packages": [
-      "lerna run build --ignore \"@sosus/@(api|app|cli)\""
+      "lerna run build --ignore \"@sosus/@(api|app|cli|sync)\""
     ],
     "source:format": [
       "jsonsort *.json",

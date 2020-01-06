@@ -1,20 +1,20 @@
 {
-  "name": "@sosus/core",
+  "name": "@sosus/sync",
   "version": "0.0.0",
   "description": "SOSUS",
   "keywords": [
     "SOSUS"
   ],
   "author": "NativeCode <opensource@nativecode.com>",
-  "homepage": "https://github.com/nativecode-dev/sosus/tree/master/packages/core#readme",
+  "homepage": "https://github.com/nativecode-dev/sosus/tree/master/services/app#readme",
   "license": "MIT",
-  "main": "lib/index.js",
+  "main": "bin/index.js",
   "directories": {
-    "lib": "lib",
+    "lib": "bin",
     "test": "specs"
   },
   "files": [
-    "lib"
+    "bin"
   ],
   "repository": {
     "type": "git",
@@ -27,12 +27,7 @@
     "url": "https://github.com/nativecode-dev/sosus/issues"
   },
   "dependencies": {
-    "@nofrills/env": "^11.0.0",
-    "@nofrills/fs": "^11.0.0",
-    "@nofrills/types": "^10.0.2",
-    "deepmerge": "^4.2.2"
-  },
-  "devDependencies": {
-    "@types/deepmerge": "^2.2.0"
+    "@sosus/core": "^0.0.0",
+    "@sosus/core-web": "^0.0.0"
   }
 }
