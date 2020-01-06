@@ -27,6 +27,14 @@
     "url": "https://github.com/nativecode-dev/sosus/issues"
   },
   "dependencies": {
-    "@sosus/core": "^0.0.0"
+    "@sosus/core": "^0.0.0",
+    "pouchdb": "^7.1.1",
+    "pouchdb-find": "^7.1.1",
+    "pouchdb-upsert": "^2.2.0"
+  },
+  "devDependencies": {
+    "@types/pouchdb": "^6.4.0",
+    "@types/pouchdb-find": "^6.3.4",
+    "@types/pouchdb-upsert": "^2.2.6"
   }
 }

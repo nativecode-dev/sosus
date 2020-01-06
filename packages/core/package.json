@@ -29,8 +29,11 @@
   "dependencies": {
     "@nofrills/env": "^11.0.0",
     "@nofrills/fs": "^11.0.0",
+    "@nofrills/scrubs": "^11.0.0",
     "@nofrills/types": "^10.0.2",
-    "deepmerge": "^4.2.2"
+    "deepmerge": "^4.2.2",
+    "tsyringe": "^4.0.1",
+    "promise-parallel-throttle": "^3.3.0"
   },
   "devDependencies": {
     "@types/deepmerge": "^2.2.0"
