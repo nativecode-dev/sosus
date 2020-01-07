@@ -1,9 +1,4 @@
-export interface CouchAuthConfig {
-  password: string
-  username: string
-}
-
-export const CouchAuthConfigType = Symbol('CouchAuthConfig')
+import { CouchAuthConfig } from './CouchAuthConfig'
 
 export interface CouchConfig {
   adapter?: string
