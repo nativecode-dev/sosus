@@ -28,7 +28,6 @@
   },
   "dependencies": {
     "@sosus/core": "^0.0.0",
-    "@sosus/core-models": "^0.0.0",
     "pouchdb": "^7.1.1",
     "pouchdb-find": "^7.1.1",
     "pouchdb-upsert": "^2.2.0"

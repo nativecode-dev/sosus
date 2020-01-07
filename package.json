@@ -17,16 +17,13 @@
   "scripts": {
     "build": "cli-tasks build",
     "lerna": "lerna",
+    "prepare": "lerna bootstrap",
     "rebuild": "cli-tasks build:fast",
     "tasks": "cli-tasks",
     "test": "cli-tasks test"
   },
   "tasks": {
-    "bootstrap": [
-      "lerna bootstrap"
-    ],
     "build": [
-      "[bootstrap]",
       "[clean]",
       "[compile:packages]",
       "[compile:apps]"
@@ -59,7 +56,7 @@
       "tslint --project tsconfig.json --config tslint.json"
     ],
     "test": [
-      "[compile:packages]",
+      "[build:fast]",
       "nyc mocha"
     ]
   },
