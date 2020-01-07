@@ -1,3 +1,4 @@
+export * from './CacheType'
 export * from './GenderType'
 export * from './Media'
 export * from './MediaType'

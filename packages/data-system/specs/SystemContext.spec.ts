@@ -6,6 +6,7 @@ import { CouchConfig } from '@sosus/core'
 
 import { expect, PATHS } from './helpers'
 import { SystemContext } from '../src/SystemContext'
+import { CacheType } from '@sosus/core-models'
 
 const config: CouchConfig = {
   name: path.join(PATHS.cache(), 'system'),
@@ -20,10 +21,26 @@ describe('when using SystemContext', () => {
 
   it('should create cache', async () => {
     const document = system.cache.createDocument({
+      content_type: 'text/html',
+      identifier: 'test',
       source: { key: 'test', origin: 'test' },
       timestamp: { created: new Date(), modified: new Date() },
+      type: CacheType.http,
     })
+    const id = system.cache.keyId(document)
     const cache = await system.cache.update(document)
-    expect(cache._id).to.not.be.undefined
+    expect(cache._id).to.equal(id)
+  })
+
+  it('should create cache', async () => {
+    const document = system.cache.createDocument({
+      content_type: 'text/html',
+      identifier: 'test',
+      type: CacheType.http,
+    })
+    const id = system.cache.keyId(document)
+    const cache = await system.cache.byId(id)
+    const response = await system.cache.delete(cache._id, cache._rev)
+    expect(response.ok).to.be.true
   })
 })
