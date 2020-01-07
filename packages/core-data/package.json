@@ -1,12 +1,12 @@
 {
-  "name": "@sosus/data",
+  "name": "@sosus/core-data",
   "version": "0.0.0",
   "description": "SOSUS",
   "keywords": [
     "SOSUS"
   ],
   "author": "NativeCode <opensource@nativecode.com>",
-  "homepage": "https://github.com/nativecode-dev/sosus/tree/master/packages/data#readme",
+  "homepage": "https://github.com/nativecode-dev/sosus/tree/master/packages/core-data#readme",
   "license": "MIT",
   "main": "lib/index.js",
   "directories": {

@@ -1,5 +1,5 @@
 {
-  "name": "@sosus/data-movies",
+  "name": "@sosus/core-data-movies",
   "version": "0.0.0",
   "description": "SOSUS",
   "keywords": [
@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "@sosus/core": "^0.0.0",
-    "@sosus/data": "^0.0.0",
+    "@sosus/core-data": "^0.0.0",
     "@sosus/core-models": "^0.0.0",
     "pouchdb-core": "^7.1.1"
   },

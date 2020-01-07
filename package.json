@@ -50,7 +50,8 @@
     ],
     "source:format": [
       "jsonsort *.json",
-      "jsonsort */*/src/**/*.json",
+      "jsonsort packages/*/*.json",
+      "jsonsort services/*/*.json",
       "prettier --loglevel silent --write \"*/*/src/**/*.ts\""
     ],
     "source:lint": [
