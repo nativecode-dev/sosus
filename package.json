@@ -20,7 +20,8 @@
     "prepare": "lerna bootstrap",
     "rebuild": "cli-tasks build:fast",
     "tasks": "cli-tasks",
-    "test": "cli-tasks test"
+    "test": "cli-tasks test",
+    "upgrade": "lernaupdate"
   },
   "tasks": {
     "build": [
