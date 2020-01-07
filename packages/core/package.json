@@ -32,10 +32,11 @@
     "@nofrills/scrubs": "^11.0.0",
     "@nofrills/types": "^10.0.2",
     "deepmerge": "^4.2.2",
-    "tsyringe": "^4.0.1",
-    "promise-parallel-throttle": "^3.3.0"
+    "promise-parallel-throttle": "^3.3.0",
+    "tsyringe": "^4.0.1"
   },
   "devDependencies": {
-    "@types/deepmerge": "^2.2.0"
+    "@types/deepmerge": "^2.2.0",
+    "@types/node": "^13.1.4"
   }
 }

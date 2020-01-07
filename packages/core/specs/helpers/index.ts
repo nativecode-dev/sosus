@@ -1,3 +1,5 @@
+import 'mocha'
+
 import path from 'path'
 import chai from 'chai'
 import chaiAsPromised from 'chai-as-promised'

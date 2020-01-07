@@ -6,7 +6,7 @@
     "SOSUS"
   ],
   "author": "NativeCode <opensource@nativecode.com>",
-  "homepage": "https://github.com/nativecode-dev/sosus/tree/master/packages/core#readme",
+  "homepage": "https://github.com/nativecode-dev/sosus/tree/master/packages/core-web#readme",
   "license": "MIT",
   "main": "lib/index.js",
   "directories": {
@@ -31,6 +31,7 @@
     "express": "^4.17.1"
   },
   "devDependencies": {
-    "@types/express": "^4.17.2"
+    "@types/express": "^4.17.2",
+    "@types/node": "^13.1.4"
   }
 }

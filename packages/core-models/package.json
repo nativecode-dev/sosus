@@ -1,20 +1,20 @@
 {
-  "name": "@sosus/app",
+  "name": "@sosus/core-models",
   "version": "0.0.0",
   "description": "SOSUS",
   "keywords": [
     "SOSUS"
   ],
   "author": "NativeCode <opensource@nativecode.com>",
-  "homepage": "https://github.com/nativecode-dev/sosus/tree/master/services/app#readme",
+  "homepage": "https://github.com/nativecode-dev/sosus/tree/master/packages/core-models#readme",
   "license": "MIT",
-  "main": "bin/index.js",
+  "main": "lib/index.js",
   "directories": {
-    "lib": "bin",
+    "lib": "lib",
     "test": "specs"
   },
   "files": [
-    "bin"
+    "lib"
   ],
   "repository": {
     "type": "git",
@@ -26,11 +26,6 @@
   "bugs": {
     "url": "https://github.com/nativecode-dev/sosus/issues"
   },
-  "dependencies": {
-    "@sosus/core": "^0.0.0",
-    "@sosus/core-web": "^0.0.0"
-  },
-  "devDependencies": {
-    "@types/node": "^13.1.4"
-  }
+  "dependencies": {},
+  "devDependencies": {}
 }
