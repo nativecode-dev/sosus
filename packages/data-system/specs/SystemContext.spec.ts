@@ -32,7 +32,7 @@ describe('when using SystemContext', () => {
     expect(cache._id).to.equal(id)
   })
 
-  it('should create cache', async () => {
+  it('should delete cache', async () => {
     const document = system.cache.createDocument({
       content_type: 'text/html',
       identifier: 'test',
