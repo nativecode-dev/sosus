@@ -1,11 +1,11 @@
-# `data-clips`
+# `data-system`
 
 > TODO: description
 
 ## Usage
 
 ```
-const dataClips = require('data-clips');
+const dataClips = require('data-system');
 
 // TODO: DEMONSTRATE API
 ```

@@ -29,10 +29,10 @@
   "dependencies": {
     "@sosus/core": "^0.0.0",
     "@sosus/core-web": "^0.0.0",
-    "@sosus/data-clips": "^0.0.0",
     "@sosus/data-movies": "^0.0.0",
     "@sosus/data-people": "^0.0.0",
-    "@sosus/data-series": "^0.0.0"
+    "@sosus/data-series": "^0.0.0",
+    "@sosus/data-system": "^0.0.0"
   },
   "devDependencies": {
     "@types/node": "^13.1.4"
