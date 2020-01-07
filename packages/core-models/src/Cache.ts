@@ -1,5 +1,5 @@
-import { Source } from './Source'
-import { Timestamp } from './Timestamp'
+import { Source } from './types/Source'
+import { Timestamp } from './types/Timestamp'
 
 export enum CacheType {
   http = 'http',

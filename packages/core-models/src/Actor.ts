@@ -1,4 +1,4 @@
-import { GenderType } from './GenderType'
+import { GenderType } from './types/GenderType'
 
 export interface Actor {
   gender: GenderType

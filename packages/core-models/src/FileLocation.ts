@@ -1,9 +1,9 @@
-import { Source } from './Source'
+import { Source } from './types/Source'
 
 export interface FileLocation {
-  file: string
+  file_id: string
   path: string
   source: Source
 }
 
-export const FileLocationKeys = ['file']
+export const FileLocationKeys = ['file_id']

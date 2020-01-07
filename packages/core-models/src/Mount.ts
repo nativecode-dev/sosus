@@ -1,5 +1,5 @@
-import { Source } from './Source'
-import { MountType } from './MountType'
+import { Source } from './types/Source'
+import { MountType } from './types/MountType'
 
 export interface Mount {
   name: string
