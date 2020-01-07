@@ -40,6 +40,10 @@ export interface UserDocument extends Document, User {
 export class TestContext extends DocumentContext<CouchConfig> {
   users: Users = new Users('user', this.store)
   variables: EnvironmentVariables = new EnvironmentVariables('env', this.store)
+
+  initialize() {
+    return Promise.resolve()
+  }
 }
 
 // Create specific document stores.

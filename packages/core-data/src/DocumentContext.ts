@@ -80,4 +80,6 @@ export abstract class DocumentContext<T extends CouchConfig> {
       })
     })
   }
+
+  abstract initialize(): Promise<void>
 }

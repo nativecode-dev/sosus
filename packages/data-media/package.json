@@ -1,5 +1,5 @@
 {
-  "name": "@sosus/data-series",
+  "name": "@sosus/data-media",
   "version": "0.0.0",
   "description": "SOSUS",
   "license": "MIT",
@@ -10,7 +10,7 @@
   "bugs": {
     "url": "https://github.com/nativecode-dev/sosus/issues"
   },
-  "homepage": "https://github.com/nativecode-dev/sosus/tree/master/packages/data-series#readme",
+  "homepage": "https://github.com/nativecode-dev/sosus/tree/master/packages/data-media#readme",
   "author": "NativeCode <opensource@nativecode.com>",
   "keywords": [
     "SOSUS"
