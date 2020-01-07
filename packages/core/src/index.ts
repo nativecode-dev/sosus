@@ -1,3 +1,5 @@
+export * from '@nofrills/fs'
+export * from '@nofrills/env'
 export * from '@nofrills/scrubs'
 export * from 'tsyringe'
 

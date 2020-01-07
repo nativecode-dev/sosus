@@ -29,16 +29,6 @@ export abstract class Documents<T extends Document> {
     return this.find(query)
   }
 
-  async getAttachment(id: string, rev: string, attachmentId: string) {
-    try {
-      const response = await this.store.getAttachment(id, attachmentId, { rev })
-      this.log.trace(response)
-      return response
-    } catch (error) {
-      this.log.error(error)
-    }
-  }
-
   bulk(updates: Partial<T>[]): Promise<(PouchDB.Core.Response | PouchDB.Core.Error)[]> {
     this.log.trace('bulk update', updates)
     this.log.debug('bulk update', updates.length)
@@ -59,32 +49,22 @@ export abstract class Documents<T extends Document> {
     return all.length
   }
 
-  async putAttachment(id: string, rev: string, attachmentId: string, type: string, buffer: Buffer) {
-    try {
-      const response = await this.store.putAttachment(id, attachmentId, rev, buffer, type)
-      this.log.trace('create-attachment', response)
-      return response
-    } catch (error) {
-      this.log.error(error)
-    }
-  }
-
   createDocument(document: Partial<T>): T {
     const defaults = this.empty()
     const request = this.merge(defaults as T, document)
-    const id = this.createKey(request)
-    const newdoc = this.merge<T>(request, { _id: id } as T)
-    this.log.trace('createDocument', newdoc)
-    return newdoc
+    const id = this.keyId(request)
+    return this.merge<T>(request, { _id: id } as T)
   }
 
-  async delete(id: string, rev: string): Promise<void> {
+  async delete(id: string, rev: string): Promise<PouchDB.Core.Response> {
     const response = await this.store.remove({ _id: id, _rev: rev })
 
     if (response.ok === false) {
       this.log.error(response)
       throw new Error('could not delete ${response.id}')
     }
+
+    return response
   }
 
   exists(id: string): Promise<boolean> {
@@ -103,8 +83,28 @@ export abstract class Documents<T extends Document> {
     return docs
   }
 
+  async getAttachment(id: string, rev: string, attachmentId: string) {
+    try {
+      const response = await this.store.getAttachment(id, attachmentId, { rev })
+      this.log.trace(response)
+      return response
+    } catch (error) {
+      this.log.error(error)
+    }
+  }
+
+  async putAttachment(id: string, rev: string, attachmentId: string, type: string, buffer: Buffer) {
+    try {
+      const response = await this.store.putAttachment(id, attachmentId, rev, buffer, type)
+      this.log.trace('create-attachment', response)
+      return response
+    } catch (error) {
+      this.log.error(error)
+    }
+  }
+
   keyId(doc: Partial<T>): string {
-    return this.createKey(doc, ...this.keyProperties())
+    return this.createKey(doc, ...this.keyProperties)
   }
 
   async keys(): Promise<string[]> {
@@ -137,7 +137,7 @@ export abstract class Documents<T extends Document> {
   async update(updates: Partial<T>): Promise<T & PouchDB.Core.IdMeta & PouchDB.Core.RevisionIdMeta> {
     const defaults = this.empty()
     const request = this.merge(defaults as T, updates)
-    const id = this.createKey(request)
+    const id = this.keyId(request)
 
     const response = await this.store.upsert<T>(id, original => {
       const merged = this.merge(original, request)
@@ -166,5 +166,5 @@ export abstract class Documents<T extends Document> {
     return merged
   }
 
-  protected abstract keyProperties(): string[]
+  protected abstract get keyProperties(): string[]
 }

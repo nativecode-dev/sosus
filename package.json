@@ -18,7 +18,8 @@
     "build": "cli-tasks build",
     "lerna": "lerna",
     "rebuild": "cli-tasks build:fast",
-    "tasks": "cli-tasks"
+    "tasks": "cli-tasks",
+    "test": "cli-tasks test"
   },
   "tasks": {
     "bootstrap": [
@@ -57,7 +58,7 @@
     ],
     "test": [
       "[compile:packages]",
-      "nyc mocha --opts mocha.opts"
+      "nyc mocha"
     ]
   },
   "devDependencies": {
@@ -75,6 +76,7 @@
     "mocha": "^7.0.0",
     "nyc": "^15.0.0",
     "prettier": "^1.19.1",
+    "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.0",
     "ts-node": "^8.5.4",
     "tslint": "^5.20.1",
