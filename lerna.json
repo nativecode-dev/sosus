@@ -13,7 +13,7 @@
     "--silent"
   ],
   "packages": [
-    "services/*",
+    "executables/*",
     "packages/*"
   ],
   "version": "independent"

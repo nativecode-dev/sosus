@@ -48,9 +48,9 @@
     "source:format": [
       "jsonsort *.json",
       "jsonsort packages/*/*.json",
-      "jsonsort services/*/*.json",
+      "jsonsort executables/*/*.json",
       "prettier --loglevel silent --write \"packages/*/src/**/*.ts\"",
-      "prettier --loglevel silent --write \"services/*/src/**/*.ts\""
+      "prettier --loglevel silent --write \"executables/*/src/**/*.ts\""
     ],
     "source:lint": [
       "tslint --project tsconfig.json --config tslint.json"

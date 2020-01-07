@@ -1,5 +1,5 @@
 {
-  "name": "@sosus/cli",
+  "name": "@sosus/app",
   "version": "0.0.0",
   "description": "SOSUS",
   "license": "MIT",
@@ -10,7 +10,7 @@
   "bugs": {
     "url": "https://github.com/nativecode-dev/sosus/issues"
   },
-  "homepage": "https://github.com/nativecode-dev/sosus/tree/master/services/cli#readme",
+  "homepage": "https://github.com/nativecode-dev/sosus/tree/master/executables/app#readme",
   "author": "NativeCode <opensource@nativecode.com>",
   "keywords": [
     "SOSUS"
@@ -27,7 +27,8 @@
     "build": "tsc --project tsconfig.json"
   },
   "dependencies": {
-    "@sosus/core": "^0.0.0"
+    "@sosus/core": "^0.0.0",
+    "@sosus/core-web": "^0.0.0"
   },
   "devDependencies": {
     "@types/node": "^13.1.4"

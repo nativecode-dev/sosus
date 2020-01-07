@@ -10,7 +10,7 @@
   "bugs": {
     "url": "https://github.com/nativecode-dev/sosus/issues"
   },
-  "homepage": "https://github.com/nativecode-dev/sosus/tree/master/services/api#readme",
+  "homepage": "https://github.com/nativecode-dev/sosus/tree/master/executables/api#readme",
   "author": "NativeCode <opensource@nativecode.com>",
   "keywords": [
     "SOSUS"
@@ -28,11 +28,11 @@
   },
   "dependencies": {
     "@sosus/core": "^0.0.0",
-    "@sosus/core-data-clips": "^0.0.0",
-    "@sosus/core-data-movies": "^0.0.0",
-    "@sosus/core-data-people": "^0.0.0",
-    "@sosus/core-data-series": "^0.0.0",
-    "@sosus/core-web": "^0.0.0"
+    "@sosus/core-web": "^0.0.0",
+    "@sosus/data-clips": "^0.0.0",
+    "@sosus/data-movies": "^0.0.0",
+    "@sosus/data-people": "^0.0.0",
+    "@sosus/data-series": "^0.0.0"
   },
   "devDependencies": {
     "@types/node": "^13.1.4"
