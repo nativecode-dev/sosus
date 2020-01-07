@@ -11,3 +11,5 @@ export interface Cache {
   timestamp: Timestamp
   type: CacheType
 }
+
+export const CacheKeys = ['type', 'identifer']

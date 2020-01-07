@@ -5,3 +5,5 @@ export interface Actor {
   name: string
   slug: string
 }
+
+export const ActorKeys = ['gender', 'name']

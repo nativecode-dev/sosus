@@ -5,3 +5,5 @@ export interface FileLocation {
   path: string
   source: Source
 }
+
+export const FileLocationKeys = ['file']

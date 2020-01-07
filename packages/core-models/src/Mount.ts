@@ -6,3 +6,5 @@ export interface Mount {
   source: Source
   type: MountType
 }
+
+export const MountKeys = ['name']
