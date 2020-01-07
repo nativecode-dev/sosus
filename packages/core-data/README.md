@@ -5,7 +5,7 @@
 ## Usage
 
 ```bash
-npm install @sosus/data
+npm install @sosus/core-data
 ```
 
 ## Usage Details

@@ -1,3 +1,5 @@
+import 'reflect-metadata'
+
 import { Throttle } from '@sosus/core'
 
 import { expect } from './helpers'

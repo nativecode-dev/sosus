@@ -2,29 +2,29 @@
   "name": "@sosus/core-web",
   "version": "0.0.0",
   "description": "SOSUS",
-  "keywords": [
-    "SOSUS"
-  ],
-  "author": "NativeCode <opensource@nativecode.com>",
-  "homepage": "https://github.com/nativecode-dev/sosus/tree/master/packages/core-web#readme",
   "license": "MIT",
-  "main": "lib/index.js",
-  "directories": {
-    "lib": "lib",
-    "test": "specs"
-  },
-  "files": [
-    "lib"
-  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/nativecode-dev/sosus.git"
   },
-  "scripts": {
-    "build": "tsc --project tsconfig.json"
-  },
   "bugs": {
     "url": "https://github.com/nativecode-dev/sosus/issues"
+  },
+  "homepage": "https://github.com/nativecode-dev/sosus/tree/master/packages/core-web#readme",
+  "author": "NativeCode <opensource@nativecode.com>",
+  "keywords": [
+    "SOSUS"
+  ],
+  "main": "lib/index.js",
+  "files": [
+    "lib"
+  ],
+  "directories": {
+    "lib": "lib",
+    "test": "specs"
+  },
+  "scripts": {
+    "build": "tsc --project tsconfig.json"
   },
   "dependencies": {
     "@sosus/core": "^0.0.0",
