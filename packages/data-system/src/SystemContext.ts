@@ -1,8 +1,9 @@
 import { CouchConfig, Throttle } from '@sosus/core'
 import { DocumentContext } from '@sosus/core-data'
 
-import { Caches } from './cache'
-import { Torrents, TorrentDownloads } from './torrents'
+import { Caches } from './cache/Caches'
+import { Torrents } from './torrents/Torrents'
+import { TorrentDownloads } from './torrents/TorrentDownloads'
 
 export class SystemContext extends DocumentContext<CouchConfig> {
   readonly cache: Caches = new Caches('cache', this.store)
