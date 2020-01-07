@@ -12,8 +12,13 @@ const config: CouchConfig = {
 }
 
 describe('when using SystemContext', () => {
+  const system = new SystemContext(config)
+
+  before(async () => {
+    await system.initialize()
+  })
+
   it('should create cache', async () => {
-    const system = new SystemContext(config)
     const cache = system.cache.createDocument({
       source: { key: 'test', origin: 'test' },
       timestamp: { created: new Date(), modified: new Date() },

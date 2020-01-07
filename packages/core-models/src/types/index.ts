@@ -1,5 +1,6 @@
 export * from './GenderType'
 export * from './Media'
+export * from './MediaType'
 export * from './MountType'
 export * from './Source'
 export * from './Timestamp'
