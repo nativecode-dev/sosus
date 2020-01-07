@@ -19,10 +19,11 @@ describe('when using SystemContext', () => {
   })
 
   it('should create cache', async () => {
-    const cache = system.cache.createDocument({
+    const document = system.cache.createDocument({
       source: { key: 'test', origin: 'test' },
       timestamp: { created: new Date(), modified: new Date() },
     })
+    const cache = await system.cache.update(document)
     expect(cache._id).to.not.be.undefined
   })
 })

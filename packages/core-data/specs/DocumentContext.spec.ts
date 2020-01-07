@@ -12,7 +12,7 @@ describe('when using DocumentContext', () => {
     await context.initialize()
   })
 
-  it('should save user', async () => {
+  it('should save environment', async () => {
     const environments = await context.variables.count()
     const users = await context.users.count()
     expect(environments + users).to.equal(0)
