@@ -1,11 +1,11 @@
-# `data`
+# `core`
 
 > TODO: description
 
 ## Usage
 
 ```
-const data = require('data');
+const core = require('core');
 
 // TODO: DEMONSTRATE API
 ```

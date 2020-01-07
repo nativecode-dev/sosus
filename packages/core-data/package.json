@@ -1,5 +1,5 @@
 {
-  "name": "@sosus/data",
+  "name": "@sosus/core-data",
   "version": "0.0.0",
   "description": "SOSUS",
   "license": "MIT",
@@ -10,7 +10,7 @@
   "bugs": {
     "url": "https://github.com/nativecode-dev/sosus/issues"
   },
-  "homepage": "https://github.com/nativecode-dev/sosus/tree/master/packages/data#readme",
+  "homepage": "https://github.com/nativecode-dev/sosus/tree/master/packages/core-data#readme",
   "author": "NativeCode <opensource@nativecode.com>",
   "keywords": [
     "SOSUS"
@@ -27,6 +27,16 @@
     "build": "tsc --project tsconfig.json"
   },
   "dependencies": {
-    "@sosus/core": "^0.0.0"
+    "@sosus/core": "^0.0.0",
+    "@sosus/core-models": "^0.0.0",
+    "pouchdb": "^7.1.1",
+    "pouchdb-find": "^7.1.1",
+    "pouchdb-upsert": "^2.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^13.1.4",
+    "@types/pouchdb": "^6.4.0",
+    "@types/pouchdb-find": "^6.3.4",
+    "@types/pouchdb-upsert": "^2.2.6"
   }
 }
