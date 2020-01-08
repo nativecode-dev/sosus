@@ -3,10 +3,10 @@
     "baseUrl": ".",
     "paths": {
       "make-url": [
-        "packages/pornstash-core/types/make-url"
+        "packages/sosus-core/types/make-url"
       ],
       "nzb-api": [
-        "packages/pornstash-web/types/nzb-api"
+        "packages/sosus-web/types/nzb-api"
       ]
     }
   },

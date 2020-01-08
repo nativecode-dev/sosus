@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "outDir": "lib",
+    "rootDir": "src"
+  },
+  "extends": "../../tsconfig.settings",
+  "include": [
+    "src/**/*.ts"
+  ]
+}

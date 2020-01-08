@@ -3,6 +3,8 @@ import { Timestamp } from './types/Timestamp'
 import { CacheType } from './types/CacheType'
 
 export interface Cache {
+  content: string
+  content_identifier: string
   content_type: string
   identifier: string
   source: Source
