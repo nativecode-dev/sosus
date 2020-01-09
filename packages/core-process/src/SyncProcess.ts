@@ -7,8 +7,8 @@ import { Fetch, Hash, Job, JobFunction, Logger, Merge, Scheduler } from '@sosus/
 import { Syncable } from './Syncable'
 import { SyncConfig } from './SyncConfig'
 import { SyncProcessor } from './SyncProcessor'
-import { SyncCollectionResult } from './SyncCollectionResult'
 import { SyncSingleResult } from './SyncSingleResult'
+import { SyncCollectionResult } from './SyncCollectionResult'
 
 export interface SyncDownloadResult {
   buffer: Buffer

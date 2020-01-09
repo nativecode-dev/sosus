@@ -1,7 +1,7 @@
 import { Syncable } from './Syncable'
 import { SyncConfig } from './SyncConfig'
-import { SyncCollectionResult } from './SyncCollectionResult'
 import { SyncSingleResult } from './SyncSingleResult'
+import { SyncCollectionResult } from './SyncCollectionResult'
 
 export interface SyncProcessor<T extends any, O extends SyncConfig> extends Syncable {
   readonly iterator: AsyncGenerator<T, void, unknown>

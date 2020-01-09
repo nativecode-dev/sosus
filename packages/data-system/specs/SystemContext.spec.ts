@@ -22,7 +22,6 @@ describe('when using SystemContext', () => {
   it('should create cache', async () => {
     const document = system.cache.createDocument({
       content_type: 'text/html',
-      identifier: 'test',
       source: { key: 'test', origin: 'test' },
       timestamp: { created: new Date(), modified: new Date() },
       type: CacheType.http,
@@ -35,7 +34,6 @@ describe('when using SystemContext', () => {
   it('should delete cache', async () => {
     const document = system.cache.createDocument({
       content_type: 'text/html',
-      identifier: 'test',
       type: CacheType.http,
     })
     const id = system.cache.keyId(document)
