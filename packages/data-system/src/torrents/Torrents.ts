@@ -1,7 +1,7 @@
 import { Documents } from '@sosus/core-data'
+import { TorrentKeys } from '@sosus/core-models'
 
 import { TorrentDocument } from './TorrentDocument'
-import { TorrentKeys } from '@sosus/core-models'
 
 export class Torrents extends Documents<TorrentDocument> {
   readonly indexes: PouchDB.Find.CreateIndexOptions[] = [

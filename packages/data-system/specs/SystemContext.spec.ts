@@ -9,7 +9,8 @@ import { SystemContext } from '../src/SystemContext'
 import { CacheType } from '@sosus/core-models'
 
 const config: CouchConfig = {
-  name: path.join(PATHS.cache(), 'system'),
+  adapter: 'memory',
+  name: path.join(PATHS.cache(), 'system.db'),
 }
 
 describe('when using SystemContext', () => {

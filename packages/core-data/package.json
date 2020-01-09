@@ -29,12 +29,16 @@
   "dependencies": {
     "@sosus/core": "^0.0.0",
     "pouchdb": "^7.1.1",
+    "pouchdb-adapter-memory": "^7.1.1",
+    "pouchdb-adapter-node-websql": "^7.0.0",
     "pouchdb-find": "^7.1.1",
     "pouchdb-upsert": "^2.2.0"
   },
   "devDependencies": {
     "@types/node": "^13.1.4",
     "@types/pouchdb": "^6.4.0",
+    "@types/pouchdb-adapter-memory": "^6.1.3",
+    "@types/pouchdb-adapter-node-websql": "^6.1.3",
     "@types/pouchdb-find": "^6.3.4",
     "@types/pouchdb-upsert": "^2.2.6"
   }

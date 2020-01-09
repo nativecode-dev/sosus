@@ -81,14 +81,16 @@ export abstract class DocumentContext<T extends CouchConfig> {
   }
 
   async initialize() {
-    await this.store.createIndex({
-      index: {
-        fields: ['meta__doctype'],
-        name: 'meta__doctype',
-      },
-    })
+    if (['http', undefined].includes(this.config.adapter)) {
+      await this.store.createIndex({
+        index: {
+          fields: ['meta__doctype'],
+          name: 'meta__doctype',
+        },
+      })
 
-    return this.createIndexDocuments()
+      await this.createIndexDocuments()
+    }
   }
 
   protected abstract createIndexDocuments(): Promise<void>

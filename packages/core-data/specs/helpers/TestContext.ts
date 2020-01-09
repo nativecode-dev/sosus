@@ -4,8 +4,8 @@ import { CouchConfig } from '@sosus/core'
 
 import { PATHS } from '.'
 import { Document } from '../../src/Document'
-import { DocumentContext } from '../../src/DocumentContext'
 import { Documents } from '../../src/Documents'
+import { DocumentContext } from '../../src/DocumentContext'
 
 export interface EnvironmentVariable {
   name: string
@@ -25,7 +25,7 @@ export class TestContext extends DocumentContext<CouchConfig> {
   users: Users = new Users('user', this.store)
   variables: EnvironmentVariables = new EnvironmentVariables('env', this.store)
 
-  initialize() {
+  protected createIndexDocuments() {
     return Promise.resolve()
   }
 }
@@ -47,5 +47,6 @@ export class Users extends Documents<UserDocument> {
 }
 
 export const DefaultTestContextConfig: CouchConfig = {
-  name: path.join(PATHS.cache(), 'users'),
+  adapter: 'memory',
+  name: path.join(PATHS.cache(), 'users.db'),
 }

@@ -7,8 +7,50 @@ export class Stars extends Documents<StarDocument> {
   readonly indexes: PouchDB.Find.CreateIndexOptions[] = [
     {
       index: {
-        fields: ['attributes.gender'],
-        name: 'actor_attributes-gender',
+        fields: ['attributes.dob'],
+        name: 'actor_attributes-dob',
+      },
+    },
+    {
+      index: {
+        fields: ['attributes.ethnicity'],
+        name: 'actor_attributes-ethnicity',
+      },
+    },
+    {
+      index: {
+        fields: ['attributes.color_eyes'],
+        name: 'actor_attributes-color-eyes',
+      },
+    },
+    {
+      index: {
+        fields: ['attributes.color_hair'],
+        name: 'actor_attributes-color-hair',
+      },
+    },
+    {
+      index: {
+        fields: ['attributes.years.end'],
+        name: 'actor_attributes-years-end',
+      },
+    },
+    {
+      index: {
+        fields: ['attributes.years.start'],
+        name: 'actor_attributes-years-start',
+      },
+    },
+    {
+      index: {
+        fields: ['attributes.zodiac_sign'],
+        name: 'actor_attributes-zodiac-sign',
+      },
+    },
+    {
+      index: {
+        fields: ['gender'],
+        name: 'actor_gender',
       },
     },
     {
