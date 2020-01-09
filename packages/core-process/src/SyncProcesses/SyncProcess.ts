@@ -139,6 +139,7 @@ export abstract class SyncProcess<T extends any, O extends SyncConfig> implement
 
   abstract cancel(): Promise<void>
   abstract start(): Promise<SyncableProcess>
+
   protected abstract createIterator(): AsyncGenerator<T, void, unknown>
   protected abstract createConfig(): Partial<O>
   protected abstract createResult(item: T, error?: Error): SyncSingleResult<T>

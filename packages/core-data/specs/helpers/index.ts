@@ -4,6 +4,13 @@ import path from 'path'
 import chai from 'chai'
 import chaiAsPromised from 'chai-as-promised'
 
+import PouchDB from 'pouchdb'
+import Find from 'pouchdb-find'
+import Upsert from 'pouchdb-upsert'
+
+PouchDB.plugin(Find)
+PouchDB.plugin(Upsert)
+
 export const expect = chai.use(chaiAsPromised).expect
 export const TIMEOUT_LONG: number = 10000
 export const TIMEOUT_SHORT: number = 5000

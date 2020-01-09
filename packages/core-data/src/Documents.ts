@@ -1,10 +1,8 @@
-import merge from 'deepmerge'
+import { CouchConfig, Logger, Merge } from '@sosus/core'
 
-import { CouchConfig, Dedupe, Logger } from '@sosus/core'
-
-import { createDocKey } from './index'
 import { Document } from './Document'
 import { BaseDocumentStore } from './DocumentStore'
+import { CreateDocumentKey } from './CreateDocumentKey'
 
 export interface PropertyNames<T extends Document> {
   (document: T): string[]
@@ -25,14 +23,14 @@ export abstract class Documents<T extends Document> {
       limit: Number.MAX_SAFE_INTEGER,
     }
 
-    const query = merge.all<PouchDB.Find.FindRequest<T>>([required, selector || {}])
+    const query = Merge<PouchDB.Find.FindRequest<T>>([required, selector || {}])
     return this.find(query)
   }
 
-  bulk(updates: Partial<T>[]): Promise<(PouchDB.Core.Response | PouchDB.Core.Error)[]> {
+  bulk(updates: T[]): Promise<(PouchDB.Core.Response | PouchDB.Core.Error)[]> {
     this.log.trace('bulk update', updates)
     this.log.debug('bulk update', updates.length)
-    return this.store.bulkDocs<any>(updates)
+    return this.store.bulkDocs<T>(updates)
   }
 
   byId(id: string): Promise<T & PouchDB.Core.RevisionIdMeta> {
@@ -51,9 +49,9 @@ export abstract class Documents<T extends Document> {
 
   createDocument(document: Partial<T>): T {
     const defaults = this.empty()
-    const request = this.merge(defaults as T, document)
+    const request = Merge<Partial<T>>([defaults as T, document])
     const id = this.keyId(request)
-    return this.merge<T>(request, { _id: id } as T)
+    return Merge<T>([request, { _id: id } as T])
   }
 
   async delete(id: string, rev: string): Promise<PouchDB.Core.Response> {
@@ -75,7 +73,7 @@ export abstract class Documents<T extends Document> {
     selector: PouchDB.Find.FindRequest<T>,
   ): Promise<Array<T & PouchDB.Core.IdMeta & PouchDB.Core.RevisionIdMeta>> {
     const defaults: PouchDB.Find.FindRequest<T> = { selector: { meta__doctype: this.type } }
-    const query = merge.all<PouchDB.Find.FindRequest<T>>([defaults, selector])
+    const query = Merge<PouchDB.Find.FindRequest<T>>([defaults, selector])
     this.log.debug('find', query)
     const results = await this.store.find(query)
     const docs = results.docs as PouchDB.Core.ExistingDocument<T>[]
@@ -128,11 +126,11 @@ export abstract class Documents<T extends Document> {
 
   async update(updates: Partial<T>): Promise<T & PouchDB.Core.IdMeta & PouchDB.Core.RevisionIdMeta> {
     const defaults = this.empty()
-    const request = this.merge(defaults as T, updates)
+    const request = Merge([defaults as T, updates])
     const id = this.keyId(request)
 
     const response = await this.store.upsert<T>(id, original => {
-      const merged = this.merge(original, request)
+      const merged = Merge([original, request])
       this.log.trace('merge', original, request, merged)
       return merged
     })
@@ -142,20 +140,12 @@ export abstract class Documents<T extends Document> {
   }
 
   protected createKey(document: Partial<Document>, ...properties: string[]): string {
-    const type = document.meta__doctype ? document.meta__doctype : this.empty().meta__doctype!
-    // TODO: Fix the cast to any
-    return createDocKey(type, ...properties.map(property => (document as any)[property]))
+    const merged = Merge<Partial<Document>>([this.empty(), document])
+    return CreateDocumentKey(merged, properties)
   }
 
-  protected empty(): Partial<Document> {
-    return { meta__doctype: this.type }
-  }
-
-  protected merge<D>(...documents: Partial<D>[]): D {
-    const merged = merge.all<D>(documents, {
-      arrayMerge: (target, source) => Dedupe(source.concat(target)),
-    })
-    return merged
+  protected empty(): Partial<T> {
+    return { meta__doctype: this.type } as T
   }
 
   protected abstract get keyProperties(): string[]

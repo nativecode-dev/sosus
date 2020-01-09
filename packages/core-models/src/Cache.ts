@@ -13,4 +13,4 @@ export interface Cache {
   type: CacheType
 }
 
-export const CacheKeys = ['type', 'content_type', 'identifer']
+export const CacheKeys = ['type', 'content_type', 'content_identifier']

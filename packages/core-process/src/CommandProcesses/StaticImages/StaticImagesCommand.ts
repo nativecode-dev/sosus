@@ -36,17 +36,14 @@ export class StaticImagesCommand implements CommandProcess<void> {
           return Promise.resolve()
         }
 
-        const exists = await fs.exists(path, true)
-
-        if (exists === false) {
-          const buffer = Buffer.from(Base64.atob(cache.content))
-          const filename = fs.join(path, cache.content_identifier)
-
+        if ((await fs.exists(path)) === false) {
           await fs.mkdirp(path, true)
-          await fs.writeFile(filename, buffer)
-
-          this.log.debug('wrote', filename)
         }
+
+        const buffer = Buffer.from(Base64.atob(cache.content))
+        const filename = fs.join(path, cache.content_identifier)
+        await fs.writeFile(filename, buffer)
+        this.log.debug('wrote', filename)
       }),
     )
   }
