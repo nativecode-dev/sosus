@@ -6,5 +6,16 @@
   "extends": "../../tsconfig.settings",
   "include": [
     "src/**/*.ts"
+  ],
+  "references": [
+    {
+      "path": "../core"
+    },
+    {
+      "path": "../core-data"
+    },
+    {
+      "path": "../core-models"
+    }
   ]
 }

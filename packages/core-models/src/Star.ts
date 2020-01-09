@@ -1,4 +1,4 @@
-import { StarAttributes } from './StarAttributes'
+import { StarAttributes } from './types/StarAttributes'
 
 export interface Star {
   attributes: StarAttributes

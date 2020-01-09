@@ -7,6 +7,7 @@ export * from './config'
 export * from './scheduling'
 
 export * from './Dedupe'
+export * from './EncodingType'
 export * from './Fetch'
 export * from './Hash'
 export * from './HashType'

@@ -6,7 +6,6 @@ export interface Cache {
   content: string
   content_identifier: string
   content_type: string
-  identifier: string
   source: Source
   timestamp: Timestamp
   type: CacheType

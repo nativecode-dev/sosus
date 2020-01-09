@@ -25,6 +25,7 @@
   },
   "tasks": {
     "build": [
+      "[references]",
       "[clean]",
       "[compile:packages]",
       "[compile:apps]"
@@ -45,6 +46,9 @@
     ],
     "compile:packages": [
       "lerna run build --ignore \"@sosus/@(api|app|cli|sync)\""
+    ],
+    "references": [
+      "ts-node promon/references.ts"
     ],
     "source:format": [
       "jsonsort *.json",
