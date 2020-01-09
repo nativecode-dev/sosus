@@ -26,7 +26,7 @@ export abstract class Documents<T extends Document> {
     return this.find(query)
   }
 
-  bulk(updates: T[]): Promise<(PouchDB.Core.Response | PouchDB.Core.Error)[]> {
+  async bulk(updates: T[]): Promise<Array<PouchDB.Core.Response | PouchDB.Core.Error>> {
     this.log.trace('bulk update', updates)
     this.log.debug('bulk update', updates.length)
     return this.store.bulkDocs<T>(updates)
@@ -48,7 +48,7 @@ export abstract class Documents<T extends Document> {
 
   createDocument(document: Partial<T>): T {
     const defaults = this.empty()
-    const request = Merge<Partial<T>>([defaults as T, document])
+    const request = Merge<Partial<T>>([defaults, document])
     const id = this.keyId(request)
     return Merge<T>([request, { _id: id } as T])
   }
@@ -125,7 +125,7 @@ export abstract class Documents<T extends Document> {
 
   async update(updates: Partial<T>): Promise<T & PouchDB.Core.IdMeta & PouchDB.Core.RevisionIdMeta> {
     const defaults = this.empty()
-    const request = Merge([defaults as T, updates])
+    const request = Merge([defaults, updates])
     const id = this.keyId(request)
 
     const response = await this.store.upsert<T>(id, original => {
@@ -140,7 +140,7 @@ export abstract class Documents<T extends Document> {
 
   protected createKey(document: Partial<Document>, ...properties: string[]): string {
     const merged = Merge<Partial<Document>>([this.empty(), document])
-    return CreateDocumentKey(merged, properties)
+    return CreateDocumentKey(merged, ['meta__doctype'].concat(properties))
   }
 
   protected empty(): Partial<T> {
