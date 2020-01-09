@@ -2,15 +2,15 @@ import os from 'os'
 import $ from 'cheerio'
 
 import { fs } from '@nofrills/fs'
+import { Star, StarAttributes } from '@sosus/core-models'
 import { Caches, SystemContext } from '@sosus/data-system'
 import { StarDocument, PeopleContext } from '@sosus/data-people'
-import { Star, StarAttributes } from '@sosus/core-models'
-import { inject, Scheduler, injectable, Logger, Merge, scoped, Lifecycle, Dedupe, Hash } from '@sosus/core'
+import { inject, Scheduler, injectable, Logger, Merge, scoped, Lifecycle, Hash, Lincoln, Job } from '@sosus/core'
 
 import { SyncProcess } from '../SyncProcess'
-import { SyncConfig, DefaultSyncOptions } from '../SyncConfig'
-import { SyncCollectionResult } from '../SyncCollectionResult'
 import { SyncSingleResult } from '../SyncSingleResult'
+import { SyncConfig, DefaultSyncConfig } from '../SyncConfig'
+import { SyncCollectionResult } from '../SyncCollectionResult'
 
 import {
   transformAliases,
@@ -29,14 +29,14 @@ export interface HotMoviesSyncResults extends SyncCollectionResult<StarSync> {}
 
 export interface HotMoviesSyncResult extends SyncSingleResult<StarSync> {}
 
-export interface HotMoviesSyncOptions extends SyncConfig {
+export interface HotMoviesSyncConfig extends SyncConfig {
   url: string
 }
 
 export const HotMoviesSyncOptionsType = Symbol('HotMoviesSyncOptions')
 
-export const DefaultHotMoviesSyncOptions: Partial<HotMoviesSyncOptions> = {
-  ...DefaultSyncOptions,
+export const DefaultHotMoviesSyncConfig: Partial<HotMoviesSyncConfig> = {
+  ...DefaultSyncConfig,
   name: 'hotmovies',
   url: 'https://www.hotmovies.com/porn-star/?subletter=all&letter=<LETTER>&star_gender_pref=1&star_view_pref=photos',
 }
@@ -71,63 +71,78 @@ const TRANSFORMERS: { [key: string]: FunctionMap } = {
 
 @injectable()
 @scoped(Lifecycle.ContainerScoped)
-export class HotMoviesProcess extends SyncProcess<Star, HotMoviesSyncOptions> {
-  private readonly log = Logger.extend('hot-movies-process')
+export class HotMoviesProcess extends SyncProcess<Star, HotMoviesSyncConfig> {
+  private readonly log: Lincoln
+
+  private jobs: Job[] = []
+
+  readonly name: string = 'hot-movies-process'
 
   constructor(
-    @inject(HotMoviesSyncOptionsType) options: HotMoviesSyncOptions,
+    @inject(HotMoviesSyncOptionsType) options: HotMoviesSyncConfig,
     scheduler: Scheduler,
     system: SystemContext,
     private readonly people: PeopleContext,
   ) {
     super(options, scheduler, system)
+    this.log = Logger.extend(this.name)
     this.log.debug(options)
   }
 
-  async start() {
-    const count = await this.people.stars.count()
+  async cancel() {
+    this.jobs.map(job => job.cancel(false))
+    this.jobs = []
+  }
 
-    if (count === 0) {
-      this.log.debug('first-time-setup', this.options.name)
-      await this.sync()
+  async start() {
+    if (this.jobs.length === 0) {
+      const count = await this.people.stars.count()
+
+      if (count === 0) {
+        this.log.debug('first-time-setup', this.config.name)
+        await this.sync()
+      }
+
+      const primary = this.schedule(this.config.name, this.config.cron.primary, async () => {
+        try {
+          const results = await this.sync()
+          this.log.trace(results)
+        } catch (error) {
+          this.log.error(error)
+        }
+      })
+
+      let current = this.getNextAvailable(this.system.cache, this.createIterator())
+      const secondaryName = this.config.name + '-star'
+
+      const secondary = this.schedule(secondaryName, this.config.cron.secondary, async () => {
+        try {
+          const next = await current.next()
+
+          if (next.done === false && next.value) {
+            const star = await this.parseStar(next.value)
+            this.log.trace(star.attributes)
+            return
+          }
+
+          current = this.getNextAvailable(this.system.cache, this.createIterator())
+        } catch (error) {
+          this.log.error(error)
+        }
+      })
+
+      this.log.debug('create-job-primary', primary.name)
+      this.log.debug('create-job-secondary', secondary.name)
+      this.jobs = [primary, secondary]
     }
 
-    const primary = this.schedule(this.options.name, this.options.cron.primary, async () => {
-      try {
-        const results = await this.sync()
-        this.log.trace(results)
-      } catch (error) {
-        this.log.error(error)
-      }
-    })
-
-    let current = this.getNextAvailable(this.system.cache, this.createIterator())
-    const secondaryName = this.options.name + '-star'
-
-    const secondary = this.schedule(secondaryName, this.options.cron.secondary, async () => {
-      try {
-        const next = await current.next()
-
-        if (next.done === false && next.value) {
-          const star = await this.parseStar(next.value)
-          this.log.trace(star.attributes)
-          return
-        }
-
-        current = this.getNextAvailable(this.system.cache, this.createIterator())
-      } catch (error) {
-        this.log.error(error)
-      }
-    })
-
-    this.log.debug('create-job-primary', primary.name)
-    this.log.debug('create-job-secondary', secondary.name)
+    return this
   }
 
   protected async *createIterator() {
     for (const letter of alphabet()) {
       try {
-        const url = this.options.url.replace('<LETTER>', letter)
+        const url = this.config.url.replace('<LETTER>', letter)
         const buffer = await this.download(url)
         const $html = $.load(buffer.buffer, { lowerCaseTags: true })
         const parsed = await this.parseStars($html)
@@ -142,8 +157,8 @@ export class HotMoviesProcess extends SyncProcess<Star, HotMoviesSyncOptions> {
     }
   }
 
-  protected createOptions(): Partial<HotMoviesSyncOptions> {
-    return DefaultHotMoviesSyncOptions
+  protected createConfig(): Partial<HotMoviesSyncConfig> {
+    return DefaultHotMoviesSyncConfig
   }
 
   protected createResult(item: StarSync, error?: Error): HotMoviesSyncResult {
@@ -169,12 +184,12 @@ export class HotMoviesProcess extends SyncProcess<Star, HotMoviesSyncOptions> {
     let next = await iterator.next()
 
     do {
-      if (next.value) {
+      if (next.done === false && next.value) {
         const star = next.value
         const id = caches.keyId({ source: { key: Hash(star._id), origin: star.profile } })
         const exists = await caches.exists(id)
 
-        if (exists === false) {
+        if (exists === undefined) {
           this.log.debug('next-available', star._id)
           yield star
         }
@@ -246,11 +261,12 @@ export class HotMoviesProcess extends SyncProcess<Star, HotMoviesSyncOptions> {
 
       const image = await this.download(updated.image, updated.refresh)
       this.log.debug(updated._id, updated._rev)
+
       await this.people.stars.putAttachment(
         updated._id,
         updated._rev,
         fs.basename(star.image),
-        image.type,
+        image.cache.content_type,
         image.buffer,
       )
 

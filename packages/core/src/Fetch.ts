@@ -1,3 +1,5 @@
+export { Request, RequestInit, Response } from 'node-fetch'
+
 import fetch, { Request, RequestInit, Response } from 'node-fetch'
 
 export function Fetch(request: string | Request, init?: RequestInit): Promise<Response> {

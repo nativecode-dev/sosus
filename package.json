@@ -15,12 +15,13 @@
   "author": "opensource@nativecode.com",
   "keywords": [],
   "scripts": {
-    "build": "cli-tasks build",
+    "build": "cli-tasks build:fast",
     "lerna": "lerna",
     "prepare": "lerna bootstrap",
-    "rebuild": "cli-tasks build:fast",
+    "rebuild": "cli-tasks build",
     "tasks": "cli-tasks",
     "test": "cli-tasks test",
+    "test:watch": "cli-tasks test:watch",
     "upgrade": "lernaupdate"
   },
   "tasks": {
@@ -52,10 +53,10 @@
     ],
     "source:format": [
       "jsonsort *.json",
-      "jsonsort packages/*/*.json",
       "jsonsort executables/*/*.json",
-      "prettier --loglevel silent --write \"packages/*/src/**/*.ts\"",
-      "prettier --loglevel silent --write \"executables/*/src/**/*.ts\""
+      "jsonsort packages/*/*.json",
+      "prettier --loglevel silent --write \"executables/*/src/**/*.ts\"",
+      "prettier --loglevel silent --write \"packages/*/src/**/*.ts\""
     ],
     "source:lint": [
       "tslint --project tsconfig.json --config tslint.json"
@@ -63,6 +64,10 @@
     "test": [
       "[build:fast]",
       "nyc mocha"
+    ],
+    "test:watch": [
+      "[build:fast]",
+      "nyc mocha --watch"
     ]
   },
   "devDependencies": {

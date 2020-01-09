@@ -39,7 +39,7 @@ export abstract class Documents<T extends Document> {
     return this.store.get<T & PouchDB.Core.RevisionIdMeta>(id)
   }
 
-  changes() {
+  changes(): PouchDB.Core.Changes<T> {
     return this.store.changes()
   }
 
@@ -67,7 +67,7 @@ export abstract class Documents<T extends Document> {
     return response
   }
 
-  exists(id: string): Promise<boolean> {
+  exists(id: string) {
     return this.store.exists(id, { meta__doctype: this.type })
   }
 
@@ -124,14 +124,6 @@ export abstract class Documents<T extends Document> {
       .on('change', change => this.log.trace(change))
       .on('paused', info => this.log.trace('paused', info))
       .on('error', error => this.log.error(error))
-  }
-
-  fromBase64(value: string): string {
-    return atob(value)
-  }
-
-  toBase64(value: string): string {
-    return btoa(value)
   }
 
   async update(updates: Partial<T>): Promise<T & PouchDB.Core.IdMeta & PouchDB.Core.RevisionIdMeta> {

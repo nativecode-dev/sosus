@@ -16,12 +16,12 @@ export abstract class BaseDocumentStore<T> extends PouchDB<T> {
     return Throttle(tasks)
   }
 
-  async exists(id: string, selector?: PouchDB.Find.Selector): Promise<boolean> {
+  async exists(id: string, selector?: PouchDB.Find.Selector): Promise<T | undefined> {
     const defaults: Partial<PouchDB.Find.FindRequest<T>> = { selector: { _id: { $eq: id } } }
     const overrides = selector ? { selector } : {}
     const query = merge.all<PouchDB.Find.FindRequest<T>>([defaults, overrides])
-    const keys = await this.find(query)
-    return keys.docs.map(doc => doc._id).some(_id => _id.toLowerCase() === id.toLowerCase())
+    const results = await this.find(query)
+    return results.docs.reduce<T | undefined>((result, current) => (current._id === id ? result : undefined), undefined)
   }
 }
 

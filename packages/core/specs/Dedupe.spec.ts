@@ -1,7 +1,4 @@
-import 'reflect-metadata'
-
 import { expect } from './helpers'
-
 import { Dedupe } from '../src/Dedupe'
 
 describe('when using Dedupe', () => {

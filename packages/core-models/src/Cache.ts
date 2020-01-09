@@ -6,6 +6,8 @@ export interface Cache {
   content: string
   content_identifier: string
   content_type: string
+  encoded: boolean
+  media_type: string
   source: Source
   timestamp: Timestamp
   type: CacheType
