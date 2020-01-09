@@ -1,8 +1,8 @@
 import { MediaType } from './MediaType'
 
 export interface Media {
-  title: string
+  released?: Date
   subtitle: string
-  release?: Date
+  title: string
   type: MediaType
 }

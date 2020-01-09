@@ -8,12 +8,7 @@ export class PeopleContext extends DocumentContext<CouchConfig> {
   readonly actors: Actors = new Actors('actor', this.store)
   readonly stars: Stars = new Stars('star', this.store)
 
-  async initialize() {
-    const indexes = [
-      () => this.store.createIndexes(this.actors.indexes),
-      () => this.store.createIndexes(this.stars.indexes),
-    ]
-
-    await Throttle(indexes)
+  protected async createIndexDocuments() {
+    await this.store.createIndexes(this.actors.indexes.concat(this.stars.indexes))
   }
 }

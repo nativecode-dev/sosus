@@ -1,4 +1,5 @@
 import { StarAttributes } from './types/StarAttributes'
+import { Source } from './types'
 
 export interface Star {
   attributes: StarAttributes
@@ -8,8 +9,7 @@ export interface Star {
   stage_name: string
   stage_name_normalized: string
   slug: string
-  source_key: string
-  source_origin: string
+  source: Source
 }
 
 export const StarKeys = ['name']

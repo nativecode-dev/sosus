@@ -13,15 +13,13 @@ export class MediaContext extends DocumentContext<CouchConfig> {
   readonly movies: Movies = new Movies('movie', this.store)
   readonly series: Series = new Series('series', this.store)
 
-  async initialize() {
-    const indexes = [
-      () => this.store.createIndexes(this.clips.indexes),
-      () => this.store.createIndexes(this.files.indexes),
-      () => this.store.createIndexes(this.locations.indexes),
-      () => this.store.createIndexes(this.movies.indexes),
-      () => this.store.createIndexes(this.series.indexes),
-    ]
-
-    await Throttle(indexes)
+  protected async createIndexDocuments() {
+    await this.store.createIndexes(
+      this.clips.indexes
+        .concat(this.files.indexes)
+        .concat(this.locations.indexes)
+        .concat(this.movies.indexes)
+        .concat(this.series.indexes),
+    )
   }
 }

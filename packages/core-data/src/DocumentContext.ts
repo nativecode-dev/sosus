@@ -1,7 +1,6 @@
 import PouchDB from 'pouchdb'
 
-import { all } from 'deepmerge'
-import { CouchConfig, Logger } from '@sosus/core'
+import { CouchConfig, Logger, Merge } from '@sosus/core'
 
 import { DocumentStore } from './DocumentStore'
 
@@ -52,7 +51,7 @@ export abstract class DocumentContext<T extends CouchConfig> {
   }
 
   async sync(config: CouchConfig, options?: PouchDB.Replication.SyncOptions) {
-    const opts = all([{ retry: true }, options || {}])
+    const opts = Merge([{ retry: true }, options || {}])
 
     return new Promise<PouchDB.Replication.SyncResultComplete<{}> | null>((resolve, reject) => {
       const remote = new PouchDB(config.name, config)
@@ -81,5 +80,16 @@ export abstract class DocumentContext<T extends CouchConfig> {
     })
   }
 
-  abstract initialize(): Promise<void>
+  async initialize() {
+    await this.store.createIndex({
+      index: {
+        fields: ['meta__doctype'],
+        name: 'meta__doctype',
+      },
+    })
+
+    return this.createIndexDocuments()
+  }
+
+  protected abstract createIndexDocuments(): Promise<void>
 }
