@@ -2,13 +2,25 @@ import path from 'path'
 
 import { SystemContext } from '@sosus/data-system'
 import { CacheType, Cache } from '@sosus/core-models'
-import { Fetch, Hash, Job, JobFunction, Logger, Merge, Scheduler, RequestInit, BlobBuffer } from '@sosus/core'
 
 import { SyncConfig } from './SyncConfig'
 import { SyncProcessor } from './SyncProcessor'
 import { SyncSingleResult } from './SyncSingleResult'
 import { SyncCollectionResult } from './SyncCollectionResult'
 import { SyncableProcess } from './SyncableProcess'
+
+import {
+  Fetch,
+  Hash,
+  Job,
+  JobFunction,
+  Logger,
+  Merge,
+  Scheduler,
+  RequestInit,
+  BlobBuffer,
+  DeepPartial,
+} from '@sosus/core'
 
 export interface SyncDownloadResult {
   buffer: Buffer
@@ -23,7 +35,7 @@ export abstract class SyncProcess<T extends any, O extends SyncConfig> implement
   abstract name: string
 
   constructor(
-    config: Partial<O> = {},
+    config: DeepPartial<O> = {},
     private readonly scheduler: Scheduler,
     protected readonly system: SystemContext,
   ) {
@@ -141,7 +153,7 @@ export abstract class SyncProcess<T extends any, O extends SyncConfig> implement
   abstract start(): Promise<SyncableProcess>
 
   protected abstract createIterator(): AsyncGenerator<T, void, unknown>
-  protected abstract createConfig(): Partial<O>
+  protected abstract createConfig(): DeepPartial<O>
   protected abstract createResult(item: T, error?: Error): SyncSingleResult<T>
   protected abstract createResults(items: T[], error?: Error): SyncCollectionResult<T>
   protected abstract finalizeResults(items: T[], error?: Error): Promise<SyncCollectionResult<T>>

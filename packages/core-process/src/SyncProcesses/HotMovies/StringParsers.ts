@@ -1,4 +1,4 @@
-import { Moment, Slugify } from '@sosus/core'
+import { Moment, Slugify, DeepPartial } from '@sosus/core'
 import { DictionaryOf } from '@nofrills/collections'
 import { StarAttributes, GenderType } from '@sosus/core-models'
 
@@ -22,7 +22,7 @@ export function transformAliases(value: string): DictionaryOf<string> {
     }, {})
 }
 
-export function transformBirthDate(value: string, attributes: Partial<StarAttributes>): string {
+export function transformBirthDate(value: string, attributes: DeepPartial<StarAttributes>): string {
   if (value.includes('/')) {
     const parts = value.split('/')
     const dob = parts[0].trim()

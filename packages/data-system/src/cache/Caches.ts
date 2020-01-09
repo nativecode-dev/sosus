@@ -2,7 +2,7 @@ import path from 'path'
 
 import { Documents } from '@sosus/core-data'
 import { CacheKeys, CacheType } from '@sosus/core-models'
-import { EncodingType, Hash, Merge, MimeType } from '@sosus/core'
+import { EncodingType, Hash, Merge, MimeType, DeepPartial } from '@sosus/core'
 
 import { CacheDocument } from './CacheDocument'
 
@@ -18,10 +18,10 @@ export class Caches extends Documents<CacheDocument> {
     const mimetype = MimeType(contentType)
 
     const document = this.createDocument({
+      mimetype,
       content: buffer.toString(),
       content_identifier: filename,
       content_type: contentType,
-      media_type: mimetype.media_type,
       source: { key: Hash(url), origin: url },
       timestamp: { created: new Date() },
       type: this.getCacheType(mimetype.media_type),
@@ -37,9 +37,9 @@ export class Caches extends Documents<CacheDocument> {
     return this.byId(document._id)
   }
 
-  async update(update: Partial<CacheDocument>) {
+  async update(update: DeepPartial<CacheDocument>) {
     return super.update(
-      Merge<Partial<CacheDocument>>([
+      Merge<DeepPartial<CacheDocument>>([
         update,
         { timestamp: { created: update.timestamp!.created, modified: new Date() } },
       ]),

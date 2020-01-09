@@ -5,7 +5,19 @@ import { fs } from '@nofrills/fs'
 import { Star, StarAttributes } from '@sosus/core-models'
 import { Caches, SystemContext } from '@sosus/data-system'
 import { StarDocument, PeopleContext } from '@sosus/data-people'
-import { inject, Scheduler, injectable, Logger, Merge, scoped, Lifecycle, Hash, Lincoln, Job } from '@sosus/core'
+import {
+  inject,
+  Scheduler,
+  injectable,
+  Logger,
+  Merge,
+  scoped,
+  Lifecycle,
+  Hash,
+  Lincoln,
+  Job,
+  DeepPartial,
+} from '@sosus/core'
 
 import { SyncProcess } from '../SyncProcess'
 import { SyncSingleResult } from '../SyncSingleResult'
@@ -35,7 +47,7 @@ export interface HotMoviesSyncConfig extends SyncConfig {
 
 export const HotMoviesSyncOptionsType = Symbol('HotMoviesSyncOptions')
 
-export const DefaultHotMoviesSyncConfig: Partial<HotMoviesSyncConfig> = {
+export const DefaultHotMoviesSyncConfig: DeepPartial<HotMoviesSyncConfig> = {
   ...DefaultSyncConfig,
   name: 'hotmovies',
   url: 'https://www.hotmovies.com/porn-star/?subletter=all&letter=<LETTER>&star_gender_pref=1&star_view_pref=photos',
@@ -43,7 +55,7 @@ export const DefaultHotMoviesSyncConfig: Partial<HotMoviesSyncConfig> = {
 
 interface FunctionMap {
   key: string
-  parse: (value: string, attributes: Partial<StarAttributes>) => void
+  parse: (value: string, attributes: DeepPartial<StarAttributes>) => void
 }
 
 function* alphabet() {
@@ -157,7 +169,7 @@ export class HotMoviesProcess extends SyncProcess<Star, HotMoviesSyncConfig> {
     }
   }
 
-  protected createConfig(): Partial<HotMoviesSyncConfig> {
+  protected createConfig(): DeepPartial<HotMoviesSyncConfig> {
     return DefaultHotMoviesSyncConfig
   }
 
@@ -204,7 +216,7 @@ export class HotMoviesProcess extends SyncProcess<Star, HotMoviesSyncConfig> {
       const buffer = await this.download(star.profile, star.refresh)
       const $html = $.load(buffer.buffer)
 
-      const attributes: Partial<StarAttributes> = {}
+      const attributes: DeepPartial<StarAttributes> = {}
 
       const primary = $html('#imgStarGalleryFocus')
         .attr('src')

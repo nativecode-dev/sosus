@@ -1,4 +1,4 @@
-import merge from 'deepmerge'
+import { DeepPartial, Merge } from '@sosus/core'
 
 export interface Document extends PouchDB.Core.IdMeta, PouchDB.Core.RevisionIdMeta {
   meta__doctype: string
@@ -13,8 +13,8 @@ export abstract class DocumentBase<T extends Document> implements Document {
 
   readonly properties: T
 
-  constructor(type: symbol, properties?: Partial<T>) {
+  constructor(type: symbol, properties?: DeepPartial<T>) {
     this.meta__doctype = type.toString()
-    this.properties = merge.all<T>([properties || {}])
+    this.properties = Merge<T>([properties || {}])
   }
 }

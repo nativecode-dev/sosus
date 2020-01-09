@@ -1,7 +1,6 @@
-import merge from 'deepmerge'
 import PouchDB from 'pouchdb'
 
-import { Logger, Throttle, injectable, scoped, Lifecycle } from '@sosus/core'
+import { Logger, Throttle, injectable, scoped, Lifecycle, DeepPartial, Merge } from '@sosus/core'
 
 export abstract class BaseDocumentStore<T> extends PouchDB<T> {
   private readonly log = Logger.extend('base-document-store')
@@ -17,9 +16,9 @@ export abstract class BaseDocumentStore<T> extends PouchDB<T> {
   }
 
   async exists(id: string, selector?: PouchDB.Find.Selector): Promise<T | undefined> {
-    const defaults: Partial<PouchDB.Find.FindRequest<T>> = { selector: { _id: { $eq: id } } }
+    const defaults: DeepPartial<PouchDB.Find.FindRequest<T>> = { selector: { _id: { $eq: id } } }
     const overrides = selector ? { selector } : {}
-    const query = merge.all<PouchDB.Find.FindRequest<T>>([defaults, overrides])
+    const query = Merge<PouchDB.Find.FindRequest<T>>([defaults, overrides])
     const results = await this.find(query)
     return results.docs.reduce<T | undefined>((result, current) => (current._id === id ? result : undefined), undefined)
   }

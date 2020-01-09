@@ -1,9 +1,11 @@
 import os from 'os'
-import merge from 'deepmerge'
 
 import { fs } from '@nofrills/fs'
 import { ObjectNavigator } from '@nofrills/types'
 import { Env, EnvCaseOptions } from '@nofrills/env'
+
+import { Merge } from '../Merge'
+import { DeepPartial } from '../DeepPartial'
 
 export const ConfigType = Symbol('Config')
 
@@ -25,20 +27,20 @@ const DEFAULTS: Config = {
 export abstract class SosusConfig<T extends Config> {
   protected readonly filename: string
 
-  private readonly env: Partial<T>
+  private readonly env: DeepPartial<T>
 
   private objectNavigator: ObjectNavigator
 
-  constructor(filename: string, config: Partial<T>) {
+  constructor(filename: string, config: DeepPartial<T>) {
     const options = { env: process.env, casing: EnvCaseOptions.LowerCase, prefix: 'sosus' }
     this.env = Env.from(options).toObject()
     this.filename = fs.join(config.root || ROOT, filename)
 
-    const instance = merge.all<T>([DEFAULTS as T, config, this.env])
+    const instance = Merge<T>([DEFAULTS as DeepPartial<T>, config, this.env])
     this.objectNavigator = ObjectNavigator.from(instance)
   }
 
-  protected abstract get defaults(): Partial<T>
+  protected abstract get defaults(): DeepPartial<T>
 
   protected get nav() {
     return this.objectNavigator
@@ -56,15 +58,15 @@ export abstract class SosusConfig<T extends Config> {
     return this.objectNavigator.getValue<string>('root')
   }
 
-  async load(config?: Partial<T>) {
+  async load(config?: DeepPartial<T>) {
     try {
       if (config) {
-        const instance = merge.all<T>([DEFAULTS as T, this.defaults, config || {}, this.env])
+        const instance = Merge<T>([DEFAULTS as DeepPartial<T>, this.defaults, config || {}, this.env])
         this.objectNavigator = ObjectNavigator.from(instance)
         console.log(this.value)
       } else if (await fs.exists(this.filename)) {
-        const json = await fs.json<T>(this.filename)
-        const instance = merge.all<T>([DEFAULTS as T, this.defaults, json, config || {}, this.env])
+        const json = await fs.json<DeepPartial<T>>(this.filename)
+        const instance = Merge<T>([DEFAULTS as DeepPartial<T>, this.defaults, json, config || {}, this.env])
         this.objectNavigator = ObjectNavigator.from(instance)
         console.log(this.filename, this.value)
       }
@@ -75,12 +77,8 @@ export abstract class SosusConfig<T extends Config> {
     return this.value
   }
 
-  async save(config?: T) {
+  async save() {
     try {
-      if (config) {
-        await this.load(config)
-      }
-
       return fs.save<T>(this.filename, this.value)
     } catch (error) {
       console.error(error)

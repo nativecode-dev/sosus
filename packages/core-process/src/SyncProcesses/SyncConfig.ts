@@ -1,4 +1,4 @@
-import { Config } from '@sosus/core'
+import { Config, DeepPartial } from '@sosus/core'
 import { DictionaryOf } from '@nofrills/types'
 
 export interface CronOptions extends DictionaryOf<string> {
@@ -13,7 +13,7 @@ export interface SyncConfig extends Config {
   user_agent: string
 }
 
-export const DefaultSyncConfig: Partial<SyncConfig> = {
+export const DefaultSyncConfig: DeepPartial<SyncConfig> = {
   cron: {
     primary: '0 0 * * 6',
     secondary: '*/20 * * * *',

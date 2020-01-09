@@ -37,6 +37,7 @@ describe('when using SystemContext', () => {
     const document = system.cache.createDocument({
       content_identifier: 'test',
       content_type: 'text/html',
+      source: { origin: 'test' },
       type: CacheType.http,
     })
     const id = system.cache.keyId(document)

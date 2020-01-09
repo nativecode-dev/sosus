@@ -1,4 +1,4 @@
-import { CouchConfig, CreateDocumentKey, Logger, Merge } from '@sosus/core'
+import { CouchConfig, CreateDocumentKey, Logger, Merge, DeepPartial } from '@sosus/core'
 
 import { Document } from './Document'
 import { BaseDocumentStore } from './DocumentStore'
@@ -46,9 +46,9 @@ export abstract class Documents<T extends Document> {
     return all.length
   }
 
-  createDocument(document: Partial<T>): T {
+  createDocument(document: DeepPartial<T>): T {
     const defaults = this.empty()
-    const request = Merge<Partial<T>>([defaults, document])
+    const request = Merge<any>([defaults, document])
     const id = this.keyId(request)
     return Merge<T>([request, { _id: id } as T])
   }
@@ -100,7 +100,7 @@ export abstract class Documents<T extends Document> {
     }
   }
 
-  keyId(doc: Partial<T>): string {
+  keyId(doc: DeepPartial<T>): string {
     return this.createKey(doc, ...this.keyProperties)
   }
 
@@ -123,13 +123,13 @@ export abstract class Documents<T extends Document> {
       .on('error', error => this.log.error(error))
   }
 
-  async update(updates: Partial<T>): Promise<T & PouchDB.Core.IdMeta & PouchDB.Core.RevisionIdMeta> {
+  async update(updates: DeepPartial<T>): Promise<T & PouchDB.Core.IdMeta & PouchDB.Core.RevisionIdMeta> {
     const defaults = this.empty()
-    const request = Merge([defaults, updates])
+    const request = Merge<any>([defaults, updates])
     const id = this.keyId(request)
 
     const response = await this.store.upsert<T>(id, original => {
-      const merged = Merge([original, request])
+      const merged = Merge<any>([original, request])
       this.log.trace('merge', original, request, merged)
       return merged
     })
@@ -138,13 +138,13 @@ export abstract class Documents<T extends Document> {
     return this.store.get(response.id)
   }
 
-  protected createKey(document: Partial<Document>, ...properties: string[]): string {
-    const merged = Merge<Partial<Document>>([this.empty(), document])
+  protected createKey(document: any, ...properties: string[]): string {
+    const merged = Merge<any>([this.empty(), document])
     return CreateDocumentKey(merged, ['meta__doctype'].concat(properties))
   }
 
-  protected empty(): Partial<T> {
-    return { meta__doctype: this.type } as T
+  protected empty(): DeepPartial<T> {
+    return { meta__doctype: this.type } as any
   }
 
   protected abstract get keyProperties(): string[]
