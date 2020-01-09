@@ -1,8 +1,7 @@
-import { CouchConfig, Logger, Merge } from '@sosus/core'
+import { CouchConfig, CreateDocumentKey, Logger, Merge } from '@sosus/core'
 
 import { Document } from './Document'
 import { BaseDocumentStore } from './DocumentStore'
-import { CreateDocumentKey } from './CreateDocumentKey'
 
 export interface PropertyNames<T extends Document> {
   (document: T): string[]

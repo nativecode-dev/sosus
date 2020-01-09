@@ -9,6 +9,7 @@ export * from './scheduling'
 
 export * from './Base64'
 export * from './BlobBuffer'
+export * from './CreateDocumentKey'
 export * from './Dedupe'
 export * from './EncodingType'
 export * from './Fetch'

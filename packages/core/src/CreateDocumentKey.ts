@@ -1,4 +1,6 @@
-import { ObjectNavigator, Slugify } from '@sosus/core'
+import { ObjectNavigator } from '@nofrills/types'
+
+import { Slugify } from './Slugify'
 
 export function CreateDocumentKey(document: any, properties: string[]): string {
   const navigator = ObjectNavigator.from(document)
@@ -12,5 +14,6 @@ export function CreateDocumentKey(document: any, properties: string[]): string {
 
     throw new Error(`key property now found: ${property}`)
   })
+
   return Slugify(values.join('_'))
 }
