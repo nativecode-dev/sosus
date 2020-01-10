@@ -28,7 +28,7 @@
   },
   "dependencies": {
     "@nativecode/radarr": "^1.0.3",
-    "@nativecode/sonarr": "^1.0.1",
+    "@nativecode/sonarr": "^1.0.2",
     "@nofrills/fs": "^11.0.0",
     "@nofrills/types": "^10.0.2",
     "@sosus/core": "^0.0.0",
