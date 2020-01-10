@@ -1,4 +1,4 @@
-import { container, injectable, scoped, Lifecycle, Logger, Reduced } from '@sosus/core'
+import { container, injectable, scoped, Lifecycle, Logger, ReducePromises } from '@sosus/core'
 
 import { Process } from './Process'
 import { SyncableProcess } from './SyncProcesses/SyncableProcess'
