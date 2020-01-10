@@ -1,6 +1,6 @@
 import { Moment, Slugify, DeepPartial } from '@sosus/core'
 import { DictionaryOf } from '@nofrills/collections'
-import { StarAttributes, GenderType } from '@sosus/core-models'
+import { StarAttributes, GenderType } from '../@sosus/core-models'
 
 export function cleanName(name: string): string {
   return name.trim().replace(/\(([iv]+|[F]female)\)/, '')

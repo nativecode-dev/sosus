@@ -1,6 +1,6 @@
+import { Lincoln, Logger } from '@sosus/core'
 import { MediaContext } from '@sosus/data-media'
 import { RadarrClient } from '@nativecode/radarr'
-import { Lincoln, Logger } from '@sosus/core'
 
 import { CommandProcess } from '../CommandProcess'
 

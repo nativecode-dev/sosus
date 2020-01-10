@@ -15,8 +15,8 @@ export class RadarrUnmonitor extends BaseRadarrCommand {
   async execute() {
     const movies = await this.radarr.movie.list()
 
-    movies.filter(movie => movie.hasFile).map(movie => {
-      movie.
+    movies.filter(movie => movie.hasFile).map(movie => async () => {
+      const profiles = await this.radarr.profile.list()
     })
   }
 }
