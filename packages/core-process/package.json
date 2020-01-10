@@ -27,6 +27,8 @@
     "build": "tsc --project tsconfig.json"
   },
   "dependencies": {
+    "@nativecode/radarr": "^1.0.2",
+    "@nativecode/sonarr": "^1.0.1",
     "@nofrills/fs": "^11.0.0",
     "@nofrills/types": "^10.0.2",
     "@sosus/core": "^0.0.0",

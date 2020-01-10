@@ -53,8 +53,7 @@
     ],
     "source:format": [
       "jsonsort *.json",
-      "jsonsort executables/*/*.json",
-      "jsonsort packages/*/*.json",
+      "jsonsort (executables,packages)/*/*.json",
       "prettier --loglevel silent --write \"executables/*/src/**/*.ts\"",
       "prettier --loglevel silent --write \"packages/*/src/**/*.ts\""
     ],
