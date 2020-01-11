@@ -9,6 +9,7 @@ PouchDB.plugin(InMemory)
 PouchDB.plugin(NodeWebSql)
 PouchDB.plugin(Upsert)
 
+export * from './Connection'
 export * from './Document'
 export * from './DocumentContext'
 export * from './DocumentStore'

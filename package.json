@@ -53,9 +53,8 @@
     ],
     "source:format": [
       "jsonsort *.json",
-      "jsonsort (executables,packages)/*/*.json",
-      "prettier --loglevel silent --write \"executables/*/src/**/*.ts\"",
-      "prettier --loglevel silent --write \"packages/*/src/**/*.ts\""
+      "jsonsort {executables,packages}/*/*.json",
+      "prettier --loglevel silent --write \"{executables,packages}/*/src/**/*.ts\""
     ],
     "source:lint": [
       "tslint --project tsconfig.json --config tslint.json"
@@ -82,6 +81,7 @@
     "lerna": "^3.20.2",
     "lerna-update-wizard": "^0.17.7",
     "mocha": "^7.0.0",
+    "nodemon": "^2.0.2",
     "nyc": "^15.0.0",
     "prettier": "^1.19.1",
     "reflect-metadata": "^0.1.13",
