@@ -25,7 +25,8 @@
   },
   "scripts": {
     "build": "tsc --project tsconfig.json",
-    "monitor": "nodemon"
+    "monitor": "nodemon",
+    "upgrade": "npx npm-check -y"
   },
   "nodemonConfig": {
     "exec": "tsc --project tsconfig.json",

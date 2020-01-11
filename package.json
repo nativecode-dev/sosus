@@ -24,7 +24,7 @@
     "tasks": "cli-tasks",
     "test": "cli-tasks test",
     "test:watch": "cli-tasks test:watch",
-    "upgrade": "lernaupdate"
+    "upgrade": "cli-tasks upgrade"
   },
   "tasks": {
     "build": [
@@ -68,6 +68,10 @@
     "test:watch": [
       "[build:fast]",
       "nyc mocha --watch"
+    ],
+    "upgrade": [
+      "npx npm-check -y",
+      "lerna run upgrade"
     ]
   },
   "devDependencies": {
@@ -79,16 +83,15 @@
     "@types/node": "^13.1.4",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
-    "json-sort-cli": "^1.15.4",
+    "json-sort-cli": "^1.15.5",
     "lerna": "^3.20.2",
-    "lerna-update-wizard": "^0.17.7",
     "mocha": "^7.0.0",
     "nodemon": "^2.0.2",
     "nyc": "^15.0.0",
     "prettier": "^1.19.1",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.0",
-    "ts-node": "^8.5.4",
+    "ts-node": "^8.6.1",
     "tslint": "^5.20.1",
     "tslint-config-prettier": "^1.18.0",
     "tslint-config-standard": "^9.0.0",
