@@ -14,7 +14,7 @@ export class SonarrImport extends BaseSonarrCommand {
   }
 
   async execute() {
-    const series = await this.sonarr.shows.list()
+    const series = await this.sonarr.series.list()
     await this.importSeasons(Reduce(series.map(show => show.seasons)))
     await this.importSeries(series)
     await Throttle(series.map(show => () => this.importEpisodes(show)))
