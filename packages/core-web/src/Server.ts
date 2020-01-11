@@ -16,9 +16,9 @@ export abstract class Server<T extends ServerConfig> {
   private readonly express: express.Express
   private readonly http: http.Server
 
-  constructor(config: DeepPartial<T>) {
+  constructor(express: express.Express, config: DeepPartial<T>) {
     this.config = Merge<T>([ServerConfigDefaults as DeepPartial<T>, config])
-    this.express = express()
+    this.express = express
     this.http = http.createServer(this.express)
     this.express.use(bodyParser.json())
   }

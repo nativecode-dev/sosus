@@ -24,13 +24,27 @@
     "test": "specs"
   },
   "scripts": {
-    "build": "tsc --project tsconfig.json"
+    "build": "tsc --project tsconfig.json",
+    "monitor": "nodemon"
+  },
+  "nodemonConfig": {
+    "exec": "tsc --project tsconfig.json",
+    "ext": "ts",
+    "ignore": [
+      "dist",
+      "node_modules"
+    ],
+    "signal": "SIGHUP",
+    "watch": [
+      "src"
+    ]
   },
   "dependencies": {
     "@sosus/core": "^0.0.0",
     "@sosus/core-web": "^0.0.0"
   },
   "devDependencies": {
-    "@types/node": "^13.1.4"
+    "@types/node": "^13.1.4",
+    "nodemon": "^2.0.2"
   }
 }

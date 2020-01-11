@@ -1,9 +1,17 @@
-import { Router, RequestHandler } from 'express'
+import { Express, RequestHandler } from 'express'
 
-export interface IRoute {}
+export interface IRouteCollection {
+  [key: string]: RequestHandler
+}
+
+export interface IRoute {
+  register(): void
+}
 
 export abstract class Route implements IRoute {
-  constructor(protected readonly router: Router) {}
+  constructor(protected readonly router: Express) {}
+
+  abstract register(): void
 
   protected delete(path: string, handler: RequestHandler) {
     return this.router.delete(path, handler)

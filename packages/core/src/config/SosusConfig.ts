@@ -43,8 +43,8 @@ function getDefaultRoot(): string {
   return process.cwd()
 }
 
-export abstract class SosusConfig<T extends Config> {
-  protected readonly filename: string
+export class SosusConfig<T extends Config> {
+  readonly filename: string
 
   private readonly env: DeepPartial<T>
 
@@ -58,8 +58,6 @@ export abstract class SosusConfig<T extends Config> {
     const instance = Merge<T>([DefaultConfig as DeepPartial<T>, config, this.env])
     this.objectNavigator = ObjectNavigator.from(instance)
   }
-
-  protected abstract get defaults(): DeepPartial<T>
 
   protected get nav() {
     return this.objectNavigator
@@ -80,11 +78,11 @@ export abstract class SosusConfig<T extends Config> {
   async load(config?: DeepPartial<T>) {
     try {
       if (config) {
-        const instance = Merge<T>([DefaultConfig as DeepPartial<T>, this.defaults, config || {}, this.env])
+        const instance = Merge<T>([DefaultConfig as DeepPartial<T>, config || {}, this.env])
         this.objectNavigator = ObjectNavigator.from(instance)
       } else if (await fs.exists(this.filename)) {
         const json = await fs.json<DeepPartial<T>>(this.filename)
-        const instance = Merge<T>([DefaultConfig as DeepPartial<T>, this.defaults, json, config || {}, this.env])
+        const instance = Merge<T>([DefaultConfig as DeepPartial<T>, json, config || {}, this.env])
         this.objectNavigator = ObjectNavigator.from(instance)
       }
     } catch (error) {

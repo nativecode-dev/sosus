@@ -1,15 +1,12 @@
 import { Express } from 'express'
-import { RouterType } from '@sosus/core-web'
+import { Route, RouterType } from '@sosus/core-web'
 import { injectable, singleton, inject } from '@sosus/core'
-
-import { ApiRoute } from '../ApiRoute'
 
 @injectable()
 @singleton()
-export class Default extends ApiRoute {
+export class Default extends Route {
   constructor(@inject(RouterType) router: Express) {
-    super('default', router)
-    this.log.debug('created', this.name)
+    super(router)
   }
 
   register() {

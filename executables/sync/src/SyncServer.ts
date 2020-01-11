@@ -1,23 +1,18 @@
 import { Express } from 'express'
-import { inject, injectAll, injectable, singleton, Logger } from '@sosus/core'
+import { inject, injectAll, injectable, singleton } from '@sosus/core'
 import { IRoute, RouteCollectionType, RouterType, Server } from '@sosus/core-web'
 
-import { ApiServerConfig, ApiServerConfigType } from './ApiServerConfig'
+import { SyncServerConfig, SyncServerConfigType } from './SyncServerConfig'
 
 @injectable()
 @singleton()
-export class ApiServer extends Server<ApiServerConfig> {
-  readonly name = 'api-server'
-
-  private readonly log = Logger.extend(this.name)
-
+export class SyncApiServer extends Server<SyncServerConfig> {
   constructor(
     @inject(RouterType) express: Express,
+    @inject(SyncServerConfigType) config: SyncServerConfig,
     @injectAll(RouteCollectionType) private readonly routes: IRoute[],
-    @inject(ApiServerConfigType) config: ApiServerConfig,
   ) {
     super(express, config)
-    this.log.debug('created', this.name)
   }
 
   protected async bootstrap(express: Express) {
