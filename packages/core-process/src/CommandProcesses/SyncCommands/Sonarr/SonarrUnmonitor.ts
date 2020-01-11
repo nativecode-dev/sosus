@@ -18,14 +18,9 @@ export class SonarrUnmonitor extends BaseSonarrCommand {
     await Throttle(tasks)
   }
 
-  private async unmonitorEpisode(episode: Episode) {
-    this.sonarr.episodes
-  }
-
-  private async unmonitorSeries(series: Series) {
-    const tasks = series.seasons.map(season => () => this.unmonitorSeason(series, season))
-    await Throttle(tasks)
-    await this.sonarr.series.update(series)
+  private async unmonitorEpisode(episode: Episode): Promise<boolean> {
+    const file = await this.sonarr.files.id(episode.episodeFileId)
+    return file.qualityCutoffNotMet === false
   }
 
   private async unmonitorSeason(series: Series, season: Season) {
@@ -37,20 +32,24 @@ export class SonarrUnmonitor extends BaseSonarrCommand {
       const monitored = seasonNumber > 0 && season.monitored
 
       if (complete && monitored) {
-        const completed = episodes
+        const tasks = episodes
           .filter(episode => episode.seasonNumber === seasonNumber)
-          .every(episode => {
+          .map(episode => async () => {
             const seasonMatch = episode.seasonNumber === seasonNumber
-            const cutoffMet = episode.episodeFile && episode.episodeFile.qualityCutoffNotMet === false
+            const cutoffMet = await this.unmonitorEpisode(episode)
             return cutoffMet && seasonMatch
           })
 
-        if (completed) {
-          // do update
-        }
+        const result = await Throttle(tasks)
       }
     })
 
     await Throttle(tasks)
+  }
+
+  private async unmonitorSeries(series: Series) {
+    const tasks = series.seasons.map(season => () => this.unmonitorSeason(series, season))
+    await Throttle(tasks)
+    await this.sonarr.series.update(series)
   }
 }
