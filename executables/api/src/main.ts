@@ -6,10 +6,13 @@ import { SystemContextConfig } from '@sosus/data-system'
 import { container, fs, DeepPartial, DefaultConfig, SosusConfig, CouchConfig } from '@sosus/core'
 import { Bootstrap, ServerConfigDefaults, RouteCollectionType, RouterType, IRoute } from '@sosus/core-web'
 
-import { Movies } from './routes/Movies'
-import { Default } from './routes/Default'
 import { ApiServer } from './ApiServer'
 import { ApiServerConfig, ApiServerConfigType } from './ApiServerConfig'
+
+import { Default } from './routes/Default'
+import { Movies } from './routes/Movies'
+import { People } from './routes/People'
+import { Series } from './routes/Series'
 
 const DefaultApiServerConfig: DeepPartial<ApiServerConfig> = {
   ...DefaultConfig,
@@ -39,6 +42,8 @@ export default async function() {
 
   container.register<IRoute>(RouteCollectionType, Default)
   container.register<IRoute>(RouteCollectionType, Movies)
+  container.register<IRoute>(RouteCollectionType, People)
+  container.register<IRoute>(RouteCollectionType, Series)
 
   console.log('resolving server')
   const server = container.resolve(ApiServer)

@@ -12,7 +12,7 @@ export abstract class ApiRoute extends Route {
   }
 
   registerById<T extends Document>(route: string, context: Documents<T>) {
-    this.router.get(route, async (req, res) => {
+    this.router.get(this.clean(route), async (req, res) => {
       const { id } = req.params
       const movie = await context.byId(id)
       res.json(createResponse(movie))
@@ -20,7 +20,7 @@ export abstract class ApiRoute extends Route {
   }
 
   registerCollection<T extends Document>(route: string, context: Documents<T>) {
-    this.router.get(route, async (req, res) => {
+    this.router.get(this.clean(route), async (req, res) => {
       const { sort, query } = req.params
       const count = await context.count()
       const pagemodel = pagination(req, count)
@@ -50,5 +50,13 @@ export abstract class ApiRoute extends Route {
         this.log.error(error)
       }
     })
+  }
+
+  private clean(route: string): string {
+    if (route.startsWith('/') === false) {
+      return `/${route}`
+    }
+
+    return route
   }
 }

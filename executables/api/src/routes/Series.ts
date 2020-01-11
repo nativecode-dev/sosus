@@ -7,14 +7,17 @@ import { ApiRoute } from '../ApiRoute'
 
 @injectable()
 @singleton()
-export class Movies extends ApiRoute {
+export class Series extends ApiRoute {
   constructor(@inject(RouterType) router: Express, private readonly media: MediaContext) {
-    super('movies', router)
+    super('series', router)
     this.log.debug('created', this.name)
   }
 
   register() {
-    this.registerById('movies/:id', this.media.movies)
-    this.registerCollection('movies', this.media.movies)
+    this.registerById('episodes/:id', this.media.series)
+    this.registerCollection('episodes', this.media.series)
+
+    this.registerById('series/:id', this.media.series)
+    this.registerCollection('series', this.media.series)
   }
 }
