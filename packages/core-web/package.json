@@ -10,8 +10,8 @@
   "bugs": {
     "url": "https://github.com/nativecode-dev/sosus/issues"
   },
-  "homepage": "https://github.com/nativecode-dev/sosus/tree/master/packages/core#readme",
-  "author": "NativeCode <opensource@nativecode.com>",
+  "homepage": "https://github.com/nativecode-dev/sosus/tree/master/packages/core-web#readme",
+  "author": "opensource@nativecode.com",
   "keywords": [
     "SOSUS"
   ],
