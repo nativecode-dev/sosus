@@ -8,3 +8,5 @@ export interface ApiServerConfig extends ServerConfig {
     system: Connection
   }
 }
+
+export const ApiServerConfigType = Symbol('ApiServerConfig')

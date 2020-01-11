@@ -15,13 +15,32 @@ export interface Config {
   root: string
 }
 
-const { SOSUS_ROOT } = process.env
-const ROOT = fs.join(SOSUS_ROOT || os.homedir(), '.config', 'sosus')
+const ROOT = getDefaultRoot()
 
-const DEFAULTS: Config = {
+export const DefaultConfig: Config = {
   machine: os.hostname(),
-  port: Math.floor(Math.random() * 100) + 10000,
+  port: getDefaultPort(),
   root: ROOT,
+}
+
+function getDefaultPort(): number {
+  if (process.env.SOSUS_API_PORT) {
+    return parseInt(process.env.SOSUS_API_PORT, 0)
+  }
+
+  return Math.floor(Math.random() * 100) + 10000
+}
+
+function getDefaultRoot(): string {
+  if (process.env.SOSUS_ROOT) {
+    return process.env.SOSUS_ROOT
+  }
+
+  if (process.env.HOME) {
+    return fs.join(process.env.HOME, '.config', 'sosus')
+  }
+
+  return process.cwd()
 }
 
 export abstract class SosusConfig<T extends Config> {
@@ -36,7 +55,7 @@ export abstract class SosusConfig<T extends Config> {
     this.env = Env.from(options).toObject()
     this.filename = fs.join(config.root || ROOT, filename)
 
-    const instance = Merge<T>([DEFAULTS as DeepPartial<T>, config, this.env])
+    const instance = Merge<T>([DefaultConfig as DeepPartial<T>, config, this.env])
     this.objectNavigator = ObjectNavigator.from(instance)
   }
 
@@ -61,14 +80,12 @@ export abstract class SosusConfig<T extends Config> {
   async load(config?: DeepPartial<T>) {
     try {
       if (config) {
-        const instance = Merge<T>([DEFAULTS as DeepPartial<T>, this.defaults, config || {}, this.env])
+        const instance = Merge<T>([DefaultConfig as DeepPartial<T>, this.defaults, config || {}, this.env])
         this.objectNavigator = ObjectNavigator.from(instance)
-        console.log(this.value)
       } else if (await fs.exists(this.filename)) {
         const json = await fs.json<DeepPartial<T>>(this.filename)
-        const instance = Merge<T>([DEFAULTS as DeepPartial<T>, this.defaults, json, config || {}, this.env])
+        const instance = Merge<T>([DefaultConfig as DeepPartial<T>, this.defaults, json, config || {}, this.env])
         this.objectNavigator = ObjectNavigator.from(instance)
-        console.log(this.filename, this.value)
       }
     } catch (error) {
       console.error(error)

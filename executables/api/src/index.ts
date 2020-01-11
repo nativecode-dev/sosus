@@ -1,3 +1,5 @@
+import 'reflect-metadata'
+
 export * from './ApiConfig'
 export * from './ApiConfig'
 export * from './ApiServerConfig'
