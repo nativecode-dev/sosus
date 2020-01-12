@@ -1,0 +1,96 @@
+version: "3"
+
+services:
+  sosus-couchdb:
+    image: couchdb:2
+    container_name: sosus-couchdb
+    environment:
+      COUCHDB_USER: admin
+      COUCHDB_PASSWORD: password
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5984"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    hostname: sosus-couchdb
+    ports:
+      - 5984:5984
+      - 5986:5986
+    restart: unless-stopped
+    volumes:
+      - sosus-couchdb:/opt/couchdb/data
+
+  sosus-redis:
+    image: redis:5-alpine
+    container_name: sosus-redis
+    command:
+      - redis-server
+      - --appendonly
+      - "yes"
+    hostname: sosus-redis
+    ports:
+      - 6379:6379
+    restart: unless-stopped
+    volumes:
+      - sosus-redis:/data
+
+  sosus-api:
+    image: node:alpine
+    command: npm run exec:api
+    container_name: sosus-api
+    environment:
+      DEBUG: sosus:*:debug,sosus:*:error
+      NO_UPDATE_NOTIFIER: "true"
+      NODE_ENV: development
+    hostname: sosus-api
+    links:
+      - sosus-couchdb
+      - sosus-redis
+    ports:
+      - 9000:9000
+    user: "1000:1000"
+    volumes:
+      - .:/app
+    working_dir: /app
+
+  sosus-app:
+    image: node:alpine
+    command: npm run exec:app
+    container_name: sosus-app
+    environment:
+      NO_UPDATE_NOTIFIER: "true"
+      NODE_ENV: development
+    hostname: sosus-app
+    links:
+      - sosus-api
+      - sosus-redis
+    ports:
+      - 3000:3000
+      - 10000:10000
+    user: "1000:1000"
+    volumes:
+      - .:/app
+    working_dir: /app
+
+  sosus-sync:
+    image: node:alpine
+    command: npm run exec:sync
+    container_name: sosus-sync
+    environment:
+      DEBUG: sosus:*:debug, sosus:*:error
+      NO_UPDATE_NOTIFIER: "true"
+      NODE_ENV: development
+    hostname: sosus-sync
+    links:
+      - sosus-couchdb
+      - sosus-redis
+    ports:
+      - 9010:9010
+    user: "1000:1000"
+    volumes:
+      - .:/app
+    working_dir: /app
+
+volumes:
+  sosus-couchdb:
+  sosus-redis:

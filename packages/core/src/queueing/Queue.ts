@@ -4,17 +4,21 @@ import { Merge } from '../Merge'
 import { Logger } from '../Logger'
 import { RedisConfig } from '../config'
 import { DeepPartial } from '../DeepPartial'
-import { QueueMessage } from './QueueMessage'
+import { Envelope } from './Envelope'
 
-export abstract class Queue<T extends QueueMessage<M>, M> {
+export abstract class Queue<T> {
+  readonly name: string
+
   private readonly log = Logger.extend('queue')
 
   private readonly queue: RedisQueue
 
-  constructor(redis: RedisConfig) {
+  constructor(name: string, redis: RedisConfig) {
     this.queue = new RedisQueue(
       Merge<RedisQueue.ConstructorOptions>([redis]),
     )
+
+    this.name = name
 
     this.log.debug('created')
   }
@@ -25,6 +29,17 @@ export abstract class Queue<T extends QueueMessage<M>, M> {
         Merge<RedisQueue.CreateQueueOptions>([{ qname }, options as DeepPartial<RedisQueue.CreateQueueOptions>]),
       ),
     )
+  }
+
+  createMessage(message: T, source: string, target: string): Envelope {
+    return Merge<Envelope>([
+      {
+        message: JSON.stringify(message),
+        queue: this.name,
+        source,
+        target,
+      },
+    ])
   }
 
   async deleteMessage(qname: string, id: string): Promise<boolean> {
@@ -40,19 +55,31 @@ export abstract class Queue<T extends QueueMessage<M>, M> {
     return this.queue.listQueuesAsync()
   }
 
-  next(qname: string, vt: number = 120): Promise<{} | QueueMessage<M>> {
-    return this.queue.receiveMessageAsync({ qname, vt })
+  async next(qname: string, vt: number = 120): Promise<Envelope | undefined> {
+    const message = await this.queue.receiveMessageAsync({ qname, vt })
+
+    if (Object.keys(message).length > 0) {
+      return message as Envelope
+    }
+
+    return undefined
   }
 
-  pop(qname: string): Promise<{} | QueueMessage<M>> {
-    return this.queue.popMessageAsync({ qname })
+  async pop(qname: string): Promise<Envelope | undefined> {
+    const message = await this.queue.popMessageAsync({ qname })
+
+    if (Object.keys(message).length > 0) {
+      return message as Envelope
+    }
+
+    return undefined
   }
 
   quit() {
     return this.queue.quit()
   }
 
-  send(message: T) {
+  send(message: Envelope) {
     return this.sendMessage(message.queue, JSON.stringify(message))
   }
 

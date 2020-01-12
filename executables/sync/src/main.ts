@@ -3,11 +3,24 @@ import express from 'express'
 import { MediaContextConfig } from '@sosus/data-media'
 import { PeopleContextConfig } from '@sosus/data-people'
 import { SystemContextConfig } from '@sosus/data-system'
-import { Bootstrap, RouterType, RouteCollectionType, ServerConfigDefaults } from '@sosus/core-web'
-import { container, fs, DeepPartial, DefaultConfig, SosusConfig } from '@sosus/core'
+import { Bootstrap, RouterType, RouteCollectionType, ServerConfigDefaults, IRoute } from '@sosus/core-web'
+
+import {
+  container,
+  fs,
+  DeepPartial,
+  DefaultConfig,
+  SosusConfig,
+  NpmPackage,
+  NpmPackageType,
+  CouchConfig,
+  Logger,
+  Lincoln,
+  LoggerType,
+} from '@sosus/core'
 
 import { Default } from './routes/Default'
-import { SyncApiServer } from './SyncServer'
+import { SyncServer } from './SyncServer'
 import { SyncServerConfig, SyncServerConfigType } from './SyncServerConfig'
 
 const DefaultApiServerConfig: DeepPartial<SyncServerConfig> = {
@@ -21,19 +34,35 @@ const DefaultApiServerConfig: DeepPartial<SyncServerConfig> = {
   port: 9010,
 }
 
+function registerConfigurations(config: SyncServerConfig) {
+  const Package = require('../package.json')
+  container.register<NpmPackage>(NpmPackageType, { useValue: Package })
+  container.register<SyncServerConfig>(SyncServerConfigType, { useValue: config })
+  container.register<CouchConfig>(MediaContextConfig, { useValue: config.connections.media.couch })
+  container.register<CouchConfig>(PeopleContextConfig, { useValue: config.connections.people.couch })
+  container.register<CouchConfig>(SystemContextConfig, { useValue: config.connections.system.couch })
+}
+
+function registerRoutes() {
+  container.register<IRoute>(RouteCollectionType, Default)
+}
+
 export default async function() {
   const loader = new SosusConfig<SyncServerConfig>('.sosus-api.json', DefaultApiServerConfig)
+  console.log('loading configuration', loader.filename)
+
   const config = await loader.load()
   await fs.mkdirp(config.root)
 
-  container.register(SyncServerConfigType, { useValue: config })
-  container.register(MediaContextConfig, { useValue: config.connections.media.couch })
-  container.register(PeopleContextConfig, { useValue: config.connections.people.couch })
-  container.register(SystemContextConfig, { useValue: config.connections.system.couch })
-  container.register(RouterType, { useValue: express() })
+  console.log('registering dependencies')
+  registerConfigurations(config)
+  registerRoutes()
 
-  container.register(RouteCollectionType, Default)
+  container.register<express.Express>(RouterType, { useValue: express() })
+  container.register<Lincoln>(LoggerType, { useValue: Logger })
 
-  const server = container.resolve(SyncApiServer)
+  console.log('resolving server')
+  const server = container.resolve(SyncServer)
+
   await Bootstrap(server, config)
 }

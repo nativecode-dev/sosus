@@ -3,3 +3,4 @@ export * from './SyncProcesses'
 
 export * from './Process'
 export * from './ProcessManager'
+export * from './RegisterDependencies'

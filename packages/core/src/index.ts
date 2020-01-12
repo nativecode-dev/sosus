@@ -6,7 +6,7 @@ export * from 'tsyringe'
 
 export * from './config'
 export * from './errors'
-export * from './messaging'
+export * from './queueing'
 export * from './scheduling'
 
 export * from './Base64'

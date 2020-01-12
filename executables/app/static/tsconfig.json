@@ -1,0 +1,49 @@
+{
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "emitDecoratorMetadata": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "lib": [
+      "DOM",
+      "ESNext"
+    ],
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "strict": true,
+    "target": "ESNext",
+    "typeRoots": [
+      "types"
+    ],
+    "types": [
+      "svelte",
+      "@sapper",
+      "sirv"
+    ]
+  },
+  "exclude": [
+    "node_modules/*"
+  ],
+  "include": [
+    "src/**/*"
+  ],
+  "references": [
+    {
+      "path": "../pornstash-core"
+    },
+    {
+      "path": "../pornstash-core-config"
+    },
+    {
+      "path": "../pornstash-core-data"
+    },
+    {
+      "path": "../pornstash-core-models"
+    },
+    {
+      "path": "../pornstash-web"
+    }
+  ]
+}

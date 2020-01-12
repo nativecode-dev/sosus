@@ -16,8 +16,9 @@
   "keywords": [],
   "scripts": {
     "build": "cli-tasks build:fast",
-    "exe:api": "lerna run monitor --scope @sosus/api",
-    "exe:sync": "lerna run monitor --scope @sosus/sync",
+    "exec:api": "lerna run monitor --scope @sosus/api",
+    "exec:app": "lerna run monitor --scope @sosus/app",
+    "exec:sync": "lerna run monitor --scope @sosus/sync",
     "lerna": "lerna",
     "prepare": "lerna bootstrap",
     "rebuild": "cli-tasks build",

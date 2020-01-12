@@ -29,7 +29,7 @@
     "monitor": "nodemon"
   },
   "nodemonConfig": {
-    "exec": "tsc --project tsconfig.json",
+    "exec": "ts-node src",
     "ext": "ts",
     "ignore": [
       "dist",

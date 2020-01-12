@@ -3,11 +3,19 @@ import { ObjectNavigator } from '@nofrills/types'
 import { Slugify } from './Slugify'
 import { DocumentKeyError } from './errors/DocumentKeyError'
 
-const seen = new Map<any, string>()
+const cache = new Map<string, string>()
 
-export function CreateDocumentKey(document: any, properties: string[]): string {
-  if (seen.has(document)) {
-    return seen.get(document)!
+export function CreateDocumentKey(document: any, properties: string[], caching: boolean = true): string {
+  if (caching) {
+    const json = JSON.stringify(document)
+
+    if (cache.has(json)) {
+      const cached = cache.get(json)
+
+      if (cached) {
+        return cached
+      }
+    }
   }
 
   const navigator = ObjectNavigator.from(document)
@@ -23,6 +31,10 @@ export function CreateDocumentKey(document: any, properties: string[]): string {
   })
 
   const slug = Slugify(values.join('_'))
-  seen.set(document, slug)
+
+  if (caching) {
+    cache.set(document, slug)
+  }
+
   return slug
 }

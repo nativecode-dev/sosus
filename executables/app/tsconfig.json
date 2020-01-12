@@ -1,18 +1,31 @@
 {
   "compilerOptions": {
-    "outDir": "bin",
-    "rootDir": "src"
+    "allowSyntheticDefaultImports": true,
+    "emitDecoratorMetadata": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "lib": [
+      "DOM",
+      "ESNext"
+    ],
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "strict": true,
+    "target": "ESNext",
+    "typeRoots": [
+      "types"
+    ],
+    "types": [
+      "svelte",
+      "@sapper"
+    ]
   },
-  "extends": "../../tsconfig.settings",
-  "include": [
-    "src/**/*.ts"
+  "exclude": [
+    "node_modules/*"
   ],
-  "references": [
-    {
-      "path": "../../packages/core"
-    },
-    {
-      "path": "../../packages/core-web"
-    }
+  "include": [
+    "src/**/*"
   ]
 }

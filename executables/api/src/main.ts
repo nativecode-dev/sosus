@@ -3,6 +3,7 @@ import express from 'express'
 import { MediaContextConfig } from '@sosus/data-media'
 import { PeopleContextConfig } from '@sosus/data-people'
 import { SystemContextConfig } from '@sosus/data-system'
+import { registerCoreProcessDependencies } from '@sosus/core-process'
 import { Bootstrap, ServerConfigDefaults, RouteCollectionType, RouterType, IRoute } from '@sosus/core-web'
 
 import { ApiServer } from './ApiServer'
@@ -62,6 +63,7 @@ export default async function() {
   await fs.mkdirp(config.root)
 
   console.log('registering dependencies')
+  registerCoreProcessDependencies(container)
   registerConfigurations(config)
   registerRoutes()
 

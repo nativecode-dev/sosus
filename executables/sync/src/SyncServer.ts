@@ -6,7 +6,7 @@ import { SyncServerConfig, SyncServerConfigType } from './SyncServerConfig'
 
 @injectable()
 @singleton()
-export class SyncApiServer extends Server<SyncServerConfig> {
+export class SyncServer extends Server<SyncServerConfig> {
   constructor(
     @inject(RouterType) express: Express,
     @inject(SyncServerConfigType) config: SyncServerConfig,
