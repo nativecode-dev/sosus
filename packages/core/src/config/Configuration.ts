@@ -37,7 +37,7 @@ function getDefaultRoot(): string {
   return fs.join(process.cwd(), '.sosus')
 }
 
-export class SosusConfig<T extends Config> {
+export class Configuration<T extends Config> {
   readonly config: T
 
   private readonly env: DeepPartial<T>

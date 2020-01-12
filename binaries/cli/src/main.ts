@@ -1,4 +1,4 @@
-import { Config, SosusConfig, Logger, DeepPartial, DefaultConfig } from '@sosus/core'
+import { Config, Configuration, Logger, DeepPartial, DefaultConfig } from '@sosus/core'
 
 export interface CliConfig extends Config {}
 
@@ -9,7 +9,7 @@ export const DefaultCliConfig: DeepPartial<CliConfig> = {
 const log = Logger.extend('main')
 
 async function main() {
-  const loader = new SosusConfig<CliConfig>('.sosus-cli.json', DefaultCliConfig, log)
+  const loader = new Configuration<CliConfig>('.sosus-cli.json', DefaultCliConfig, log)
   await loader.save()
 }
 

@@ -5,7 +5,7 @@
   },
   "extends": "../../tsconfig.settings",
   "include": [
-    "src/**/*.ts"
+    "src/**/*.ts",
   ],
   "references": [
     {

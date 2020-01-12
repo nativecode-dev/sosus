@@ -2,9 +2,9 @@ import RedisQueue from 'rsmq'
 
 import { Merge } from '../Merge'
 import { Logger } from '../Logger'
-import { RedisConfig } from '../config'
 import { DeepPartial } from '../DeepPartial'
 import { Envelope } from './Envelope'
+import { RedisConfig } from '../config/RedisConfig'
 
 export abstract class Queue<T> {
   readonly name: string
@@ -31,7 +31,7 @@ export abstract class Queue<T> {
     )
   }
 
-  createMessage(message: T, source: string, target: string): Envelope {
+  createMessage(message: T, source: string, target: string = '*'): Envelope {
     return Merge<Envelope>([
       {
         message: JSON.stringify(message),

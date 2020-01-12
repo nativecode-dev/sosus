@@ -1,19 +1,25 @@
 import express from 'express'
 
+import { CouchConfig } from '@sosus/core-data'
 import { MediaContextConfig } from '@sosus/data-media'
 import { PeopleContextConfig } from '@sosus/data-people'
 import { SystemContextConfig } from '@sosus/data-system'
-import { DefaultProcessConfig } from '@sosus/core-process'
 import { Bootstrap, RouterType, RouteCollectionType, ServerConfigDefaults, IRoute } from '@sosus/core-web'
+
+import {
+  DefaultProcessConfig,
+  registerCoreProcessDependencies,
+  ProcessConfigType,
+  ProcessConfig,
+} from '@sosus/core-process'
 
 import {
   container,
   DeepPartial,
   DefaultConfig,
-  SosusConfig,
+  Configuration,
   NpmPackage,
   NpmPackageType,
-  CouchConfig,
   Logger,
   Lincoln,
   LoggerType,
@@ -38,6 +44,7 @@ const DefaultApiServerConfig: DeepPartial<SyncServerConfig> = {
 function registerConfigurations(config: SyncServerConfig) {
   const Package = require('../package.json')
   container.register<NpmPackage>(NpmPackageType, { useValue: Package })
+  container.register<ProcessConfig>(ProcessConfigType, { useValue: config })
   container.register<SyncServerConfig>(SyncServerConfigType, { useValue: config })
   container.register<CouchConfig>(MediaContextConfig, { useValue: config.connections.media.couch })
   container.register<CouchConfig>(PeopleContextConfig, { useValue: config.connections.people.couch })
@@ -51,12 +58,13 @@ function registerRoutes() {
 const log = Logger.extend('main')
 
 export default async function() {
-  const loader = new SosusConfig<SyncServerConfig>('.sosus-sync.json', DefaultApiServerConfig, log)
+  const loader = new Configuration<SyncServerConfig>('.sosus-sync.json', DefaultApiServerConfig, log)
   console.log('loading configuration', loader.filename)
 
   const config = await loader.load()
 
   console.log('registering dependencies')
+  registerCoreProcessDependencies(container)
   registerConfigurations(config)
   registerRoutes()
 

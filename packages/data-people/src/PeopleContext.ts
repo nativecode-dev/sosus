@@ -1,5 +1,5 @@
-import { DocumentContext } from '@sosus/core-data'
-import { CouchConfig, injectable, scoped, Lifecycle, inject } from '@sosus/core'
+import { DocumentContext, CouchConfig } from '@sosus/core-data'
+import { injectable, scoped, Lifecycle, inject } from '@sosus/core'
 
 import { Stars } from './stars/Stars'
 import { Actors } from './actors/Actors'

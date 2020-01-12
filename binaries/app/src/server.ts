@@ -2,15 +2,22 @@ import 'reflect-metadata'
 
 import express from 'express'
 
-import { registerCoreProcessDependencies } from '@sosus/core-process'
 import { Bootstrap, ServerConfigDefaults, RouterType } from '@sosus/core-web'
-import { container, DeepPartial, DefaultConfig, SosusConfig, Lincoln, LoggerType, Logger } from '@sosus/core'
+import { container, DeepPartial, DefaultConfig, Configuration, Lincoln, LoggerType, Logger } from '@sosus/core'
+
+import {
+  registerCoreProcessDependencies,
+  ProcessConfig,
+  ProcessConfigType,
+  DefaultProcessConfig,
+} from '@sosus/core-process'
 
 import { SapperServer } from './SapperServer'
 import { SapperServerConfig, SapperServerConfigType } from './SapperServerConfig'
 
 const DefaultApiServerConfig: DeepPartial<SapperServerConfig> = {
   ...DefaultConfig,
+  ...DefaultProcessConfig,
   ...ServerConfigDefaults,
   api_endpoint: 'http://localhost:9000',
   port: 3000,
@@ -18,12 +25,13 @@ const DefaultApiServerConfig: DeepPartial<SapperServerConfig> = {
 
 function registerConfigurations(config: SapperServerConfig) {
   container.register<SapperServerConfig>(SapperServerConfigType, { useValue: config })
+  container.register<ProcessConfig>(ProcessConfigType, { useValue: config })
 }
 
 const log = Logger.extend('main')
 
 export async function main() {
-  const loader = new SosusConfig<SapperServerConfig>('.sosus-app.json', DefaultApiServerConfig, log)
+  const loader = new Configuration<SapperServerConfig>('.sosus-app.json', DefaultApiServerConfig, log)
   console.log('loading configuration', loader.filename)
 
   const config = await loader.load()

@@ -4,7 +4,6 @@ import { SonarrClient } from '@nativecode/sonarr'
 import { DependencyContainer, LoggerType, Lincoln } from '@sosus/core'
 
 import { ProcessConfigType, ProcessConfig } from './ProcessConfig'
-import { CommandProcessType, CommandProcess } from './CommandProcesses'
 
 import { TagMatchCommand } from './CommandProcesses/PersistanceCommands/TagMatchCommand'
 import { StaticImagesCommand } from './CommandProcesses/PersistanceCommands/StaticImagesCommand'
@@ -12,14 +11,15 @@ import { RadarrImport } from './CommandProcesses/SyncCommands/Radarr/RadarrImpor
 import { SonarrImport } from './CommandProcesses/SyncCommands/Sonarr/SonarrImport'
 import { RadarrUnmonitor } from './CommandProcesses/SyncCommands/Radarr/RadarrUnmonitor'
 import { SonarrUnmonitor } from './CommandProcesses/SyncCommands/Sonarr/SonarrUnmonitor'
+import { Command, CommandType } from './CommandProcesses/Command'
 
 export function registerCoreProcessDependencies(container: DependencyContainer) {
-  container.register<CommandProcess<any>>(CommandProcessType, StaticImagesCommand)
-  container.register<CommandProcess<any>>(CommandProcessType, TagMatchCommand)
-  container.register<CommandProcess<any>>(CommandProcessType, RadarrImport)
-  container.register<CommandProcess<any>>(CommandProcessType, SonarrImport)
-  container.register<CommandProcess<any>>(CommandProcessType, RadarrUnmonitor)
-  container.register<CommandProcess<any>>(CommandProcessType, SonarrUnmonitor)
+  container.register<Command>(CommandType, StaticImagesCommand)
+  container.register<Command>(CommandType, TagMatchCommand)
+  container.register<Command>(CommandType, RadarrImport)
+  container.register<Command>(CommandType, SonarrImport)
+  container.register<Command>(CommandType, RadarrUnmonitor)
+  container.register<Command>(CommandType, SonarrUnmonitor)
 
   container.register<RadarrClient>(RadarrClient, {
     useFactory: container => {

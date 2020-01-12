@@ -1,17 +1,14 @@
 import { Express } from 'express'
 import { RouterType } from '@sosus/core-web'
+import { CommandType, Command } from '@sosus/core-process'
 import { injectable, singleton, inject, injectAll } from '@sosus/core'
 
 import { ApiRoute } from '../ApiRoute'
-import { CommandProcessType, CommandProcess } from '@sosus/core-process/src'
 
 @injectable()
 @singleton()
 export class Commands extends ApiRoute {
-  constructor(
-    @inject(RouterType) router: Express,
-    @injectAll(CommandProcessType) private readonly commands: CommandProcess<any>[],
-  ) {
+  constructor(@inject(RouterType) router: Express, @injectAll(CommandType) private readonly commands: Command[]) {
     super('default', router)
     this.log.debug('created', this.name)
   }

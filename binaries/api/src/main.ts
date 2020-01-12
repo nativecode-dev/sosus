@@ -1,17 +1,23 @@
 import express from 'express'
 
+import { CouchConfig } from '@sosus/core-data'
 import { MediaContextConfig } from '@sosus/data-media'
 import { PeopleContextConfig } from '@sosus/data-people'
 import { SystemContextConfig } from '@sosus/data-system'
-import { registerCoreProcessDependencies, DefaultProcessConfig } from '@sosus/core-process'
 import { Bootstrap, ServerConfigDefaults, RouteCollectionType, RouterType, IRoute } from '@sosus/core-web'
+
+import {
+  registerCoreProcessDependencies,
+  DefaultProcessConfig,
+  ProcessConfig,
+  ProcessConfigType,
+} from '@sosus/core-process'
 
 import {
   container,
   DeepPartial,
   DefaultConfig,
-  SosusConfig,
-  CouchConfig,
+  Configuration,
   NpmPackage,
   NpmPackageType,
   Lincoln,
@@ -43,6 +49,7 @@ const DefaultApiServerConfig: DeepPartial<ApiServerConfig> = {
 function registerConfigs(config: ApiServerConfig) {
   const Package = require('../package.json')
   container.register<NpmPackage>(NpmPackageType, { useValue: Package })
+  container.register<ProcessConfig>(ProcessConfigType, { useValue: config })
   container.register<ApiServerConfig>(ApiServerConfigType, { useValue: config })
   container.register<CouchConfig>(MediaContextConfig, { useValue: config.connections.media.couch })
   container.register<CouchConfig>(PeopleContextConfig, { useValue: config.connections.people.couch })
@@ -61,7 +68,7 @@ const log = Logger.extend('main')
 
 export default async function() {
   log.trace('DefaultApiServerConfig', DefaultApiServerConfig)
-  const loader = new SosusConfig<ApiServerConfig>('.sosus-api.json', DefaultApiServerConfig, log)
+  const loader = new Configuration<ApiServerConfig>('.sosus-api.json', DefaultApiServerConfig, log)
   console.log('loading configuration', loader.filename)
 
   const config = await loader.load()

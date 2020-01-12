@@ -13,7 +13,7 @@ export const ServerConfigDefaults: DeepPartial<ServerConfig> = {
 }
 
 export abstract class Server<T extends ServerConfig> {
-  private readonly config: T
+  readonly config: T
   private readonly express: express.Express
   private readonly http: http.Server
 

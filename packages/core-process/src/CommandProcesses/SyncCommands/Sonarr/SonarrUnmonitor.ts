@@ -8,7 +8,7 @@ import { BaseSonarrCommand } from '../BaseSonarrCommand'
 @scoped(Lifecycle.ContainerScoped)
 export class SonarrUnmonitor extends BaseSonarrCommand {
   constructor(media: MediaContext, sonarr: SonarrClient, @inject(LoggerType) logger: Lincoln) {
-    super('command-sonarrimportcommand', logger, media, sonarr)
+    super('command-sonarr-unmonitor', logger, media, sonarr)
     this.log.trace('created')
   }
 

@@ -1,12 +1,14 @@
-import { CommandProcess, CommandProcessType } from '@sosus/core-process'
-import { QueueHandler, inject, Lincoln, LoggerType, injectAll } from '@sosus/core'
+import { CommandType, Command as CommandProcess } from '@sosus/core-process'
+import { QueueHandler, inject, Lincoln, LoggerType, injectAll, injectable, scoped, Lifecycle } from '@sosus/core'
 
 import { Command } from './Command'
 import { CommandQueue } from './CommandQueue'
 
+@injectable()
+@scoped(Lifecycle.ContainerScoped)
 export class CommandQueueHandler extends QueueHandler<Command> {
   constructor(
-    @injectAll(CommandProcessType) private readonly commands: CommandProcess<any>[],
+    @injectAll(CommandType) private readonly commands: CommandProcess[],
     @inject(LoggerType) logger: Lincoln,
     queue: CommandQueue,
   ) {

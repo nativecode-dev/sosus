@@ -1,4 +1,4 @@
-import { CouchConfig } from '@sosus/core'
+import { CouchConfig } from './config/CouchConfig'
 
 export interface Connection {
   couch: CouchConfig

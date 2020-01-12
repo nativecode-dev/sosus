@@ -2,24 +2,14 @@ import { CacheType } from '@sosus/core-models'
 import { SystemContext } from '@sosus/data-system'
 import { Base64, Lifecycle, Lincoln, LoggerType, inject, injectable, fs, scoped } from '@sosus/core'
 
-import { CommandProcess } from '../CommandProcess'
+import { Command } from '../Command'
 
 @injectable()
 @scoped(Lifecycle.ContainerScoped)
-export class StaticImagesCommand implements CommandProcess<void> {
-  private readonly log: Lincoln
-
-  private cancelled = false
-
-  readonly name: string = 'command-staticimages'
-
+export class StaticImagesCommand extends Command {
   constructor(private readonly system: SystemContext, @inject(LoggerType) logger: Lincoln) {
-    this.log = logger.extend(this.name)
+    super('command-static-images', logger)
     this.log.trace('created')
-  }
-
-  async cancel() {
-    this.cancelled = true
   }
 
   async execute(path: string) {

@@ -1,8 +1,9 @@
 import PouchDB from 'pouchdb'
 
-import { CouchConfig, Logger, Merge } from '@sosus/core'
+import { Logger, Merge } from '@sosus/core'
 
 import { DocumentStore } from './DocumentStore'
+import { CouchConfig } from './config/CouchConfig'
 
 const log = Logger.extend('document-context')
 

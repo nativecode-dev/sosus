@@ -1,7 +1,8 @@
-import { CouchConfig, CreateDocumentKey, Logger, Merge, DeepPartial } from '@sosus/core'
+import { CreateDocumentKey, Logger, Merge, DeepPartial } from '@sosus/core'
 
 import { Document } from './Document'
 import { BaseDocumentStore } from './DocumentStore'
+import { CouchConfig } from './config/CouchConfig'
 
 export interface PropertyNames<T extends Document> {
   (document: T): string[]

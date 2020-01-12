@@ -7,6 +7,8 @@ PouchDB.plugin(Find)
 PouchDB.plugin(InMemory)
 PouchDB.plugin(Upsert)
 
+export * from './config'
+
 export * from './Connection'
 export * from './Document'
 export * from './DocumentContext'
