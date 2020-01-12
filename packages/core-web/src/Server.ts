@@ -2,9 +2,11 @@ import http from 'http'
 import express from 'express'
 import bodyParser from 'body-parser'
 
-import { Merge, DeepPartial, Logger, Lincoln } from '@sosus/core'
+import { Merge, DeepPartial, Logger, Lincoln, Runnable } from '@sosus/core'
 
 import { ServerConfig } from './ServerConfig'
+
+export const ServerConfigurationType = Symbol('ServerConfiguration')
 
 export const ServerConfigDefaults: DeepPartial<ServerConfig> = {
   enableSessions: false,
@@ -12,7 +14,7 @@ export const ServerConfigDefaults: DeepPartial<ServerConfig> = {
   statics: ['static'],
 }
 
-export abstract class Server<T extends ServerConfig> {
+export abstract class Server<T extends ServerConfig> implements Runnable {
   readonly config: T
   private readonly express: express.Express
   private readonly http: http.Server
@@ -28,12 +30,6 @@ export abstract class Server<T extends ServerConfig> {
     this.http = http.createServer(this.express)
     this.express.use(bodyParser.json())
   }
-
-  protected get server(): http.Server {
-    return this.http
-  }
-
-  protected abstract bootstrap(express: express.Express): Promise<void>
 
   async initialize(): Promise<void> {
     try {
@@ -52,10 +48,10 @@ export abstract class Server<T extends ServerConfig> {
     }
   }
 
-  start(port: number): Promise<void> {
+  start(): Promise<void> {
     return new Promise(resolve => {
-      this.http.listen(port, () => resolve())
-      console.log(`listening ${this.config.machine}:${port}`)
+      this.http.listen(this.config.port, () => resolve())
+      console.log(`listening ${this.config.machine}:${this.config.port}`)
     })
   }
 
@@ -70,4 +66,10 @@ export abstract class Server<T extends ServerConfig> {
       })
     })
   }
+
+  protected get server(): http.Server {
+    return this.http
+  }
+
+  protected abstract bootstrap(express: express.Express): Promise<void>
 }

@@ -9,10 +9,9 @@ import { Command } from '../Command'
 export class CacheImagesCommand extends Command {
   constructor(private readonly system: SystemContext, @inject(LoggerType) logger: Lincoln) {
     super('images-cache', logger)
-    this.log.trace('created')
   }
 
-  async execute(path: string) {
+  async executor(path: string) {
     this.log.trace(path)
 
     const caches = await this.system.cache.find({

@@ -2,7 +2,6 @@ import os from 'os'
 
 import { fs } from '@nofrills/fs'
 import { Lincoln } from '@nofrills/scrubs'
-import { ObjectNavigator } from '@nofrills/types'
 import { Env, EnvCaseOptions } from '@nofrills/env'
 
 import { Config } from './Config'
@@ -38,13 +37,11 @@ function getDefaultRoot(): string {
 }
 
 export class Configuration<T extends Config> {
-  readonly config: T
+  private config: T
 
   private readonly env: DeepPartial<T>
   private readonly filepath: string
   private readonly log: Lincoln
-
-  private objectNavigator: ObjectNavigator
 
   constructor(filename: string, config: DeepPartial<T>, logger: Lincoln) {
     this.log = logger.extend(filename)
@@ -52,9 +49,7 @@ export class Configuration<T extends Config> {
     const options = { env: process.env, casing: EnvCaseOptions.LowerCase, prefix: 'sosus' }
     this.env = Env.from(options).toObject()
 
-    const instance = Merge<T>([config, this.env])
-    this.objectNavigator = ObjectNavigator.from(instance)
-    this.config = instance
+    this.config = Merge<T>([config, this.env])
     this.filepath = fs.join(this.config.root, filename)
   }
 
@@ -62,20 +57,8 @@ export class Configuration<T extends Config> {
     return this.filepath
   }
 
-  protected get nav() {
-    return this.objectNavigator
-  }
-
   get value(): T {
-    return this.objectNavigator.toObject()
-  }
-
-  get machine() {
-    return this.objectNavigator.getValue<string>('machine')
-  }
-
-  get root() {
-    return this.objectNavigator.getValue<string>('root')
+    return this.config
   }
 
   async load() {
@@ -84,35 +67,29 @@ export class Configuration<T extends Config> {
 
       if (await fs.exists(this.filepath)) {
         const json = await fs.json<DeepPartial<T>>(this.filepath)
-        const instance = Merge<T>([DefaultConfig, json, partial, this.env])
-        this.objectNavigator = ObjectNavigator.from(instance)
-        this.log.trace('load-config', instance)
+        this.config = Merge<T>([partial, json, this.env])
+        this.log.trace('load-config', this.config)
       } else {
-        const instance = Merge<T>([DefaultConfig, partial, this.env])
-        this.objectNavigator = ObjectNavigator.from(instance)
-        this.log.trace('echo-config', instance)
+        this.config = Merge<T>([partial, this.env])
+        this.log.trace('echo-config', this.config)
       }
     } catch (error) {
       console.error(error)
     }
 
-    return this.value
+    return this.config
   }
 
   async save() {
     try {
-      if ((await fs.exists(this.root)) === false) {
-        await fs.mkdirp(this.root, true)
+      if ((await fs.exists(this.config.root)) === false) {
+        await fs.mkdirp(this.config.root, true)
       }
 
-      return fs.save<T>(this.filepath, this.value)
+      return fs.writeFile(this.filename, JSON.stringify(this.config, null, 2))
     } catch (error) {
       console.error(error)
       return false
     }
-  }
-
-  getValue<V>(path: string): V {
-    return this.objectNavigator.getValue<V>(path)
   }
 }

@@ -1,11 +1,12 @@
-import { Queue, injectable, scoped, Lifecycle, RedisConfig, RedisConfigType, inject } from '@sosus/core'
+import { inject, injectable, Lincoln, LoggerType, Queue, RedisConfig, RedisConfigType, singleton } from '@sosus/core'
 
-import { Command } from './Command'
+import { ICommand } from './Command'
+import { CommandQueueName } from './CommandQueueName'
 
 @injectable()
-@scoped(Lifecycle.ContainerScoped)
-export class CommandQueue extends Queue<Command> {
-  constructor(@inject(RedisConfigType) redis: RedisConfig) {
-    super('command-queue', redis)
+@singleton()
+export class CommandQueue extends Queue<ICommand> {
+  constructor(@inject(RedisConfigType) redis: RedisConfig, @inject(LoggerType) logger: Lincoln) {
+    super(CommandQueueName, redis, logger)
   }
 }

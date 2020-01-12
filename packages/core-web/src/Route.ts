@@ -34,5 +34,6 @@ export abstract class Route implements IRoute {
   }
 }
 
+export const AppType = Symbol('Express')
 export const RouterType = Symbol('Router')
 export const RouteCollectionType = Symbol('RouteCollection')

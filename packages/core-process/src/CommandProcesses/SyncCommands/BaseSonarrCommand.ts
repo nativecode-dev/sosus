@@ -12,6 +12,5 @@ export abstract class BaseSonarrCommand extends Command {
     protected readonly sonarr: SonarrClient,
   ) {
     super(name, logger)
-    this.log.trace('created')
   }
 }

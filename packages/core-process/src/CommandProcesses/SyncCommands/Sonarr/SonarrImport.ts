@@ -10,10 +10,9 @@ import { BaseSonarrCommand } from '../BaseSonarrCommand'
 export class SonarrImport extends BaseSonarrCommand {
   constructor(media: MediaContext, sonarr: SonarrClient, @inject(LoggerType) logger: Lincoln) {
     super('sonarr-import', logger, media, sonarr)
-    this.log.trace('created')
   }
 
-  async execute() {
+  async executor() {
     const series = await this.sonarr.series.list()
     await this.importSeasons(Reduce(series.map(show => show.seasons)))
     await this.importSeries(series)

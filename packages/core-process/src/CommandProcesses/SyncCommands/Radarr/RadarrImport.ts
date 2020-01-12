@@ -10,10 +10,9 @@ import { BaseRadarrCommand } from '../BaseRadarrCommand'
 export class RadarrImport extends BaseRadarrCommand {
   constructor(media: MediaContext, radarr: RadarrClient, @inject(LoggerType) logger: Lincoln) {
     super('radarr-import', logger, media, radarr)
-    this.log.trace('created')
   }
 
-  async execute() {
+  async executor() {
     const movies = await this.radarr.movie.list()
 
     const response = await this.media.movies.bulk(

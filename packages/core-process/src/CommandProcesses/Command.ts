@@ -12,18 +12,27 @@ export abstract class Command implements CommandProcess<any> {
   constructor(name: string, logger: Lincoln) {
     this.name = name
     this.log = logger.extend(name)
-    this.log.trace('created')
+    this.log.trace('create', `command:${this.name}`)
   }
 
   async cancel() {
     this.cancelling = true
+    this.log.trace('cancel', this.cancelling)
   }
 
   protected get cancelled(): boolean {
     return this.cancelling
   }
 
-  abstract execute(...args: any[]): Promise<any>
+  async execute(...args: any[]): Promise<any> {
+    this.log.trace('execute', this.name, ...args)
+    const result = await this.executor(...args)
+
+    this.log.trace('execute-done', result)
+    return result
+  }
+
+  protected abstract executor(...args: any[]): Promise<any>
 }
 
-export const CommandType = Symbol('BaseCommand')
+export const CommandType = Symbol('Command')

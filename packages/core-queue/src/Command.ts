@@ -1,4 +1,4 @@
-export interface Command {
+export interface ICommand {
   name: string
   parameters: any[]
 }

@@ -12,15 +12,16 @@ import { RadarrImport } from './CommandProcesses/SyncCommands/Radarr/RadarrImpor
 import { SonarrImport } from './CommandProcesses/SyncCommands/Sonarr/SonarrImport'
 import { RadarrUnmonitor } from './CommandProcesses/SyncCommands/Radarr/RadarrUnmonitor'
 import { SonarrUnmonitor } from './CommandProcesses/SyncCommands/Sonarr/SonarrUnmonitor'
+import { CommandExecutor } from './CommandProcesses/CommandExecutor'
 
 export function registerCommands(container: DependencyContainer) {
   container.register<Command>(CommandType, CacheImagesCommand)
   container.register<Command>(CommandType, TagMatchCommand)
 
   container.register<Command>(CommandType, RadarrImport)
-  container.register<Command>(CommandType, SonarrImport)
-
   container.register<Command>(CommandType, RadarrUnmonitor)
+
+  container.register<Command>(CommandType, SonarrImport)
   container.register<Command>(CommandType, SonarrUnmonitor)
 
   container.register<RadarrClient>(RadarrClient, {

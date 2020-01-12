@@ -8,10 +8,9 @@ import { Command } from '../Command'
 export class TagMatchCommand extends Command {
   constructor(private readonly media: MediaContext, @inject(LoggerType) logger: Lincoln) {
     super('tags-match', logger)
-    this.log.trace('created')
   }
 
-  async execute() {
+  async executor() {
     const files = await this.media.files.all({ selector: {}, limit: Number.MAX_SAFE_INTEGER })
 
     const tasks = files.map(file => async () => {

@@ -12,6 +12,5 @@ export abstract class BaseRadarrCommand extends Command {
     protected readonly radarr: RadarrClient,
   ) {
     super(name, logger)
-    this.log.trace('created')
   }
 }
