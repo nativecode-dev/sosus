@@ -24,8 +24,7 @@
     "rebuild": "cli-tasks build",
     "tasks": "cli-tasks",
     "test": "cli-tasks test",
-    "test:watch": "cli-tasks test:watch",
-    "upgrade": "cli-tasks upgrade"
+    "test:watch": "cli-tasks test:watch"
   },
   "tasks": {
     "build": [
@@ -73,6 +72,9 @@
     "upgrade": [
       "npx npm-check -y",
       "lerna run upgrade"
+    ],
+    "wizard": [
+      "lernaupdate"
     ]
   },
   "devDependencies": {
