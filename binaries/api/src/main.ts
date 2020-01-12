@@ -46,10 +46,8 @@ const DefaultApiServerConfig: DeepPartial<ApiServerConfig> = {
     people: { couch: { adapter: 'memory', name: 'people' } },
     system: { couch: { adapter: 'memory', name: 'system' } },
   },
-  redis: {
-    ...DefaultRedisConfig,
-  },
   port: 9000,
+  redis: DefaultRedisConfig,
 }
 
 function registerConfigs(config: ApiServerConfig) {

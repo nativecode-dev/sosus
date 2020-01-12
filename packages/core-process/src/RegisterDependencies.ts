@@ -5,19 +5,21 @@ import { DependencyContainer, LoggerType, Lincoln } from '@sosus/core'
 
 import { ProcessConfigType, ProcessConfig } from './ProcessConfig'
 
+import { Command, CommandType } from './CommandProcesses/Command'
 import { TagMatchCommand } from './CommandProcesses/PersistanceCommands/TagMatchCommand'
-import { StaticImagesCommand } from './CommandProcesses/PersistanceCommands/StaticImagesCommand'
+import { CacheImagesCommand } from './CommandProcesses/PersistanceCommands/CacheImagesCommand'
 import { RadarrImport } from './CommandProcesses/SyncCommands/Radarr/RadarrImport'
 import { SonarrImport } from './CommandProcesses/SyncCommands/Sonarr/SonarrImport'
 import { RadarrUnmonitor } from './CommandProcesses/SyncCommands/Radarr/RadarrUnmonitor'
 import { SonarrUnmonitor } from './CommandProcesses/SyncCommands/Sonarr/SonarrUnmonitor'
-import { Command, CommandType } from './CommandProcesses/Command'
 
 export function registerCoreProcessDependencies(container: DependencyContainer) {
-  container.register<Command>(CommandType, StaticImagesCommand)
+  container.register<Command>(CommandType, CacheImagesCommand)
   container.register<Command>(CommandType, TagMatchCommand)
+
   container.register<Command>(CommandType, RadarrImport)
   container.register<Command>(CommandType, SonarrImport)
+
   container.register<Command>(CommandType, RadarrUnmonitor)
   container.register<Command>(CommandType, SonarrUnmonitor)
 

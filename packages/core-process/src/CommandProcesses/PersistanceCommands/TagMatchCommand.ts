@@ -7,7 +7,7 @@ import { Command } from '../Command'
 @scoped(Lifecycle.ContainerScoped)
 export class TagMatchCommand extends Command {
   constructor(private readonly media: MediaContext, @inject(LoggerType) logger: Lincoln) {
-    super('command-tag-match', logger)
+    super('tags-match', logger)
     this.log.trace('created')
   }
 

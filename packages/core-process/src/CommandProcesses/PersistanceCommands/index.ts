@@ -1,2 +1,2 @@
-export * from './StaticImagesCommand'
+export * from './CacheImagesCommand'
 export * from './TagMatchCommand'

@@ -35,7 +35,6 @@ import { SyncServerConfig, SyncServerConfigType } from './SyncServerConfig'
 const DefaultApiServerConfig: DeepPartial<SyncServerConfig> = {
   ...DefaultConfig,
   ...DefaultProcessConfig,
-  ...DefaultRedisConfig,
   ...ServerConfigDefaults,
   connections: {
     media: { couch: { adapter: 'memory', name: 'media' } },
@@ -43,6 +42,7 @@ const DefaultApiServerConfig: DeepPartial<SyncServerConfig> = {
     system: { couch: { adapter: 'memory', name: 'system' } },
   },
   port: 9010,
+  redis: DefaultRedisConfig,
 }
 
 function registerConfigs(config: SyncServerConfig) {

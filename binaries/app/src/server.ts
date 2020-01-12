@@ -28,10 +28,10 @@ import { SapperServerConfig, SapperServerConfigType } from './SapperServerConfig
 const DefaultApiServerConfig: DeepPartial<SapperServerConfig> = {
   ...DefaultConfig,
   ...DefaultProcessConfig,
-  ...DefaultRedisConfig,
   ...ServerConfigDefaults,
   api_endpoint: 'http://localhost:9000',
   port: 3000,
+  redis: DefaultRedisConfig,
 }
 
 function registerConfigs(config: SapperServerConfig) {

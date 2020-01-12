@@ -1,5 +1,6 @@
-import { Queue } from './Queue'
 import { Lincoln } from '@nofrills/scrubs'
+
+import { Queue } from './Queue'
 
 export enum QueueState {
   running = 'running',
@@ -19,21 +20,25 @@ export abstract class QueueHandler<T> {
     return this.current
   }
 
-  async start() {
-    if (this.current === QueueState.stopped) {
-      this.current = QueueState.running
+  start() {
+    this.current = QueueState.running
 
+    return new Promise(async resolve => {
       const iterator = this.createIterator()
 
       for await (const envelope of iterator) {
         try {
+          if (this.current !== QueueState.running) {
+            resolve()
+          }
+
           const json = JSON.parse(envelope.message)
           await this.handle(json)
         } catch (error) {
           this.log.error(error)
         }
       }
-    }
+    })
   }
 
   stop() {

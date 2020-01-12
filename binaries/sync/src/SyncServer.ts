@@ -27,8 +27,12 @@ export class SyncServer extends Server<SyncServerConfig> {
 
     express.get('commands', (req, res) => res.json(this.commands.map(command => command.name)))
 
+    const urlize = (value: string): string => {
+      return value.replace('command-', '').replace('-', '/')
+    }
+
     this.commands.map(command => {
-      express.post(`commands/${command.name}`, (req, res) => {
+      express.post(`commands/${urlize(command.name)}`, (req, res) => {
         const envelope = this.command_queue.createMessage(
           { name: command.name, parameters: req.query },
           this.config.machine,

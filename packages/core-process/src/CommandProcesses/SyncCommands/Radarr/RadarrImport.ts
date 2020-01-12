@@ -9,7 +9,7 @@ import { BaseRadarrCommand } from '../BaseRadarrCommand'
 @scoped(Lifecycle.ContainerScoped)
 export class RadarrImport extends BaseRadarrCommand {
   constructor(media: MediaContext, radarr: RadarrClient, @inject(LoggerType) logger: Lincoln) {
-    super('command-radarr-import', logger, media, radarr)
+    super('radarr-import', logger, media, radarr)
     this.log.trace('created')
   }
 

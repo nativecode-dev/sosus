@@ -8,9 +8,9 @@ import { CommandQueue } from './CommandQueue'
 @scoped(Lifecycle.ContainerScoped)
 export class CommandQueueHandler extends QueueHandler<Command> {
   constructor(
-    @injectAll(CommandType) private readonly commands: CommandProcess[],
-    @inject(LoggerType) logger: Lincoln,
     queue: CommandQueue,
+    @inject(LoggerType) logger: Lincoln,
+    @injectAll(CommandType) private readonly commands: CommandProcess[],
   ) {
     super(queue, logger)
   }
