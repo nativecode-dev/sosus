@@ -10,7 +10,7 @@
   "bugs": {
     "url": "https://github.com/nativecode-dev/sosus/issues"
   },
-  "homepage": "https://github.com/nativecode-dev/sosus/tree/master/executables/cli#readme",
+  "homepage": "https://github.com/nativecode-dev/sosus/tree/master/binaries/cli#readme",
   "author": "opensource@nativecode.com",
   "keywords": [
     "SOSUS"
