@@ -7,7 +7,7 @@ import { SystemContextConfig } from '@sosus/data-system'
 import { Bootstrap, ServerConfigDefaults, RouteCollectionType, RouterType, IRoute } from '@sosus/core-web'
 
 import {
-  registerCoreProcessDependencies,
+  registerCommands,
   DefaultProcessConfig,
   ProcessConfig,
   ProcessConfigType,
@@ -80,7 +80,7 @@ export default async function() {
   log.trace('config', config)
 
   console.log('registering dependencies')
-  registerCoreProcessDependencies(container)
+  registerCommands(container)
   registerConfigs(config)
   registerRoutes()
 

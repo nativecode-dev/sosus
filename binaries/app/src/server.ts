@@ -15,12 +15,7 @@ import {
   DefaultRedisConfig,
 } from '@sosus/core'
 
-import {
-  registerCoreProcessDependencies,
-  ProcessConfig,
-  ProcessConfigType,
-  DefaultProcessConfig,
-} from '@sosus/core-process'
+import { registerCommands, ProcessConfig, ProcessConfigType, DefaultProcessConfig } from '@sosus/core-process'
 
 import { SapperServer } from './SapperServer'
 import { SapperServerConfig, SapperServerConfigType } from './SapperServerConfig'
@@ -48,7 +43,7 @@ export async function main() {
   const config = await loader.load()
 
   console.log('registering dependencies')
-  registerCoreProcessDependencies(container)
+  registerCommands(container)
   registerConfigs(config)
 
   container.register<express.Express>(RouterType, { useValue: express() })

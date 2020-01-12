@@ -13,7 +13,7 @@ import { SonarrImport } from './CommandProcesses/SyncCommands/Sonarr/SonarrImpor
 import { RadarrUnmonitor } from './CommandProcesses/SyncCommands/Radarr/RadarrUnmonitor'
 import { SonarrUnmonitor } from './CommandProcesses/SyncCommands/Sonarr/SonarrUnmonitor'
 
-export function registerCoreProcessDependencies(container: DependencyContainer) {
+export function registerCommands(container: DependencyContainer) {
   container.register<Command>(CommandType, CacheImagesCommand)
   container.register<Command>(CommandType, TagMatchCommand)
 

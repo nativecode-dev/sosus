@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "outDir": "bin",
+    "rootDir": "src"
+  },
+  "extends": "../../tsconfig.settings",
+  "include": [
+    "src/**/*.ts"
+  ],
+  "references": [
+    {
+      "path": "../../packages/core"
+    },
+    {
+      "path": "../../packages/core-data"
+    },
+    {
+      "path": "../../packages/core-web"
+    },
+    {
+      "path": "../../packages/data-media"
+    },
+    {
+      "path": "../../packages/data-people"
+    },
+    {
+      "path": "../../packages/data-system"
+    }
+  ]
+}

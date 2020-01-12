@@ -4,7 +4,7 @@ import { CouchConfig } from '@sosus/core-data'
 import { MediaContextConfig } from '@sosus/data-media'
 import { PeopleContextConfig } from '@sosus/data-people'
 import { SystemContextConfig } from '@sosus/data-system'
-import { Bootstrap, RouterType, RouteCollectionType, ServerConfigDefaults, IRoute } from '@sosus/core-web'
+import { Bootstrap, RouterType, ServerConfigDefaults, IRoute, RouteCollectionType } from '@sosus/core-web'
 import { DefaultProcessConfig, registerCommands, ProcessConfigType, ProcessConfig } from '@sosus/core-process'
 
 import {
@@ -23,10 +23,10 @@ import {
 } from '@sosus/core'
 
 import { Default } from './routes/Default'
-import { SyncServer } from './SyncServer'
-import { SyncServerConfig, SyncServerConfigType } from './SyncServerConfig'
+import { ProcessorServer } from './ProcessorServer'
+import { ProcessorServerConfig, ProcessorServerConfigType } from './ProcessorServerConfig'
 
-const DefaultApiServerConfig: DeepPartial<SyncServerConfig> = {
+const DefaultApiServerConfig: DeepPartial<ProcessorServerConfig> = {
   ...DefaultConfig,
   ...DefaultProcessConfig,
   ...ServerConfigDefaults,
@@ -35,15 +35,15 @@ const DefaultApiServerConfig: DeepPartial<SyncServerConfig> = {
     people: { couch: { adapter: 'memory', name: 'people' } },
     system: { couch: { adapter: 'memory', name: 'system' } },
   },
-  port: 9010,
+  port: 9020,
   redis: DefaultRedisConfig,
 }
 
-function registerConfigs(config: SyncServerConfig) {
+function registerConfigs(config: ProcessorServerConfig) {
   const Package = require('../package.json')
   container.register<NpmPackage>(NpmPackageType, { useValue: Package })
   container.register<ProcessConfig>(ProcessConfigType, { useValue: config })
-  container.register<SyncServerConfig>(SyncServerConfigType, { useValue: config })
+  container.register<ProcessorServerConfig>(ProcessorServerConfigType, { useValue: config })
   container.register<CouchConfig>(MediaContextConfig, { useValue: config.connections.media.couch })
   container.register<CouchConfig>(PeopleContextConfig, { useValue: config.connections.people.couch })
   container.register<CouchConfig>(SystemContextConfig, { useValue: config.connections.system.couch })
@@ -57,7 +57,7 @@ function registerRoutes() {
 const log = Logger.extend('main')
 
 export default async function() {
-  const loader = new Configuration<SyncServerConfig>('.sosus-sync.json', DefaultApiServerConfig, log)
+  const loader = new Configuration<ProcessorServerConfig>('.sosus-sync.json', DefaultApiServerConfig, log)
   console.log('loading configuration', loader.filename)
 
   const config = await loader.load()
@@ -71,7 +71,7 @@ export default async function() {
   container.register<Lincoln>(LoggerType, { useValue: Logger })
 
   console.log('resolving server')
-  const server = container.resolve(SyncServer)
+  const server = container.resolve(ProcessorServer)
 
   await loader.save()
   await Bootstrap(server, config)
