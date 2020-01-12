@@ -18,5 +18,12 @@ export class Commands extends ApiRoute {
 
   register() {
     this.router.get('/commands', (_, res) => res.json(this.commands.map(command => command.name)))
+
+    this.commands.map(command => {
+      this.router.get(`/command/${command.name}`, (req, res) => {
+        const { parameters } = req.params
+        res.json({ command, parameters })
+      })
+    })
   }
 }

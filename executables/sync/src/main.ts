@@ -3,6 +3,7 @@ import express from 'express'
 import { MediaContextConfig } from '@sosus/data-media'
 import { PeopleContextConfig } from '@sosus/data-people'
 import { SystemContextConfig } from '@sosus/data-system'
+import { DefaultProcessConfig } from '@sosus/core-process'
 import { Bootstrap, RouterType, RouteCollectionType, ServerConfigDefaults, IRoute } from '@sosus/core-web'
 
 import {
@@ -24,6 +25,7 @@ import { SyncServerConfig, SyncServerConfigType } from './SyncServerConfig'
 
 const DefaultApiServerConfig: DeepPartial<SyncServerConfig> = {
   ...DefaultConfig,
+  ...DefaultProcessConfig,
   ...ServerConfigDefaults,
   connections: {
     media: { couch: { adapter: 'memory', name: 'media' } },
@@ -64,5 +66,6 @@ export default async function() {
   console.log('resolving server')
   const server = container.resolve(SyncServer)
 
+  await loader.save()
   await Bootstrap(server, config)
 }

@@ -1,14 +1,14 @@
 import { MediaContext } from '@sosus/data-media'
 import { SonarrClient, Series, Season, Episode } from '@nativecode/sonarr'
-import { Lifecycle, Throttle, injectable, scoped, Reduce } from '@sosus/core'
+import { Lifecycle, Throttle, injectable, scoped, inject, LoggerType, Lincoln } from '@sosus/core'
 
 import { BaseSonarrCommand } from '../BaseSonarrCommand'
 
 @injectable()
 @scoped(Lifecycle.ContainerScoped)
 export class SonarrUnmonitor extends BaseSonarrCommand {
-  constructor(media: MediaContext, sonarr: SonarrClient) {
-    super('command-sonarrimportcommand', media, sonarr)
+  constructor(media: MediaContext, sonarr: SonarrClient, @inject(LoggerType) logger: Lincoln) {
+    super('command-sonarrimportcommand', logger, media, sonarr)
     this.log.trace('created')
   }
 

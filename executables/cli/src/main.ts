@@ -9,8 +9,8 @@ export const DefaultCliConfig: DeepPartial<CliConfig> = {
 const log = Logger.extend('main')
 
 async function main() {
-  const config = new SosusConfig<CliConfig>('.sosus-cli.json', DefaultCliConfig, log)
-  log.trace(config)
+  const loader = new SosusConfig<CliConfig>('.sosus-cli.json', DefaultCliConfig, log)
+  await loader.save()
 }
 
 main().catch(console.log)

@@ -38,6 +38,7 @@ export async function main() {
   console.log('resolving server')
   const server = container.resolve(SapperServer)
 
+  await loader.save()
   await Bootstrap(server, config)
 }
 

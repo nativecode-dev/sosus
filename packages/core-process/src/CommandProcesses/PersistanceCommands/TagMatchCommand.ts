@@ -1,5 +1,5 @@
 import { MediaContext } from '@sosus/data-media'
-import { Lincoln, Logger, injectable, scoped, Lifecycle, Throttle } from '@sosus/core'
+import { Lincoln, Lifecycle, LoggerType, Throttle, inject, injectable, scoped } from '@sosus/core'
 
 import { CommandProcess } from '../CommandProcess'
 
@@ -12,8 +12,8 @@ export class TagMatchCommand implements CommandProcess<void> {
 
   readonly name: string = 'command-staticimages'
 
-  constructor(private readonly media: MediaContext) {
-    this.log = Logger.extend(this.name)
+  constructor(private readonly media: MediaContext, @inject(LoggerType) logger: Lincoln) {
+    this.log = logger.extend(this.name)
     this.log.trace('created')
   }
 

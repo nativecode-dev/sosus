@@ -3,16 +3,8 @@ import express from 'express'
 import { MediaContextConfig } from '@sosus/data-media'
 import { PeopleContextConfig } from '@sosus/data-people'
 import { SystemContextConfig } from '@sosus/data-system'
-import { registerCoreProcessDependencies } from '@sosus/core-process'
+import { registerCoreProcessDependencies, DefaultProcessConfig } from '@sosus/core-process'
 import { Bootstrap, ServerConfigDefaults, RouteCollectionType, RouterType, IRoute } from '@sosus/core-web'
-
-import { ApiServer } from './ApiServer'
-import { ApiServerConfig, ApiServerConfigType } from './ApiServerConfig'
-
-import { Default } from './routes/Default'
-import { Movies } from './routes/Movies'
-import { People } from './routes/People'
-import { Series } from './routes/Series'
 
 import {
   container,
@@ -27,8 +19,18 @@ import {
   Logger,
 } from '@sosus/core'
 
+import { ApiServer } from './ApiServer'
+import { ApiServerConfig, ApiServerConfigType } from './ApiServerConfig'
+
+import { Commands } from './routes/Commands'
+import { Default } from './routes/Default'
+import { Movies } from './routes/Movies'
+import { People } from './routes/People'
+import { Series } from './routes/Series'
+
 const DefaultApiServerConfig: DeepPartial<ApiServerConfig> = {
   ...DefaultConfig,
+  ...DefaultProcessConfig,
   ...ServerConfigDefaults,
   connections: {
     media: { couch: { adapter: 'memory', name: 'media' } },
@@ -48,6 +50,7 @@ function registerConfigs(config: ApiServerConfig) {
 }
 
 function registerRoutes() {
+  container.register<IRoute>(RouteCollectionType, Commands)
   container.register<IRoute>(RouteCollectionType, Default)
   container.register<IRoute>(RouteCollectionType, Movies)
   container.register<IRoute>(RouteCollectionType, People)
@@ -75,5 +78,6 @@ export default async function() {
   console.log('resolving server')
   const server = container.resolve(ApiServer)
 
+  await loader.save()
   await Bootstrap(server, config)
 }

@@ -1,14 +1,14 @@
 import { MediaContext } from '@sosus/data-media'
 import { RadarrClient } from '@nativecode/radarr'
-import { Lifecycle, injectable, scoped, Throttle } from '@sosus/core'
+import { Lifecycle, injectable, scoped, Throttle, inject, LoggerType, Lincoln } from '@sosus/core'
 
 import { BaseRadarrCommand } from '../BaseRadarrCommand'
 
 @injectable()
 @scoped(Lifecycle.ContainerScoped)
 export class RadarrUnmonitor extends BaseRadarrCommand {
-  constructor(media: MediaContext, radarr: RadarrClient) {
-    super('command-radarrimportcommand', media, radarr)
+  constructor(media: MediaContext, radarr: RadarrClient, @inject(LoggerType) logger: Lincoln) {
+    super('command-radarrimportcommand', logger, media, radarr)
     this.log.trace('created')
   }
 

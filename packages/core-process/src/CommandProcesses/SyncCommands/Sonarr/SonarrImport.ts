@@ -1,15 +1,15 @@
 import { MediaType } from '@sosus/core-models'
 import { MediaContext } from '@sosus/data-media'
 import { SonarrClient, Series, Season } from '@nativecode/sonarr'
-import { injectable, scoped, Lifecycle, Reduce, Throttle } from '@sosus/core'
+import { injectable, scoped, Lifecycle, Reduce, Throttle, inject, LoggerType, Lincoln } from '@sosus/core'
 
 import { BaseSonarrCommand } from '../BaseSonarrCommand'
 
 @injectable()
 @scoped(Lifecycle.ContainerScoped)
 export class SonarrImport extends BaseSonarrCommand {
-  constructor(media: MediaContext, sonarr: SonarrClient) {
-    super('command-radarrimportcommand', media, sonarr)
+  constructor(media: MediaContext, sonarr: SonarrClient, @inject(LoggerType) logger: Lincoln) {
+    super('command-radarrimportcommand', logger, media, sonarr)
     this.log.trace('created')
   }
 

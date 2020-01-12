@@ -1,6 +1,6 @@
+import { Lincoln } from '@sosus/core'
 import { MediaContext } from '@sosus/data-media'
 import { SonarrClient } from '@nativecode/sonarr'
-import { Lincoln, Logger } from '@sosus/core'
 
 import { CommandProcess } from '../CommandProcess'
 
@@ -11,9 +11,14 @@ export abstract class BaseSonarrCommand implements CommandProcess<void> {
 
   readonly name: string
 
-  constructor(name: string, protected readonly media: MediaContext, protected readonly sonarr: SonarrClient) {
+  constructor(
+    name: string,
+    logger: Lincoln,
+    protected readonly media: MediaContext,
+    protected readonly sonarr: SonarrClient,
+  ) {
     this.name = name
-    this.log = Logger.extend(name)
+    this.log = logger.extend(name)
     this.log.trace('created')
   }
 

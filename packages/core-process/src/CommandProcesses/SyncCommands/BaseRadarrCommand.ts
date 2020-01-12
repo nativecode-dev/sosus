@@ -1,4 +1,4 @@
-import { Lincoln, Logger } from '@sosus/core'
+import { Lincoln } from '@sosus/core'
 import { MediaContext } from '@sosus/data-media'
 import { RadarrClient } from '@nativecode/radarr'
 
@@ -11,9 +11,14 @@ export abstract class BaseRadarrCommand implements CommandProcess<void> {
 
   readonly name: string
 
-  constructor(name: string, protected readonly media: MediaContext, protected readonly radarr: RadarrClient) {
+  constructor(
+    name: string,
+    logger: Lincoln,
+    protected readonly media: MediaContext,
+    protected readonly radarr: RadarrClient,
+  ) {
     this.name = name
-    this.log = Logger.extend(name)
+    this.log = logger.extend(name)
     this.log.trace('created')
   }
 
