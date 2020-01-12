@@ -34,7 +34,7 @@
     "pouchdb-core": "^7.1.1"
   },
   "devDependencies": {
-    "@types/node": "^13.1.4",
+    "@types/node": "~13.1.4",
     "@types/pouchdb-core": "^7.0.5"
   }
 }

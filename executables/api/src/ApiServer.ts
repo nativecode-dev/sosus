@@ -22,5 +22,7 @@ export class ApiServer extends Server<ApiServerConfig> {
 
   protected async bootstrap(express: Express) {
     this.routes.map(route => route.register())
+
+    console.log(Object.keys(express._router))
   }
 }
