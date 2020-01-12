@@ -18,6 +18,7 @@
     "build": "cli-tasks build:fast",
     "exec:api": "lerna run monitor --scope @sosus/api",
     "exec:app": "lerna run monitor --scope @sosus/app",
+    "exec:proc": "lerna run monitor --scope @sosus/processor",
     "exec:sync": "lerna run monitor --scope @sosus/sync",
     "lerna": "lerna",
     "prepare": "lerna bootstrap",

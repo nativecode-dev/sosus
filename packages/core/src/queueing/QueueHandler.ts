@@ -11,6 +11,7 @@ export abstract class QueueHandler<T> {
   protected readonly log: Lincoln
 
   private current: QueueState = QueueState.stopped
+  private promise: Promise<T> | null = null
 
   constructor(private readonly queue: Queue<T>, logger: Lincoln) {
     this.log = logger.extend(this.queue.name)
@@ -21,11 +22,14 @@ export abstract class QueueHandler<T> {
   }
 
   start() {
+    if (this.promise) {
+      return
+    }
+
+    const iterator = this.createIterator()
+
     this.current = QueueState.running
-
-    return new Promise(async resolve => {
-      const iterator = this.createIterator()
-
+    this.promise = new Promise<T>(async resolve => {
       for await (const envelope of iterator) {
         try {
           if (this.current !== QueueState.running) {
@@ -41,9 +45,12 @@ export abstract class QueueHandler<T> {
     })
   }
 
-  stop() {
-    if (this.current === QueueState.running) {
+  async stop() {
+    if (this.promise && this.current === QueueState.running) {
       this.current = QueueState.stopped
+      const promise = this.promise
+      this.promise = null
+      return promise
     }
   }
 

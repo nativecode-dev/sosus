@@ -4,14 +4,8 @@ import { CouchConfig } from '@sosus/core-data'
 import { MediaContextConfig } from '@sosus/data-media'
 import { PeopleContextConfig } from '@sosus/data-people'
 import { SystemContextConfig } from '@sosus/data-system'
-import { Bootstrap, ServerConfigDefaults, RouteCollectionType, RouterType, IRoute } from '@sosus/core-web'
-
-import {
-  registerCommands,
-  DefaultProcessConfig,
-  ProcessConfig,
-  ProcessConfigType,
-} from '@sosus/core-process'
+import { registerCommands, DefaultProcessConfig, ProcessConfig, ProcessConfigType } from '@sosus/core-process'
+import { Bootstrap, ServerConfigDefaults, RouteCollectionType, RouterType, IRoute, Commands } from '@sosus/core-web'
 
 import {
   container,
@@ -30,7 +24,6 @@ import {
 import { ApiServer } from './ApiServer'
 import { ApiServerConfig, ApiServerConfigType } from './ApiServerConfig'
 
-import { Commands } from './routes/Commands'
 import { Default } from './routes/Default'
 import { Movies } from './routes/Movies'
 import { People } from './routes/People'
@@ -39,7 +32,6 @@ import { Series } from './routes/Series'
 const DefaultApiServerConfig: DeepPartial<ApiServerConfig> = {
   ...DefaultConfig,
   ...DefaultProcessConfig,
-  ...DefaultRedisConfig,
   ...ServerConfigDefaults,
   connections: {
     media: { couch: { adapter: 'memory', name: 'media' } },

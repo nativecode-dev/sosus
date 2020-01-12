@@ -4,7 +4,7 @@ import { CouchConfig } from '@sosus/core-data'
 import { MediaContextConfig } from '@sosus/data-media'
 import { PeopleContextConfig } from '@sosus/data-people'
 import { SystemContextConfig } from '@sosus/data-system'
-import { Bootstrap, RouterType, RouteCollectionType, ServerConfigDefaults, IRoute } from '@sosus/core-web'
+import { Bootstrap, RouterType, ServerConfigDefaults } from '@sosus/core-web'
 import { DefaultProcessConfig, registerCommands, ProcessConfigType, ProcessConfig } from '@sosus/core-process'
 
 import {
@@ -22,7 +22,6 @@ import {
   DefaultRedisConfig,
 } from '@sosus/core'
 
-import { Default } from './routes/Default'
 import { SyncServer } from './SyncServer'
 import { SyncServerConfig, SyncServerConfigType } from './SyncServerConfig'
 
@@ -50,10 +49,6 @@ function registerConfigs(config: SyncServerConfig) {
   container.register<RedisConfig>(RedisConfigType, { useValue: config.redis })
 }
 
-function registerRoutes() {
-  container.register<IRoute>(RouteCollectionType, Default)
-}
-
 const log = Logger.extend('main')
 
 export default async function() {
@@ -65,7 +60,6 @@ export default async function() {
   console.log('registering dependencies')
   registerCommands(container)
   registerConfigs(config)
-  registerRoutes()
 
   container.register<express.Express>(RouterType, { useValue: express() })
   container.register<Lincoln>(LoggerType, { useValue: Logger })

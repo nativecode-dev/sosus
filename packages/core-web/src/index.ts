@@ -1,4 +1,5 @@
 export * from './middleware'
+export * from './routes'
 
 export * from './Bootstrap'
 export * from './PageModel'
