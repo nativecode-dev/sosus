@@ -28,7 +28,7 @@
     "upgrade": "npx npm-check -y"
   },
   "dependencies": {
-    "@nativecode/radarr": "~2.0.1",
+    "@nativecode/radarr": "^2.1.0",
     "@nativecode/sonarr": "~3.0.1",
     "@nofrills/fs": "~11.0.0",
     "@nofrills/types": "~10.0.2",
