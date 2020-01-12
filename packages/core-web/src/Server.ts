@@ -2,7 +2,7 @@ import http from 'http'
 import express from 'express'
 import bodyParser from 'body-parser'
 
-import { Merge, DeepPartial } from '@sosus/core'
+import { Merge, DeepPartial, Logger, Lincoln } from '@sosus/core'
 
 import { ServerConfig } from './ServerConfig'
 
@@ -16,7 +16,12 @@ export abstract class Server<T extends ServerConfig> {
   private readonly express: express.Express
   private readonly http: http.Server
 
-  constructor(express: express.Express, config: DeepPartial<T>) {
+  protected readonly log: Lincoln
+  protected readonly name: string
+
+  constructor(name: string, express: express.Express, logger: Lincoln, config: DeepPartial<T>) {
+    this.name = name
+    this.log = Logger.extend(name)
     this.config = Merge<T>([ServerConfigDefaults as DeepPartial<T>, config])
     this.express = express
     this.http = http.createServer(this.express)
@@ -29,9 +34,11 @@ export abstract class Server<T extends ServerConfig> {
 
   protected abstract bootstrap(express: express.Express): Promise<void>
 
-  initialize(): Promise<void> {
+  async initialize(): Promise<void> {
     try {
-      return this.bootstrap(this.express)
+      await this.bootstrap(this.express)
+      const routes = this.express._router.stack.filter((item: any) => item.route).map((item: any) => item.route.path)
+      this.log.debug('routes', routes)
     } catch (error) {
       console.error(error)
       throw error

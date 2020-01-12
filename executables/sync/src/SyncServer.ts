@@ -1,6 +1,6 @@
 import { Express } from 'express'
-import { inject, injectAll, injectable, singleton } from '@sosus/core'
 import { IRoute, RouteCollectionType, RouterType, Server } from '@sosus/core-web'
+import { inject, injectAll, injectable, singleton, LoggerType, Lincoln } from '@sosus/core'
 
 import { SyncServerConfig, SyncServerConfigType } from './SyncServerConfig'
 
@@ -9,10 +9,11 @@ import { SyncServerConfig, SyncServerConfigType } from './SyncServerConfig'
 export class SyncServer extends Server<SyncServerConfig> {
   constructor(
     @inject(RouterType) express: Express,
+    @inject(LoggerType) logger: Lincoln,
     @inject(SyncServerConfigType) config: SyncServerConfig,
     @injectAll(RouteCollectionType) private readonly routes: IRoute[],
   ) {
-    super(express, config)
+    super('sync-server', express, logger, config)
   }
 
   protected async bootstrap(express: Express) {

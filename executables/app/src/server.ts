@@ -1,3 +1,5 @@
+import 'reflect-metadata'
+
 import express from 'express'
 
 import { registerCoreProcessDependencies } from '@sosus/core-process'
@@ -26,8 +28,6 @@ const DefaultApiServerConfig: DeepPartial<SapperServerConfig> = {
 }
 
 function registerConfigurations(config: SapperServerConfig) {
-  const Package = require('../package.json')
-  container.register<NpmPackage>(NpmPackageType, { useValue: Package })
   container.register<SapperServerConfig>(SapperServerConfigType, { useValue: config })
 }
 
