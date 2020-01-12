@@ -29,7 +29,7 @@
     "upgrade": "npx npm-check -y"
   },
   "nodemonConfig": {
-    "exec": "ts-node src",
+    "exec": "DEBUG=sosus:* ts-node src",
     "ext": "ts",
     "ignore": [
       "dist",

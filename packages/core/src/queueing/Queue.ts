@@ -1,6 +1,6 @@
 import RedisQueue from 'rsmq'
 
-import { Merge } from '../Merge'
+import { Merge } from '../utils/Merge'
 import { Logger } from '../Logger'
 import { DeepPartial } from '../DeepPartial'
 import { Envelope } from './Envelope'

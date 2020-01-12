@@ -1,13 +1,13 @@
 import os from 'os'
 
 import { fs } from '@nofrills/fs'
+import { Lincoln } from '@nofrills/scrubs'
 import { ObjectNavigator } from '@nofrills/types'
 import { Env, EnvCaseOptions } from '@nofrills/env'
 
-import { Merge } from '../Merge'
-import { DeepPartial } from '../DeepPartial'
 import { Config } from './Config'
-import { Lincoln } from '@nofrills/scrubs'
+import { Merge } from '../utils/Merge'
+import { DeepPartial } from '../DeepPartial'
 
 export const ConfigType = Symbol('Config')
 

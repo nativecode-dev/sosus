@@ -29,7 +29,7 @@
     "monitor": "nodemon"
   },
   "nodemonConfig": {
-    "exec": "sapper dev",
+    "exec": "DEBUG=sosus:* sapper dev",
     "ext": "ts",
     "ignore": [
       "dist",

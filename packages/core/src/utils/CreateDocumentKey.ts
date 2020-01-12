@@ -1,7 +1,7 @@
 import { ObjectNavigator } from '@nofrills/types'
 
 import { Slugify } from './Slugify'
-import { DocumentKeyError } from './errors/DocumentKeyError'
+import { DocumentKeyError } from '../errors/DocumentKeyError'
 
 const cache = new Map<string, string>()
 
