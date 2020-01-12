@@ -7,7 +7,6 @@ import { Bootstrap, RouterType, RouteCollectionType, ServerConfigDefaults, IRout
 
 import {
   container,
-  fs,
   DeepPartial,
   DefaultConfig,
   SosusConfig,
@@ -47,12 +46,13 @@ function registerRoutes() {
   container.register<IRoute>(RouteCollectionType, Default)
 }
 
+const log = Logger.extend('main')
+
 export default async function() {
-  const loader = new SosusConfig<SyncServerConfig>('.sosus-api.json', DefaultApiServerConfig)
+  const loader = new SosusConfig<SyncServerConfig>('.sosus-sync.json', DefaultApiServerConfig, log)
   console.log('loading configuration', loader.filename)
 
   const config = await loader.load()
-  await fs.mkdirp(config.root)
 
   console.log('registering dependencies')
   registerConfigurations(config)

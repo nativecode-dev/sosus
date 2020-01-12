@@ -1,5 +1,5 @@
 import { Express } from 'express'
-import { IRoute, RouteCollectionType, RouterType, Server } from '@sosus/core-web'
+import { IRoute, RouteCollectionType, RouterType, Server, LoggerMiddleware } from '@sosus/core-web'
 import { inject, injectAll, injectable, singleton, LoggerType, Lincoln } from '@sosus/core'
 
 import { SyncServerConfig, SyncServerConfigType } from './SyncServerConfig'
@@ -17,6 +17,7 @@ export class SyncServer extends Server<SyncServerConfig> {
   }
 
   protected async bootstrap(express: Express) {
+    express.use(LoggerMiddleware(this.log))
     this.routes.map(route => route.register())
   }
 }

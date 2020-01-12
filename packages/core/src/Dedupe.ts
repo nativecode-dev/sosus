@@ -1,9 +1,11 @@
-export function Dedupe(array: any[]) {
-  const result = array.concat()
-  for (let i = 0; i < result.length; ++i) {
-    for (let j = i + 1; j < result.length; ++j) {
-      if (result[i] === result[j]) result.splice(j--, 1)
-    }
-  }
-  return result
+export function Dedupe<T extends any>(source: T[], target: T[] = []): T[] {
+  return source
+    .concat(target || [])
+    .filter((item, index, array) => array.indexOf(item) === index)
+    .reduce<T[]>((results, item) => {
+      if (results.includes(item)) {
+        return results
+      }
+      return [...results, item]
+    }, [])
 }

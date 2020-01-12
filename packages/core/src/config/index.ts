@@ -1,3 +1,4 @@
+export * from './Config'
 export * from './CouchAuthConfig'
 export * from './CouchConfig'
 export * from './RedisConfig'

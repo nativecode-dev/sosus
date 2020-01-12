@@ -16,7 +16,6 @@ import { Series } from './routes/Series'
 
 import {
   container,
-  fs,
   DeepPartial,
   DefaultConfig,
   SosusConfig,
@@ -39,7 +38,7 @@ const DefaultApiServerConfig: DeepPartial<ApiServerConfig> = {
   port: 9000,
 }
 
-function registerConfigurations(config: ApiServerConfig) {
+function registerConfigs(config: ApiServerConfig) {
   const Package = require('../package.json')
   container.register<NpmPackage>(NpmPackageType, { useValue: Package })
   container.register<ApiServerConfig>(ApiServerConfigType, { useValue: config })
@@ -55,16 +54,19 @@ function registerRoutes() {
   container.register<IRoute>(RouteCollectionType, Series)
 }
 
+const log = Logger.extend('main')
+
 export default async function() {
-  const loader = new SosusConfig<ApiServerConfig>('.sosus-api.json', DefaultApiServerConfig)
+  log.trace('DefaultApiServerConfig', DefaultApiServerConfig)
+  const loader = new SosusConfig<ApiServerConfig>('.sosus-api.json', DefaultApiServerConfig, log)
   console.log('loading configuration', loader.filename)
 
   const config = await loader.load()
-  await fs.mkdirp(config.root)
+  log.trace('config', config)
 
   console.log('registering dependencies')
   registerCoreProcessDependencies(container)
-  registerConfigurations(config)
+  registerConfigs(config)
   registerRoutes()
 
   container.register<express.Express>(RouterType, { useValue: express() })

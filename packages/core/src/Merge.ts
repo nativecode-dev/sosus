@@ -4,6 +4,7 @@ import { Dedupe } from './Dedupe'
 import { DeepPartial } from './DeepPartial'
 
 export function Merge<T>(objects: Array<DeepPartial<T>>): T {
-  const converted = objects.map<Partial<T>>(x => x as Partial<T>)
-  return deepmerge.all<T>(converted, { arrayMerge: Dedupe })
+  const partials = objects.map(item => item as Partial<T>)
+  const merged = deepmerge.all<T>(partials, { arrayMerge: Dedupe })
+  return merged
 }

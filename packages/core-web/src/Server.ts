@@ -9,6 +9,7 @@ import { ServerConfig } from './ServerConfig'
 export const ServerConfigDefaults: DeepPartial<ServerConfig> = {
   enableSessions: false,
   enableWebSockets: false,
+  statics: ['static'],
 }
 
 export abstract class Server<T extends ServerConfig> {
@@ -36,9 +37,15 @@ export abstract class Server<T extends ServerConfig> {
 
   async initialize(): Promise<void> {
     try {
+      this.config.statics.map(dir => {
+        this.log.debug('using static folder:', dir)
+        express.static(dir)
+      })
+
       await this.bootstrap(this.express)
+
       const routes = this.express._router.stack.filter((item: any) => item.route).map((item: any) => item.route.path)
-      this.log.debug('routes', routes)
+      this.log.debug('routes', ...routes)
     } catch (error) {
       console.error(error)
       throw error

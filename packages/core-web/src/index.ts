@@ -1,3 +1,5 @@
+export * from './middleware'
+
 export * from './Bootstrap'
 export * from './PageModel'
 export * from './Response'

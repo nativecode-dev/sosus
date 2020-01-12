@@ -1,8 +1,8 @@
 import * as sapper from '@sapper/server'
 
 import { Express } from 'express'
-import { inject, injectAll, injectable, singleton, Logger, LoggerType, Lincoln } from '@sosus/core'
-import { IRoute, RouteCollectionType, RouterType, Server } from '@sosus/core-web'
+import { RouterType, Server, LoggerMiddleware } from '@sosus/core-web'
+import { inject, injectable, singleton, LoggerType, Lincoln } from '@sosus/core'
 
 import { SapperServerConfig, SapperServerConfigType } from './SapperServerConfig'
 
@@ -19,6 +19,7 @@ export class SapperServer extends Server<SapperServerConfig> {
   }
 
   protected async bootstrap(express: Express) {
+    express.use(LoggerMiddleware(this.log))
     express.use(sapper.middleware())
   }
 }

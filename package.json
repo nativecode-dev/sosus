@@ -62,11 +62,11 @@
       "tslint --project tsconfig.json --config tslint.json"
     ],
     "test": [
-      "[build:fast]",
+      "[compile:packages]",
       "nyc mocha"
     ],
     "test:watch": [
-      "[build:fast]",
+      "[compile:packages]",
       "nyc mocha --watch"
     ],
     "upgrade": [
