@@ -1,3 +1,4 @@
+import { RedisConfig } from '@sosus/core'
 import { Connection } from '@sosus/core-data'
 import { ServerConfig } from '@sosus/core-web'
 import { ProcessConfig } from '@sosus/core-process'
@@ -8,6 +9,7 @@ export interface SyncServerConfig extends ServerConfig, ProcessConfig {
     people: Connection
     system: Connection
   }
+  redis: RedisConfig
 }
 
 export const SyncServerConfigType = Symbol('SyncServerConfig')

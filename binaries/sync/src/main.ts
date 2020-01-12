@@ -23,6 +23,9 @@ import {
   Logger,
   Lincoln,
   LoggerType,
+  RedisConfig,
+  RedisConfigType,
+  DefaultRedisConfig,
 } from '@sosus/core'
 
 import { Default } from './routes/Default'
@@ -32,6 +35,7 @@ import { SyncServerConfig, SyncServerConfigType } from './SyncServerConfig'
 const DefaultApiServerConfig: DeepPartial<SyncServerConfig> = {
   ...DefaultConfig,
   ...DefaultProcessConfig,
+  ...DefaultRedisConfig,
   ...ServerConfigDefaults,
   connections: {
     media: { couch: { adapter: 'memory', name: 'media' } },
@@ -41,7 +45,7 @@ const DefaultApiServerConfig: DeepPartial<SyncServerConfig> = {
   port: 9010,
 }
 
-function registerConfigurations(config: SyncServerConfig) {
+function registerConfigs(config: SyncServerConfig) {
   const Package = require('../package.json')
   container.register<NpmPackage>(NpmPackageType, { useValue: Package })
   container.register<ProcessConfig>(ProcessConfigType, { useValue: config })
@@ -49,6 +53,7 @@ function registerConfigurations(config: SyncServerConfig) {
   container.register<CouchConfig>(MediaContextConfig, { useValue: config.connections.media.couch })
   container.register<CouchConfig>(PeopleContextConfig, { useValue: config.connections.people.couch })
   container.register<CouchConfig>(SystemContextConfig, { useValue: config.connections.system.couch })
+  container.register<RedisConfig>(RedisConfigType, { useValue: config.redis })
 }
 
 function registerRoutes() {
@@ -65,7 +70,7 @@ export default async function() {
 
   console.log('registering dependencies')
   registerCoreProcessDependencies(container)
-  registerConfigurations(config)
+  registerConfigs(config)
   registerRoutes()
 
   container.register<express.Express>(RouterType, { useValue: express() })

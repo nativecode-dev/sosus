@@ -23,6 +23,8 @@ import {
   Lincoln,
   LoggerType,
   Logger,
+  RedisConfig,
+  DefaultRedisConfig,
 } from '@sosus/core'
 
 import { ApiServer } from './ApiServer'
@@ -37,11 +39,15 @@ import { Series } from './routes/Series'
 const DefaultApiServerConfig: DeepPartial<ApiServerConfig> = {
   ...DefaultConfig,
   ...DefaultProcessConfig,
+  ...DefaultRedisConfig,
   ...ServerConfigDefaults,
   connections: {
     media: { couch: { adapter: 'memory', name: 'media' } },
     people: { couch: { adapter: 'memory', name: 'people' } },
     system: { couch: { adapter: 'memory', name: 'system' } },
+  },
+  redis: {
+    ...DefaultRedisConfig,
   },
   port: 9000,
 }
@@ -51,6 +57,7 @@ function registerConfigs(config: ApiServerConfig) {
   container.register<NpmPackage>(NpmPackageType, { useValue: Package })
   container.register<ProcessConfig>(ProcessConfigType, { useValue: config })
   container.register<ApiServerConfig>(ApiServerConfigType, { useValue: config })
+  container.register<RedisConfig>(ApiServerConfigType, { useValue: config.redis })
   container.register<CouchConfig>(MediaContextConfig, { useValue: config.connections.media.couch })
   container.register<CouchConfig>(PeopleContextConfig, { useValue: config.connections.people.couch })
   container.register<CouchConfig>(SystemContextConfig, { useValue: config.connections.system.couch })

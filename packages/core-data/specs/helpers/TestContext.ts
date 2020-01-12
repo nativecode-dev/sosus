@@ -1,11 +1,10 @@
 import path from 'path'
 
-import { CouchConfig } from '@sosus/core'
-
 import { PATHS } from '.'
 import { Document } from '../../src/Document'
 import { Documents } from '../../src/Documents'
 import { DocumentContext } from '../../src/DocumentContext'
+import { CouchConfig } from '../../src/config/CouchConfig'
 
 export interface EnvironmentVariable {
   name: string

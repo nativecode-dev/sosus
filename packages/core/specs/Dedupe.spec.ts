@@ -1,5 +1,5 @@
 import { expect } from './helpers'
-import { Dedupe } from '../src/Dedupe'
+import { Dedupe } from '../src/utils/Dedupe'
 
 describe('when using Dedupe', () => {
   it('should de-dupe array', () => {

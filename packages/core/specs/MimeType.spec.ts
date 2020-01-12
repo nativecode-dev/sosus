@@ -1,5 +1,5 @@
 import { expect } from './helpers'
-import { MimeType } from '../src/MimeType'
+import { MimeType } from '../src/utils/MimeType'
 
 describe('when using MimeType', () => {
   it('should parse file', () => {

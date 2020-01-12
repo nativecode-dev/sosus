@@ -1,5 +1,5 @@
 import { expect } from './helpers'
-import { Merge } from '../src/Merge'
+import { Merge } from '../src/utils/Merge'
 import { DeepPartial } from '../src/DeepPartial'
 
 interface Person {

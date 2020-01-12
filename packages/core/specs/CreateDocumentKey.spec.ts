@@ -1,7 +1,7 @@
 import 'reflect-metadata'
 
 import { expect } from './helpers'
-import { CreateDocumentKey } from '../src/CreateDocumentKey'
+import { CreateDocumentKey } from '../src/utils/CreateDocumentKey'
 
 describe('when using CreateDocumentKey', () => {
   it('should create key with deep properties', () => {

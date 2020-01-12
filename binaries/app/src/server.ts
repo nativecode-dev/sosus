@@ -3,7 +3,17 @@ import 'reflect-metadata'
 import express from 'express'
 
 import { Bootstrap, ServerConfigDefaults, RouterType } from '@sosus/core-web'
-import { container, DeepPartial, DefaultConfig, Configuration, Lincoln, LoggerType, Logger } from '@sosus/core'
+
+import {
+  container,
+  DeepPartial,
+  DefaultConfig,
+  Configuration,
+  Lincoln,
+  LoggerType,
+  Logger,
+  DefaultRedisConfig,
+} from '@sosus/core'
 
 import {
   registerCoreProcessDependencies,
@@ -18,12 +28,13 @@ import { SapperServerConfig, SapperServerConfigType } from './SapperServerConfig
 const DefaultApiServerConfig: DeepPartial<SapperServerConfig> = {
   ...DefaultConfig,
   ...DefaultProcessConfig,
+  ...DefaultRedisConfig,
   ...ServerConfigDefaults,
   api_endpoint: 'http://localhost:9000',
   port: 3000,
 }
 
-function registerConfigurations(config: SapperServerConfig) {
+function registerConfigs(config: SapperServerConfig) {
   container.register<SapperServerConfig>(SapperServerConfigType, { useValue: config })
   container.register<ProcessConfig>(ProcessConfigType, { useValue: config })
 }
@@ -38,7 +49,7 @@ export async function main() {
 
   console.log('registering dependencies')
   registerCoreProcessDependencies(container)
-  registerConfigurations(config)
+  registerConfigs(config)
 
   container.register<express.Express>(RouterType, { useValue: express() })
   container.register<Lincoln>(LoggerType, { useValue: Logger })

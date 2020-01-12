@@ -2,7 +2,7 @@ import 'mocha'
 
 import path from 'path'
 
-import { CouchConfig } from '@sosus/core'
+import { CouchConfig } from '@sosus/core-data'
 
 import { expect, PATHS } from './helpers'
 import { SystemContext } from '../src/SystemContext'

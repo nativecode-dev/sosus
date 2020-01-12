@@ -1,5 +1,5 @@
 import { expect } from './helpers'
-import { Slugify } from '../src/Slugify'
+import { Slugify } from '../src/utils/Slugify'
 
 describe('when using Slugify', () => {
   it('should remove additional characters', () => {
