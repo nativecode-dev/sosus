@@ -44,9 +44,9 @@
     "@sosus/core": "^0.0.0",
     "@sosus/core-data": "^0.0.0",
     "@sosus/core-web": "^0.0.0",
-    "@sosus/data-media": "~0.0.0",
-    "@sosus/data-people": "~0.0.0",
-    "@sosus/data-system": "~0.0.0",
+    "@sosus/data-media": "^0.0.0",
+    "@sosus/data-people": "^0.0.0",
+    "@sosus/data-system": "^0.0.0",
     "express": "~4.17.1",
     "reflect-metadata": "~0.1.13"
   },

@@ -28,15 +28,15 @@
     "upgrade": "npx npm-check -y"
   },
   "dependencies": {
-    "@nativecode/radarr": "~2.0.0",
-    "@nativecode/sonarr": "~3.0.0",
+    "@nativecode/radarr": "^2.0.1",
+    "@nativecode/sonarr": "^3.0.1",
     "@nofrills/fs": "~11.0.0",
     "@nofrills/types": "~10.0.2",
     "@sosus/core": "^0.0.0",
     "@sosus/core-models": "^0.0.0",
-    "@sosus/data-media": "~0.0.0",
-    "@sosus/data-people": "~0.0.0",
-    "@sosus/data-system": "~0.0.0",
+    "@sosus/data-media": "^0.0.0",
+    "@sosus/data-people": "^0.0.0",
+    "@sosus/data-system": "^0.0.0",
     "cheerio": "~1.0.0-rc.3",
     "pouchdb-core": "^7.1.1"
   },

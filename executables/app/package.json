@@ -26,8 +26,7 @@
   "scripts": {
     "build": "sapper build --legacy",
     "export": "sapper export --legacy",
-    "monitor": "nodemon",
-    "upgrade": "npx npm-check -y"
+    "monitor": "nodemon"
   },
   "nodemonConfig": {
     "exec": "sapper dev",
