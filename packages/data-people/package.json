@@ -31,10 +31,10 @@
     "@sosus/core": "^0.0.0",
     "@sosus/core-data": "^0.0.0",
     "@sosus/core-models": "^0.0.0",
-    "pouchdb-core": "^7.1.1"
+    "pouchdb-core": "~7.1.1"
   },
   "devDependencies": {
     "@types/node": "~13.1.4",
-    "@types/pouchdb-core": "^7.0.5"
+    "@types/pouchdb-core": "~7.0.5"
   }
 }
