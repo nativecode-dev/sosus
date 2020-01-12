@@ -1,6 +1,7 @@
 import { ObjectNavigator } from '@nofrills/types'
 
 import { Slugify } from './Slugify'
+import { DocumentKeyError } from './errors/DocumentKeyError'
 
 export function CreateDocumentKey(document: any, properties: string[]): string {
   const navigator = ObjectNavigator.from(document)
@@ -12,7 +13,7 @@ export function CreateDocumentKey(document: any, properties: string[]): string {
       return current.value
     }
 
-    throw new Error(`key property now found: ${property}`)
+    throw new DocumentKeyError(document, property)
   })
 
   return Slugify(values.join('_'))
