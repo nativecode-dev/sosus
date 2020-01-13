@@ -11,7 +11,7 @@ import { SyncServerConfig } from './SyncServerConfig'
 
 export class Sync extends WebApplication<SyncServerConfig> {
   constructor(configuration: Configuration<SyncServerConfig>) {
-    super('', configuration, SyncServer)
+    super('sync', configuration, SyncServer)
   }
 
   protected dependencies(container: DependencyContainer, config: SyncServerConfig): void {

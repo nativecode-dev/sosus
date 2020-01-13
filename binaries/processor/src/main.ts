@@ -21,7 +21,7 @@ const DefaultApiServerConfig: DeepPartial<ProcessorServerConfig> = {
 const log = Logger.extend('main')
 
 export default async function() {
-  const loader = new Configuration<ProcessorServerConfig>('.sosus-process.json', DefaultApiServerConfig, log)
+  const loader = new Configuration<ProcessorServerConfig>('.sosus-processor.json', DefaultApiServerConfig, log)
   const api = new Processor(loader)
   return api.run()
 }

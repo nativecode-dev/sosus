@@ -11,7 +11,7 @@ import { ProcessorServerConfig } from './ProcessorServerConfig'
 
 export class Processor extends WebApplication<ProcessorServerConfig> {
   constructor(configuration: Configuration<ProcessorServerConfig>) {
-    super('', configuration, ProcessorServer)
+    super('processor', configuration, ProcessorServer)
   }
 
   protected dependencies(container: DependencyContainer, config: ProcessorServerConfig): void {

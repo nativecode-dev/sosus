@@ -1,7 +1,6 @@
 import 'reflect-metadata'
 
 import { ServerConfigDefaults } from '@sosus/core-web'
-import { DefaultProcessConfig } from '@sosus/core-process'
 import { DeepPartial, DefaultConfig, Configuration, Logger, DefaultRedisConfig } from '@sosus/core'
 
 import { App } from './App'
@@ -9,11 +8,9 @@ import { SapperServerConfig } from './SapperServerConfig'
 
 const DefaultApiServerConfig: DeepPartial<SapperServerConfig> = {
   ...DefaultConfig,
-  ...DefaultProcessConfig,
   ...ServerConfigDefaults,
   api_endpoint: 'http://localhost:9000',
   port: 3000,
-  redis: DefaultRedisConfig,
 }
 
 const log = Logger.extend('main')

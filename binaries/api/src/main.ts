@@ -1,5 +1,4 @@
 import { ServerConfigDefaults } from '@sosus/core-web'
-import { DefaultProcessConfig } from '@sosus/core-process'
 import { DeepPartial, DefaultConfig, Configuration, Logger, DefaultRedisConfig } from '@sosus/core'
 
 import { ApiServerConfig } from './ApiServerConfig'
@@ -7,7 +6,6 @@ import { Api } from './Api'
 
 const DefaultApiServerConfig: DeepPartial<ApiServerConfig> = {
   ...DefaultConfig,
-  ...DefaultProcessConfig,
   ...ServerConfigDefaults,
   connections: {
     media: { couch: { adapter: 'memory', name: 'media' } },

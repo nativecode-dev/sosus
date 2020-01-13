@@ -43,8 +43,6 @@
   "dependencies": {
     "@sosus/core": "^0.0.0",
     "@sosus/core-data": "^0.0.0",
-    "@sosus/core-process": "^0.0.0",
-    "@sosus/core-queue": "^0.0.0",
     "@sosus/core-web": "^0.0.0",
     "@sosus/data-media": "^0.0.0",
     "@sosus/data-people": "^0.0.0",

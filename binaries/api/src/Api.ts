@@ -1,8 +1,7 @@
 import { CouchConfig } from '@sosus/core-data'
 import { MediaContextConfig } from '@sosus/data-media'
 import { PeopleContextConfig } from '@sosus/data-people'
-import { SystemContextConfig } from '@sosus/data-system/'
-import { ProcessConfig, ProcessConfigType, registerCommands } from '@sosus/core-process'
+import { SystemContextConfig } from '@sosus/data-system'
 import { WebApplication, IRoute, RouteCollectionType, Commands } from '@sosus/core-web'
 import { Configuration, DependencyContainer, RedisConfig, RedisConfigType } from '@sosus/core'
 
@@ -16,11 +15,10 @@ import { Series } from './routes/Series'
 
 export class Api extends WebApplication<ApiServerConfig> {
   constructor(configuration: Configuration<ApiServerConfig>) {
-    super('', configuration, ApiServer)
+    super('api', configuration, ApiServer)
   }
 
   protected dependencies(container: DependencyContainer, config: ApiServerConfig): void {
-    container.register<ProcessConfig>(ProcessConfigType, { useValue: config })
     container.register<RedisConfig>(RedisConfigType, { useValue: config.redis })
     container.register<CouchConfig>(MediaContextConfig, { useValue: config.connections.media.couch })
     container.register<CouchConfig>(PeopleContextConfig, { useValue: config.connections.people.couch })
@@ -31,7 +29,5 @@ export class Api extends WebApplication<ApiServerConfig> {
     container.register<IRoute>(RouteCollectionType, Movies)
     container.register<IRoute>(RouteCollectionType, People)
     container.register<IRoute>(RouteCollectionType, Series)
-
-    registerCommands(container)
   }
 }

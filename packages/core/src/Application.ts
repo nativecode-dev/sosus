@@ -30,6 +30,7 @@ export abstract class Application<TConfig extends Config> {
     process.on('unhandledRejection', async error => console.error(error))
 
     await app.initialize()
+    await this.configuration.save()
 
     return app.start()
   }
