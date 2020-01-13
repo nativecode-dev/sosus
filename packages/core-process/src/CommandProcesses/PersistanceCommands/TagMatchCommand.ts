@@ -10,7 +10,7 @@ export class TagMatchCommand extends Command {
     super('tags-match', logger)
   }
 
-  async executor() {
+  async exec() {
     const files = await this.media.files.all({ selector: {}, limit: Number.MAX_SAFE_INTEGER })
 
     const tasks = files.map(file => async () => {

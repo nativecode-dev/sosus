@@ -27,13 +27,13 @@ export abstract class Command implements CommandProcess<any>, CommandInstance {
 
   async execute(...args: any[]): Promise<any> {
     this.log.trace('execute', this.name, ...args)
-    const result = await this.executor(...args)
+    const result = await this.exec(...args)
 
     this.log.trace('execute-done', result)
     return result
   }
 
-  protected abstract executor(...args: any[]): Promise<any>
+  protected abstract exec(...args: any[]): Promise<any>
 }
 
 export const CommandType = Symbol('CommandInstance')

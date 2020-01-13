@@ -11,7 +11,7 @@ export class RadarrUnmonitor extends BaseRadarrCommand {
     super('radarr-unmonitor', logger, media, radarr)
   }
 
-  async executor() {
+  async exec() {
     const movies = await this.radarr.movie.list()
 
     const tasks = movies

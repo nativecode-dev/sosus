@@ -11,7 +11,7 @@ export class SonarrUnmonitor extends BaseSonarrCommand {
     super('sonarr-unmonitor', logger, media, sonarr)
   }
 
-  async executor() {
+  async exec() {
     const series = await this.sonarr.series.list()
     const tasks = series.filter(show => show.monitored === false).map(show => () => this.unmonitorSeries(show))
     await Throttle(tasks)

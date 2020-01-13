@@ -12,18 +12,25 @@ export class RadarrImport extends BaseRadarrCommand {
     super('radarr-import', logger, media, radarr)
   }
 
-  async executor() {
-    const movies = await this.radarr.movie.list()
+  async exec() {
+    try {
+      this.log.debug('radarr-import:fetch')
+      const movies = await this.radarr.movie.list()
 
-    const response = await this.media.movies.bulk(
-      movies.map(movie =>
-        this.media.movies.createDocument({
+      const documents = movies.map(movie => {
+        this.log.trace('radarr-import:movie', movie.id, movie.title)
+
+        return this.media.movies.createDocument({
           title: movie.title,
           type: MediaType.movie,
-        }),
-      ),
-    )
+        })
+      })
 
-    this.log.trace(response)
+      const response = await this.media.movies.bulk(documents)
+      this.log.trace('radarr-import:count', response.length)
+      return response.length
+    } catch (error) {
+      return error
+    }
   }
 }

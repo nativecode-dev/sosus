@@ -11,7 +11,7 @@ export class CacheImagesCommand extends Command {
     super('images-cache', logger)
   }
 
-  async executor(path: string) {
+  async exec(path: string) {
     this.log.trace(path)
 
     const caches = await this.system.cache.find({

@@ -3,7 +3,6 @@ import { CommandExecutor } from '@sosus/core-process'
 import {
   inject,
   injectable,
-  injectAll,
   singleton,
   Lincoln,
   LoggerType,
@@ -28,11 +27,14 @@ export class CommandHandler extends QueueWorker<ICommand> {
   }
 
   protected completed(job: QueueJob<ICommand>): Promise<any> {
-    return job.remove()
+    this.log.trace('job-completed', job.id)
+    return Promise.resolve()
   }
 
   protected failed(job: QueueJob<ICommand>, error: Error): Promise<any> {
-    return job.moveToFailed(error, job.name)
+    this.log.trace('job-failed', job.id, error)
+    this.log.error(error)
+    return Promise.resolve()
   }
 
   protected async handle(job: QueueJob<ICommand>): Promise<any> {

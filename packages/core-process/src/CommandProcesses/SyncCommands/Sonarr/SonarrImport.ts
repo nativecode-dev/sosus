@@ -12,7 +12,7 @@ export class SonarrImport extends BaseSonarrCommand {
     super('sonarr-import', logger, media, sonarr)
   }
 
-  async executor() {
+  async exec() {
     const series = await this.sonarr.series.list()
     await this.importSeasons(Reduce(series.map(show => show.seasons)))
     await this.importSeries(series)
