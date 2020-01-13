@@ -14,7 +14,7 @@ export class CommandExecutor {
     this.cmdmap = new Map()
 
     cmds.forEach(cmd => this.cmdmap.set(cmd.name, cmd))
-    this.log.trace('cmdmap', this.cmdmap.keys())
+    this.log.trace('cmdmap', Array.from(this.cmdmap.keys()))
   }
 
   get commands(): CommandInstance[] {
@@ -29,9 +29,11 @@ export class CommandExecutor {
     const cmd = this.cmdmap.get(name)
 
     if (cmd) {
+      this.log.trace('execute', cmd.name)
       return cmd.execute(...args)
     }
 
+    this.log.trace('execute-not-found', name)
     return { name, parameters: args, found: false }
   }
 }

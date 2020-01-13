@@ -19,10 +19,10 @@ export class CacheImagesCommand extends Command {
       limit: Number.MAX_SAFE_INTEGER,
     })
 
-    await Promise.all(
+    const results = await Promise.all(
       caches.map(async cache => {
         if (this.cancelled) {
-          return Promise.resolve()
+          return
         }
 
         if ((await fs.exists(path)) === false) {
@@ -35,5 +35,7 @@ export class CacheImagesCommand extends Command {
         this.log.debug('wrote', filename)
       }),
     )
+
+    return results.length
   }
 }

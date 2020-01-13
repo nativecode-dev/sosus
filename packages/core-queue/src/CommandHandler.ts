@@ -1,4 +1,4 @@
-import { CommandType, Command, CommandExecutor } from '@sosus/core-process'
+import { CommandExecutor } from '@sosus/core-process'
 
 import {
   inject,
@@ -37,29 +37,8 @@ export class CommandHandler extends QueueWorker<ICommand> {
 
   protected async handle(job: QueueJob<ICommand>): Promise<any> {
     this.log.trace('command-handle', job.id, job.name, job.data)
-    this.log.trace(this.executor.command(job.data.name))
-    /*
-    const command = this.commands.reduce<Command | undefined>((cmd, current) => {
-      this.log.trace('command-reduce', current, cmd)
-
-      if (current.name === job.data.name) {
-        return current
-      }
-
-      return cmd
-    }, undefined)
-
-    this.log.trace(command)
-
-    if (command) {
-      this.log.trace('command-execute', job.data, command)
-      const result = await command.execute(...job.data.parameters)
-      this.log.trace('command-execute-result', job.data.name, result)
-      return result
-    }
-
-    throw new QueueWorkerError(job.data.name, job.data.parameters)
-    */
-    this.log.trace('done')
+    const result = await this.executor.execute(job.data.name, job.data.parameters)
+    this.log.trace('handle-result', result)
+    return result
   }
 }

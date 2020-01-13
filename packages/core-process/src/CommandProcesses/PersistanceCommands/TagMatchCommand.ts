@@ -15,10 +15,11 @@ export class TagMatchCommand extends Command {
 
     const tasks = files.map(file => async () => {
       if (this.cancelled) {
-        return
+        return 0
       }
     })
 
-    await Throttle(tasks)
+    const results = await Throttle(tasks)
+    return results.length
   }
 }
