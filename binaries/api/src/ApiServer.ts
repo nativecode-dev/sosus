@@ -22,7 +22,6 @@ export class ApiServer extends Server<ApiServerConfig> {
     @injectAll(RouteCollectionType) private readonly routes: IRoute[],
   ) {
     super('api-server', express, logger, config)
-    this.log.debug('created', this.name)
   }
 
   protected async bootstrap(express: Express) {

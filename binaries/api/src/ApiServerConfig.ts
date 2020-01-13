@@ -11,5 +11,3 @@ export interface ApiServerConfig extends ServerConfig, ProcessConfig {
   }
   redis: RedisConfig
 }
-
-export const ApiServerConfigType = Symbol('ApiServerConfig')

@@ -1,5 +1,3 @@
-import express from 'express'
-
 import { WebApplication } from '@sosus/core-web'
 import { ProcessConfig, ProcessConfigType } from '@sosus/core-process'
 import { Configuration, DependencyContainer, RedisConfig, RedisConfigType } from '@sosus/core'
@@ -10,10 +8,6 @@ import { SapperServerConfig } from './SapperServerConfig'
 export class App extends WebApplication<SapperServerConfig> {
   constructor(configuration: Configuration<SapperServerConfig>) {
     super('', configuration, SapperServer)
-  }
-
-  protected bootstrap(express: express.Express): Promise<void> {
-    return Promise.resolve()
   }
 
   protected dependencies(container: DependencyContainer, config: SapperServerConfig): void {

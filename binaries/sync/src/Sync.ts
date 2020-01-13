@@ -1,5 +1,3 @@
-import express from 'express'
-
 import { CouchConfig } from '@sosus/core-data'
 import { MediaContextConfig } from '@sosus/data-media'
 import { PeopleContextConfig } from '@sosus/data-people'
@@ -14,10 +12,6 @@ import { SyncServerConfig } from './SyncServerConfig'
 export class Sync extends WebApplication<SyncServerConfig> {
   constructor(configuration: Configuration<SyncServerConfig>) {
     super('', configuration, SyncServer)
-  }
-
-  protected bootstrap(express: express.Express): Promise<void> {
-    return Promise.resolve()
   }
 
   protected dependencies(container: DependencyContainer, config: SyncServerConfig): void {

@@ -1,27 +1,27 @@
 import { injectAll, injectable, singleton, inject, LoggerType, Lincoln } from '@sosus/core'
 
-import { CommandType, Command } from './Command'
+import { CommandType } from './Command'
+import { CommandInstance } from './CommandInstance'
 
 @injectable()
 @singleton()
 export class CommandExecutor {
-  private readonly cmdmap: Map<string, Command>
+  private readonly cmdmap: Map<string, CommandInstance>
   private readonly log: Lincoln
 
-  constructor(@inject(LoggerType) logger: Lincoln, @injectAll(CommandType) commands: Command[]) {
+  constructor(@inject(LoggerType) logger: Lincoln, @injectAll(CommandType) cmds: CommandInstance[]) {
     this.log = logger.extend('command-executor')
     this.cmdmap = new Map()
 
-    commands.map(cmd => this.cmdmap.set(cmd.name, cmd))
-
+    cmds.forEach(cmd => this.cmdmap.set(cmd.name, cmd))
     this.log.trace('cmdmap', this.cmdmap.keys())
   }
 
-  get commands(): Command[] {
+  get commands(): CommandInstance[] {
     return Array.from(this.cmdmap.values())
   }
 
-  command(name: string): Command | undefined {
+  command(name: string): CommandInstance | undefined {
     return this.cmdmap.get(name)
   }
 

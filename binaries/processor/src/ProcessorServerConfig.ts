@@ -11,5 +11,3 @@ export interface ProcessorServerConfig extends ServerConfig, ProcessConfig {
   }
   redis: RedisConfig
 }
-
-export const ProcessorServerConfigType = Symbol('ProcessorServerConfig')

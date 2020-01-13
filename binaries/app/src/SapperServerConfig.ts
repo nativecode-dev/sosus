@@ -6,5 +6,3 @@ export interface SapperServerConfig extends ServerConfig, ProcessConfig {
   api_endpoint: string
   redis: RedisConfig
 }
-
-export const SapperServerConfigType = Symbol('SapperServerConfig')

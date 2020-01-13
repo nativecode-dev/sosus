@@ -11,5 +11,3 @@ export interface SyncServerConfig extends ServerConfig, ProcessConfig {
   }
   redis: RedisConfig
 }
-
-export const SyncServerConfigType = Symbol('SyncServerConfig')

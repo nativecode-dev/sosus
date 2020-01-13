@@ -19,13 +19,15 @@ export class Commands extends ApiRoute {
   }
 
   register() {
-    this.router.get('/commands', (_, res) => res.json(this.executor.commands.map(cmd => cmd.name)))
+    const commands = this.executor.commands
+
+    this.router.get('/commands', (_, res) => res.json(commands.map(cmd => cmd.name)))
 
     const urlize = (value: string): string => {
       return value.replace('command-', '').replace('-', '/')
     }
 
-    this.executor.commands.map(cmd => {
+    commands.map(cmd => {
       this.router.post(`/commands/${urlize(cmd.name)}`, async (req, res) => {
         const request: ICommand = { name: cmd.name, parameters: [Merge<any>([req.params, req.query])] }
         this.log.trace('command-request', request)

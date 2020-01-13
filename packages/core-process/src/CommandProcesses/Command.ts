@@ -1,8 +1,9 @@
 import { Lincoln } from '@sosus/core'
 
 import { CommandProcess } from './CommandProcess'
+import { CommandInstance } from './CommandInstance'
 
-export abstract class Command implements CommandProcess<any> {
+export abstract class Command implements CommandProcess<any>, CommandInstance {
   protected readonly log: Lincoln
 
   private cancelling = false
@@ -35,4 +36,4 @@ export abstract class Command implements CommandProcess<any> {
   protected abstract executor(...args: any[]): Promise<any>
 }
 
-export const CommandType = Symbol('Command')
+export const CommandType = Symbol('CommandInstance')

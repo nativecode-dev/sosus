@@ -29,6 +29,8 @@ export abstract class Server<T extends ServerConfig> implements Runnable {
     this.express = express
     this.http = http.createServer(this.express)
     this.express.use(bodyParser.json())
+
+    this.log.debug('create', this.name)
   }
 
   async initialize(): Promise<void> {
