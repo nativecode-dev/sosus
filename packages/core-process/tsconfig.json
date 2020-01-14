@@ -1,7 +1,16 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
     "outDir": "lib",
-    "rootDir": "src"
+    "rootDir": "src",
+    "paths": {
+      "plex-api": [
+        "types/plex-api"
+      ]
+    },
+    "typeRoots": [
+      "types"
+    ]
   },
   "extends": "../../tsconfig.settings",
   "include": [

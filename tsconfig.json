@@ -29,7 +29,13 @@
       "@sosus/core-system": [
         "packages/core-system/src"
       ],
-    }
+      "plex-api": [
+        "packages/core-process/types/plex-api"
+      ]
+    },
+    "typeRoots": [
+      "node_modules/@types"
+    ]
   },
   "extends": "./tsconfig.settings",
   "include": [

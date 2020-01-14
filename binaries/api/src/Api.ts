@@ -24,7 +24,6 @@ export class Api extends WebApplication<ApiServerConfig> {
     container.register<CouchConfig>(PeopleContextConfig, { useValue: config.connections.people.couch })
     container.register<CouchConfig>(SystemContextConfig, { useValue: config.connections.system.couch })
 
-    container.register<IRoute>(RouteCollectionType, Commands)
     container.register<IRoute>(RouteCollectionType, Default)
     container.register<IRoute>(RouteCollectionType, Movies)
     container.register<IRoute>(RouteCollectionType, People)

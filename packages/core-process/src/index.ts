@@ -1,3 +1,4 @@
+export * from './Clients'
 export * from './CommandProcesses'
 export * from './SyncProcesses'
 
