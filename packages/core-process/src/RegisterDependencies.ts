@@ -7,12 +7,12 @@ import { ProcessConfigType, ProcessConfig } from './ProcessConfig'
 
 import { CommandType } from './CommandProcesses/Command'
 import { CommandInstance } from './CommandProcesses/CommandInstance'
-import { TagMatchCommand } from './CommandProcesses/PersistanceCommands/TagMatchCommand'
-import { CacheImagesCommand } from './CommandProcesses/PersistanceCommands/CacheImagesCommand'
 import { RadarrImport } from './CommandProcesses/SyncCommands/Radarr/RadarrImport'
 import { SonarrImport } from './CommandProcesses/SyncCommands/Sonarr/SonarrImport'
+import { TagMatchCommand } from './CommandProcesses/PersistanceCommands/TagMatchCommand'
 import { RadarrUnmonitor } from './CommandProcesses/SyncCommands/Radarr/RadarrUnmonitor'
 import { SonarrUnmonitor } from './CommandProcesses/SyncCommands/Sonarr/SonarrUnmonitor'
+import { CacheImagesCommand } from './CommandProcesses/PersistanceCommands/CacheImagesCommand'
 
 export function registerCommands(container: DependencyContainer) {
   container.register<CommandInstance>(CommandType, CacheImagesCommand)
