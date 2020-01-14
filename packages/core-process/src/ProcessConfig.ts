@@ -3,12 +3,12 @@ import { Config, DeepPartial } from '@sosus/core'
 export interface ProcessConfig extends Config {
   radarr: {
     apikey: string
-    endpoint: string
+    host: string
   }
 
   sonarr: {
     apikey: string
-    endpoint: string
+    host: string
   }
 }
 
@@ -16,10 +16,10 @@ export const ProcessConfigType = Symbol('ProcessConfig')
 
 export const DefaultProcessConfig: DeepPartial<ProcessConfig> = {
   radarr: {
-    endpoint: 'http://localhost:7878',
+    host: 'localhost',
   },
 
   sonarr: {
-    endpoint: 'http://localhost:8989',
+    host: 'localhost',
   },
 }

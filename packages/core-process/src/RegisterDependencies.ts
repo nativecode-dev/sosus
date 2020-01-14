@@ -1,4 +1,3 @@
-import { URL } from 'url'
 import { RadarrClient } from '@nativecode/radarr'
 import { SonarrClient } from '@nativecode/sonarr'
 import { DependencyContainer, LoggerType, Lincoln } from '@sosus/core'
@@ -26,7 +25,7 @@ export function registerCommands(container: DependencyContainer) {
     useFactory: container => {
       const config = container.resolve<ProcessConfig>(ProcessConfigType)
       const logger = container.resolve<Lincoln>(LoggerType)
-      return new RadarrClient(new URL(config.radarr.endpoint), config.radarr.apikey, logger)
+      return new RadarrClient({ apikey: config.radarr.apikey, host: config.radarr.host }, logger)
     },
   })
 
@@ -34,7 +33,7 @@ export function registerCommands(container: DependencyContainer) {
     useFactory: container => {
       const config = container.resolve<ProcessConfig>(ProcessConfigType)
       const logger = container.resolve<Lincoln>(LoggerType)
-      return new SonarrClient(new URL(config.radarr.endpoint), config.radarr.apikey, logger)
+      return new SonarrClient({ apikey: config.sonarr.apikey, host: config.sonarr.host }, logger)
     },
   })
 }
