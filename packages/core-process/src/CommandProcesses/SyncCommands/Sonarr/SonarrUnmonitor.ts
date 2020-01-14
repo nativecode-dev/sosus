@@ -2,7 +2,7 @@ import { MediaContext } from '@sosus/data-media'
 import { SonarrClient, Series, Season, Episode } from '@nativecode/sonarr'
 import { Lifecycle, Throttle, injectable, scoped, inject, LoggerType, Lincoln } from '@sosus/core'
 
-import { BaseSonarrCommand } from '../BaseSonarrCommand'
+import { BaseSonarrCommand } from './BaseSonarrCommand'
 
 @injectable()
 @scoped(Lifecycle.ContainerScoped)

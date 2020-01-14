@@ -3,7 +3,7 @@ import { MediaContext } from '@sosus/data-media'
 import { RadarrClient } from '@nativecode/radarr'
 import { Lifecycle, injectable, scoped, inject, LoggerType, Lincoln } from '@sosus/core'
 
-import { BaseRadarrCommand } from '../BaseRadarrCommand'
+import { BaseRadarrCommand } from './BaseRadarrCommand'
 
 @injectable()
 @scoped(Lifecycle.ContainerScoped)

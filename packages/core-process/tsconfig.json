@@ -3,11 +3,7 @@
     "baseUrl": ".",
     "outDir": "lib",
     "rootDir": "src",
-    "paths": {
-      "plex-api": [
-        "types/plex-api"
-      ]
-    },
+    "paths": {},
     "typeRoots": [
       "types"
     ]
