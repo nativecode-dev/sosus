@@ -1,7 +1,7 @@
-import { Config, DeepPartial, NpmPackage } from '@sosus/core'
 import { SonarrOptions } from '@nativecode/sonarr'
 import { RadarrOptions } from '@nativecode/radarr'
 import { PlexClientOptions } from '@nativecode/plex'
+import { Config, DeepPartial, NpmPackage } from '@sosus/core'
 
 export interface ProcessConfig extends Config {
   plex: PlexClientOptions

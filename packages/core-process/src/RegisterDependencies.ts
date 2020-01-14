@@ -1,3 +1,4 @@
+import { PlexCloud } from '@nativecode/plex'
 import { RadarrClient } from '@nativecode/radarr'
 import { SonarrClient } from '@nativecode/sonarr'
 import { DependencyContainer, LoggerType, Lincoln } from '@sosus/core'
@@ -12,7 +13,6 @@ import { RadarrImport } from './CommandProcesses/SyncCommands/Radarr/RadarrImpor
 import { SonarrImport } from './CommandProcesses/SyncCommands/Sonarr/SonarrImport'
 import { RadarrUnmonitor } from './CommandProcesses/SyncCommands/Radarr/RadarrUnmonitor'
 import { SonarrUnmonitor } from './CommandProcesses/SyncCommands/Sonarr/SonarrUnmonitor'
-import { PlexCloud } from '@nativecode/plex'
 
 export function registerCommands(container: DependencyContainer) {
   container.register<CommandInstance>(CommandType, CacheImagesCommand)
@@ -28,7 +28,10 @@ export function registerCommands(container: DependencyContainer) {
       const logger = container.resolve<Lincoln>(LoggerType)
 
       const options = {
-        auth: { username: config.plex.username, password: config.plex.password },
+        auth: {
+          username: config.plex.auth?.username,
+          password: config.plex.auth?.password,
+        },
         host: config.radarr.host,
       }
 
