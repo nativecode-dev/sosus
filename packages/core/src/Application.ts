@@ -1,9 +1,9 @@
+import { Lincoln } from '@nofrills/scrubs'
 import { DependencyContainer, container } from 'tsyringe'
 
+import { LoggerType, Logger } from './Logger'
 import { Config, Configuration } from './config'
 import { Runnable, RunnableConstructor } from './Runnable'
-import { Lincoln } from '@nofrills/scrubs'
-import { LoggerType, Logger } from './Logger'
 
 export abstract class Application<TConfig extends Config> {
   protected readonly container: DependencyContainer

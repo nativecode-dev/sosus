@@ -23,7 +23,7 @@ export class Queue<T = any, R = any> {
   }
 
   send(message: T, delay?: number): Promise<QueueJob<T, R>> {
-    const options: bullmq.JobsOptions = { delay, removeOnComplete: true, removeOnFail: true }
+    const options: bullmq.JobsOptions = { delay, removeOnComplete: true, removeOnFail: true, jobId: this.name }
     return this.queue.add(this.name, message, options)
   }
 }
