@@ -28,9 +28,6 @@
       ],
       "@sosus/core-system": [
         "packages/core-system/src"
-      ],
-      "node-nfsc": [
-        "packages/core/types/node-nfsc"
       ]
     },
     "typeRoots": [

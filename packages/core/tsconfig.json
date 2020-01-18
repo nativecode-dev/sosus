@@ -2,12 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "outDir": "lib",
-    "rootDir": "src",
-    "paths": {
-      "node-nfsc": [
-        "types/node-nfsc"
-      ]
-    }
+    "rootDir": "src"
   },
   "extends": "../../tsconfig.settings",
   "include": [

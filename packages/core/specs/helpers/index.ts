@@ -10,5 +10,6 @@ export const TIMEOUT_SHORT: number = 5000
 
 export const PATHS: { [key: string]: () => string } = {}
 PATHS.cache = () => path.join(process.cwd(), '.cache')
+PATHS.mount = () => path.join(process.cwd(), 'mnt', 'test')
 PATHS.specs = () => path.resolve(path.join(__dirname, '..'))
 PATHS.artifacts = () => path.join(PATHS.specs(), 'artifacts')
