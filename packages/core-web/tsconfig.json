@@ -10,6 +10,15 @@
   "references": [
     {
       "path": "../core"
+    },
+    {
+      "path": "../core-data"
+    },
+    {
+      "path": "../core-process"
+    },
+    {
+      "path": "../core-queue"
     }
   ]
 }

@@ -33,9 +33,6 @@
       "path": "../../packages/core"
     },
     {
-      "path": "../../packages/core-process"
-    },
-    {
       "path": "../../packages/core-web"
     }
   ]

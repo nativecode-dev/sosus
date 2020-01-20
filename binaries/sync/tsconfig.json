@@ -15,6 +15,12 @@
       "path": "../../packages/core-data"
     },
     {
+      "path": "../../packages/core-process"
+    },
+    {
+      "path": "../../packages/core-queue"
+    },
+    {
       "path": "../../packages/core-web"
     },
     {
