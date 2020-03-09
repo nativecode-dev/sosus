@@ -25,81 +25,31 @@
     "rebuild": "cli-tasks build",
     "tasks": "cli-tasks",
     "test": "cli-tasks test",
-    "test:watch": "cli-tasks test:watch"
-  },
-  "tasks": {
-    "build": [
-      "[references]",
-      "[clean]",
-      "[compile:packages]",
-      "[compile:apps]"
-    ],
-    "build:fast": [
-      "[compile:packages]",
-      "[compile:apps]"
-    ],
-    "clean": [
-      "rimraf .cache",
-      "rimraf **/*.tsbuildinfo",
-      "rimraf packages/*/{bin,dist,lib}",
-      "[source:format]",
-      "[source:lint]"
-    ],
-    "compile:apps": [
-      "lerna run build --scope \"@sosus/@(api|app|cli|sync)\""
-    ],
-    "compile:packages": [
-      "lerna run build --ignore \"@sosus/@(api|app|cli|sync)\""
-    ],
-    "references": [
-      "ts-node promon/references.ts"
-    ],
-    "source:format": [
-      "jsonsort *.json",
-      "jsonsort {binaries,packages}/*/*.json",
-      "prettier --loglevel silent --write \"{binaries,packages}/*/src/**/*.ts\""
-    ],
-    "source:lint": [
-      "tslint --project tsconfig.json --config tslint.json"
-    ],
-    "test": [
-      "[compile:packages]",
-      "nyc mocha"
-    ],
-    "test:watch": [
-      "[compile:packages]",
-      "nyc mocha --watch"
-    ],
-    "upgrade": [
-      "npx npm-check -y",
-      "lerna run upgrade"
-    ],
-    "wizard": [
-      "npx -p lerna-update-wizard lernaupdate"
-    ]
+    "test:watch": "cli-tasks test:watch",
+    "upgrade": "cli-tasks upgrade"
   },
   "devDependencies": {
     "@istanbuljs/nyc-config-typescript": "~1.0.1",
-    "@nofrills/tasks": "10.0.3",
-    "@types/chai": "~4.2.7",
+    "@nofrills/tasks": "next",
+    "@types/chai": "^4.2.10",
     "@types/chai-as-promised": "~7.1.2",
-    "@types/mocha": "~5.2.7",
-    "@types/node": "~13.1.4",
+    "@types/mocha": "^7.0.2",
+    "@types/node": "^13.9.0",
     "chai": "~4.2.0",
     "chai-as-promised": "~7.1.1",
-    "json-sort-cli": "^1.15.6",
+    "json-sort-cli": "^1.15.8",
     "lerna": "~3.20.2",
-    "mocha": "~7.0.0",
+    "mocha": "^7.1.0",
     "nodemon": "~2.0.2",
     "nyc": "~15.0.0",
     "prettier": "~1.19.1",
     "reflect-metadata": "~0.1.13",
-    "rimraf": "~3.0.0",
+    "rimraf": "^3.0.2",
     "ts-node": "^8.6.2",
-    "tslint": "~5.20.1",
+    "tslint": "^6.0.0",
     "tslint-config-prettier": "~1.18.0",
     "tslint-config-standard": "~9.0.0",
     "tslint-no-unused-expression-chai": "~0.1.4",
-    "typescript": "~3.7.4"
+    "typescript": "^3.8.3"
   }
 }

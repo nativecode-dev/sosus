@@ -1,0 +1,51 @@
+{
+  "build": [
+    "[references]",
+    "[clean]",
+    "[compile:packages]",
+    "[compile:apps]"
+  ],
+  "build:fast": [
+    "[compile:packages]",
+    "[compile:apps]"
+  ],
+  "clean": [
+    "rimraf .cache",
+    "rimraf **/*.tsbuildinfo",
+    "rimraf packages/*/{bin,dist,lib}",
+    "[source:format]",
+    "[source:lint]"
+  ],
+  "compile:apps": [
+    "lerna run build --scope \"@sosus/@(api|app|cli|sync)\""
+  ],
+  "compile:packages": [
+    "lerna run build --ignore \"@sosus/@(api|app|cli|sync)\""
+  ],
+  "references": [
+    "ts-node promon/references.ts"
+  ],
+  "source:format": [
+    "jsonsort *.json",
+    "jsonsort {binaries,packages}/*/*.json",
+    "prettier --loglevel silent --write \"{binaries,packages}/*/src/**/*.ts\""
+  ],
+  "source:lint": [
+    "tslint --project tsconfig.json --config tslint.json"
+  ],
+  "test": [
+    "[compile:packages]",
+    "nyc mocha"
+  ],
+  "test:watch": [
+    "[compile:packages]",
+    "nyc mocha --watch"
+  ],
+  "upgrade": [
+    "npx npm-check -y",
+    "lerna run upgrade"
+  ],
+  "wizard": [
+    "npx -p lerna-update-wizard lernaupdate"
+  ]
+}

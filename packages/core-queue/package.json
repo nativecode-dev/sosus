@@ -32,6 +32,6 @@
     "@sosus/core-process": "^0.0.0"
   },
   "devDependencies": {
-    "@types/node": "~13.1.4"
+    "@types/node": "^13.9.0"
   }
 }
