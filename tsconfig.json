@@ -8,14 +8,8 @@
       "@sosus/core-data": [
         "packages/core-data/src"
       ],
-      "@sosus/core-media": [
-        "packages/core-media/src"
-      ],
       "@sosus/core-models": [
         "packages/core-models/src"
-      ],
-      "@sosus/core-people": [
-        "packages/core-people/src"
       ],
       "@sosus/core-process": [
         "packages/core-dprocess/src"
@@ -23,11 +17,17 @@
       "@sosus/core-queue": [
         "packages/core-queue/src"
       ],
-      "@sosus/core-system": [
-        "packages/core-system/src"
-      ],
       "@sosus/core-web": [
         "packages/core-web/src"
+      ],
+      "@sosus/data-media": [
+        "packages/data-media/src"
+      ],
+      "@sosus/data-people": [
+        "packages/data-people/src"
+      ],
+      "@sosus/data-system": [
+        "packages/data-system/src"
       ]
     },
     "typeRoots": [

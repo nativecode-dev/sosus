@@ -1,5 +1,3 @@
-import 'pouchdb-core'
-
 export * from './HotMovies'
 
 export * from './SyncableProcess'
