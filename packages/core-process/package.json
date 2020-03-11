@@ -30,7 +30,7 @@
   "dependencies": {
     "@nativecode/plex": "^1.5.0",
     "@nativecode/radarr": "^4.2.0",
-    "@nativecode/sonarr": "next",
+    "@nativecode/sonarr": "^5.2.0",
     "@nofrills/fs": "~11.0.0",
     "@nofrills/types": "~10.0.2",
     "@sosus/core": "^0.0.0",
