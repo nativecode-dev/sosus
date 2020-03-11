@@ -28,7 +28,7 @@
     "upgrade": "npx npm-check -y"
   },
   "dependencies": {
-    "@nativecode/plex": "next",
+    "@nativecode/plex": "^1.5.0",
     "@nativecode/radarr": "next",
     "@nativecode/sonarr": "next",
     "@nofrills/fs": "~11.0.0",
