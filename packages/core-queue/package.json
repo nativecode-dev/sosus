@@ -29,9 +29,11 @@
   },
   "dependencies": {
     "@sosus/core": "^0.0.0",
-    "@sosus/core-process": "^0.0.0"
+    "@sosus/core-process": "^0.0.0",
+    "pouchdb-core": "^7.2.1"
   },
   "devDependencies": {
-    "@types/node": "^13.9.0"
+    "@types/node": "^13.9.0",
+    "@types/pouchdb-core": "^7.0.5"
   }
 }

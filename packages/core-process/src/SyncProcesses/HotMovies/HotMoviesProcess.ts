@@ -5,6 +5,7 @@ import { fs } from '@nofrills/fs'
 import { Star, StarAttributes } from '@sosus/core-models'
 import { Caches, SystemContext } from '@sosus/data-system'
 import { StarDocument, PeopleContext } from '@sosus/data-people'
+
 import {
   inject,
   Scheduler,

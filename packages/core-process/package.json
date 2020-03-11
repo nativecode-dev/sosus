@@ -39,9 +39,11 @@
     "@sosus/data-people": "^0.0.0",
     "@sosus/data-system": "^0.0.0",
     "cheerio": "~1.0.0-rc.3",
-    "plex-api": "^5.3.1"
+    "plex-api": "^5.3.1",
+    "pouchdb-core": "^7.2.1"
   },
   "devDependencies": {
-    "@types/cheerio": "^0.22.16"
+    "@types/cheerio": "^0.22.16",
+    "@types/pouchdb-core": "^7.0.5"
   }
 }

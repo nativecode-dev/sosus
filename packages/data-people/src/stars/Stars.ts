@@ -1,10 +1,10 @@
-import { Documents } from '@sosus/core-data'
+import { Documents, DocumentIndexOptions } from '@sosus/core-data'
 import { StarKeys } from '@sosus/core-models'
 
 import { StarDocument } from './StarDocument'
 
 export class Stars extends Documents<StarDocument> {
-  readonly indexes: PouchDB.Find.CreateIndexOptions[] = [
+  readonly indexes: DocumentIndexOptions[] = [
     {
       index: {
         fields: ['attributes.dob'],

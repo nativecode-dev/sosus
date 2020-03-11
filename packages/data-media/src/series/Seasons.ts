@@ -1,10 +1,10 @@
-import { Documents } from '@sosus/core-data'
+import { Documents, DocumentIndexOptions } from '@sosus/core-data'
 import { SeasonKeys } from '@sosus/core-models'
 
 import { SeasonDocument } from './SeasonDocument'
 
 export class Seasons extends Documents<SeasonDocument> {
-  readonly indexes: PouchDB.Find.CreateIndexOptions[] = [
+  readonly indexes: DocumentIndexOptions[] = [
     {
       index: {
         fields: ['released'],

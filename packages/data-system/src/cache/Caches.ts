@@ -1,13 +1,13 @@
 import path from 'path'
 
-import { Documents } from '@sosus/core-data'
+import { Documents, DocumentIndexOptions } from '@sosus/core-data'
 import { CacheKeys, CacheType } from '@sosus/core-models'
 import { EncodingType, Hash, Merge, MimeType, DeepPartial } from '@sosus/core'
 
 import { CacheDocument } from './CacheDocument'
 
 export class Caches extends Documents<CacheDocument> {
-  readonly indexes: PouchDB.Find.CreateIndexOptions[] = [
+  readonly indexes: DocumentIndexOptions[] = [
     {
       index: {
         fields: ['content_identifier'],
