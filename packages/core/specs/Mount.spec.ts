@@ -8,14 +8,14 @@ if (!process.env.CI) {
     const source = 'data:/data/test'
     const target = '/mnt/test'
 
-    it('should mount folder', async () => {
+    xit('should mount folder', async () => {
       const mount = new Mount({ source, target })
       await mount.mount()
       const files = await fs.list(target)
       expect(files).to.not.be.empty
     })
 
-    it('should unmount folder', async () => {
+    xit('should unmount folder', async () => {
       const mount = new Mount({ source, target })
       await mount.umount()
       const files = await fs.list(target)
